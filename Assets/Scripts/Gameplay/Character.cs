@@ -4,34 +4,41 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    [SerializeField] private Transform _movementTransform;
-    
+    [Header("Health")] 
+    public IAtomicVariable<int> HitPoints = new AtomicVariable<int>(30);
+    public IAtomicVariable<bool> IsAlive = new AtomicVariable<bool>(true);
+
+    [Header("Move")]
+    public Transform MovementTransform;
     public AtomicVariable<Vector3> MovementDirection;
-    public AtomicValue<float> _movementSpeed;
+    public AtomicValue<float> MovementSpeed;
+    public AtomicValue<bool> MoveEnabled = new(true);
+
+    [Header("Rotate")]
+    public AtomicValue<float> RotationSpeed;
     
-    public AtomicValue<float> _rotationSpeed;
-    
-    private AtomicVariable<int> _charges;
-    private AtomicExpression<bool> _shootCondition;
-    private AtomicAction _shootAction;
-    private AtomicEvent _shootEvent;
-    public AtomicVariable<bool> _enabledShooting = new(true);
+    [Header("Fire")]
+    public GameObject BulletPrefab;
+    public Transform FirePoint;
+    public AtomicVariable<int> Charges = new(10);
+    public FireAction FireAction;
+    public FireCondition FireCondition;
+    public SpawnBulletAction BulletAction = new();
 
     private MovementMechanics _movementMechanics;
     private RotationMechanics _rotationMechanics;
-
-    private FireAction _fireAction;
-
+    
     private void Awake()
     {
-        _movementMechanics = new MovementMechanics(MovementDirection, _movementSpeed, _movementTransform);
-        _rotationMechanics = new RotationMechanics(MovementDirection, _movementTransform, _rotationSpeed);
+        _movementMechanics = new MovementMechanics(MovementDirection, MovementSpeed, MovementTransform, MoveEnabled);
+        _rotationMechanics = new RotationMechanics(MovementDirection, MovementTransform, RotationSpeed);
         
-        _shootCondition.Append(_charges.AsFunction(it => it.Value > 0));
-        _shootCondition.Append(_enabledShooting);
+        FireCondition = new FireCondition();
+        FireCondition.Compose(IsAlive, Charges);
 
-        _fireAction = new FireAction();
-        //_fireAction.Compose();
+        BulletAction.Compose(FirePoint, BulletPrefab);
+        
+        FireAction.Compose(Charges, FireCondition, BulletAction);
     }
 
     private void Update()

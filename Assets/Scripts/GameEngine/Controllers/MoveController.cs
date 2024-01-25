@@ -1,37 +1,36 @@
+using Atomic.Elements;
 using UnityEngine;
 
-public class MoveController : MonoBehaviour
+public sealed class MoveController
 {
-    [SerializeField] private Character _character;
-    
+    private readonly IAtomicVariable<Vector3> _moveDirection;
+
+    public MoveController(IAtomicVariable<Vector3> moveDirection)
+    {
+        _moveDirection = moveDirection;
+    }
+
     public void Update()
     {
-
         Vector3 direction = Vector3.zero;
         
         if (Input.GetKey(KeyCode.W))
         {
-            Debug.Log("GetKeyDown");
             direction.z = 1f;
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            Debug.Log("GetKeyDown");
-
             direction.x = -1f;
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            Debug.Log("GetKeyDown");
             direction.z = -1f;
-
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            Debug.Log("GetKeyDown");
             direction.x = 1f;
         }
 
-        _character.MovementDirection.Value = direction;
+        _moveDirection.Value = direction;
     }
 }
