@@ -1206,24 +1206,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505466abcdc784d03ad4e79f5af76f6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transform: {fileID: 3878403009064221307}
-  RotationSpeed:
-    value: 3
-  FireComponent:
-    FireEnabled:
-      value: 1
-    _poolContainer: {fileID: 0}
-    _poolConfig: {fileID: 11400000, guid: 69873587c5836430bad59f648f81a6e5, type: 2}
-    FirePoint: {fileID: 24138888077842539}
-    Charges:
-      value: 10
-  MoveComponent:
-    MovementDirection:
-      value: {x: 0, y: 0, z: 0}
-    MovementSpeed:
+  Core:
+    _transform: {fileID: 3878403009064221307}
+    RotationSpeed:
       value: 2
-    MoveEnabled:
-      value: 1
+    FireComponent:
+      FireEnabled:
+        value: 1
+      _poolContainer: {fileID: 3878403009064221307}
+      _poolConfig: {fileID: 11400000, guid: 69873587c5836430bad59f648f81a6e5, type: 2}
+      FirePoint: {fileID: 24138888077842539}
+      Charges:
+        value: 10
+    MoveComponent:
+      MovementDirection:
+        value: {x: 0, y: 0, z: 0}
+      MovementSpeed:
+        value: 2
+      MoveEnabled:
+        value: 0
+  View:
+    _animator: {fileID: 3878403007874495527}
 --- !u!1 &6605967741728550523
 GameObject:
   m_ObjectHideFlags: 0

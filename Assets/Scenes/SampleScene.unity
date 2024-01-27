@@ -162,6 +162,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 237442404999535251, guid: e5bfb4e1a1a4d4f059efedc672db885b, type: 3}
+      propertyPath: Core.RotationSpeed.value
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 237442404999535251, guid: e5bfb4e1a1a4d4f059efedc672db885b, type: 3}
+      propertyPath: Core.FireComponent._poolContainer
+      value: 
+      objectReference: {fileID: 120303719}
+    - target: {fileID: 237442404999535251, guid: e5bfb4e1a1a4d4f059efedc672db885b, type: 3}
+      propertyPath: Core.MoveComponent.MoveEnabled.value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3878403009064221306, guid: e5bfb4e1a1a4d4f059efedc672db885b, type: 3}
       propertyPath: m_Name
       value: Stickman
@@ -212,14 +224,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 3878403009064221307, guid: e5bfb4e1a1a4d4f059efedc672db885b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1568770071}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3878403009064221306, guid: e5bfb4e1a1a4d4f059efedc672db885b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1473468276}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5bfb4e1a1a4d4f059efedc672db885b, type: 3}
 --- !u!1 &424084837
 GameObject:
@@ -453,77 +459,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
---- !u!1 &1473468275 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3878403009064221306, guid: e5bfb4e1a1a4d4f059efedc672db885b, type: 3}
+--- !u!114 &1473468276 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 237442404999535251, guid: e5bfb4e1a1a4d4f059efedc672db885b, type: 3}
   m_PrefabInstance: {fileID: 359143570}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1473468276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1473468275}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 505466abcdc784d03ad4e79f5af76f6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transform: {fileID: 1473468277}
-  RotationSpeed:
-    value: 3
-  FireComponent:
-    FireEnabled:
-      value: 1
-    _poolContainer: {fileID: 120303719}
-    _poolConfig: {fileID: 11400000, guid: 69873587c5836430bad59f648f81a6e5, type: 2}
-    FirePoint: {fileID: 1568770071}
-    Charges:
-      value: 10
-  MoveComponent:
-    MovementDirection:
-      value: {x: 0, y: 0, z: 0}
-    MovementSpeed:
-      value: 2
-    MoveEnabled:
-      value: 1
---- !u!4 &1473468277 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3878403009064221307, guid: e5bfb4e1a1a4d4f059efedc672db885b, type: 3}
-  m_PrefabInstance: {fileID: 359143570}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1568770070
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1568770071}
-  m_Layer: 0
-  m_Name: FirePoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1568770071
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1568770070}
-  m_LocalRotation: {x: 0.00000008940697, y: 0.00000006158959, z: 0.000000016760996, w: 1}
-  m_LocalPosition: {x: 0.21, y: 1.094512, z: 0.86}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1473468277}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1804299818
 GameObject:
   m_ObjectHideFlags: 0

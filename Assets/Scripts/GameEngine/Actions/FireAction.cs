@@ -8,15 +8,18 @@ public class FireAction : IAtomicAction
     private IAtomicVariable<int> _charges;
     private IAtomicValue<bool> _shootCondition;
     private IAtomicAction _shootAction;
+    private IAtomicEvent _shootEvent;
 
     public void Compose(
         IAtomicVariable<int> charges,
         IAtomicValue<bool> shootCondition,
-        IAtomicAction shootAction)
+        IAtomicAction shootAction,
+        IAtomicEvent shootEvent)
     {
         _charges = charges;
         _shootCondition = shootCondition;
         _shootAction = shootAction;
+        _shootEvent = shootEvent;
     }
     
     [Button]
@@ -26,5 +29,6 @@ public class FireAction : IAtomicAction
 
         _shootAction.Invoke();
         _charges.Value--;
+        _shootEvent?.Invoke();
     }
 }

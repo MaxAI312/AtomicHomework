@@ -1,6 +1,5 @@
 using System;
 using Atomic.Elements;
-using Atomic.Objects;
 using Homework3;
 using UnityEngine;
 
@@ -16,10 +15,9 @@ public class FireComponent : IDisposable
     
     public Transform FirePoint;
     public AtomicVariable<int> Charges = new(10);
-
-    [Get(ObjectAPI.FireAction)]
-    public FireAction FireAction;
     
+    public FireAction FireAction;
+
     public FireCondition FireCondition = new();
     public SpawnBulletAction BulletAction = new();
     
@@ -31,7 +29,7 @@ public class FireComponent : IDisposable
         
         FireCondition.Compose(FireEnabled, Charges);
         BulletAction.Compose(_bulletPoolMechanics, FirePoint);
-        FireAction.Compose(Charges, FireCondition, BulletAction);
+        FireAction.Compose(Charges, FireCondition, BulletAction, FireEvent);
     }
 
     public void Dispose()

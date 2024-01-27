@@ -1,11 +1,8 @@
-using Atomic.Elements;
-using Atomic.Extensions;
-using Atomic.Objects;
 using UnityEngine;
 
 public class GameSystem : MonoBehaviour
 {
-    [SerializeField] private AtomicObject _character;
+    [SerializeField] private Character _character;
     
     private MoveController _moveController;
     private FireController _fireController;
@@ -13,19 +10,15 @@ public class GameSystem : MonoBehaviour
 
     private void Start()
     {
-        IAtomicVariable<Vector3> movementDirection = _character.GetVariable<Vector3>(ObjectAPI.MoveDirection);
-        IAtomicVariable<Vector3> rotateDirection = _character.GetVariable<Vector3>(ObjectAPI.RotateDirection);
-        IAtomicAction fireAction = _character.GetAction(ObjectAPI.FireAction);
-        
-        _moveController = new MoveController(movementDirection);
-        _fireController = new FireController(fireAction);
-        _rotateController = new RotateController(rotateDirection);
+        _moveController = new MoveController(_character.Core.MoveComponent.MovementDirection);
+        _fireController = new FireController(_character.Core.FireComponent.FireAction);
+        _rotateController = new RotateController(_character.Core.RotationDirection);
     }
 
     private void Update()
     {
         _moveController?.Update();
-        _fireController.Update();
+        _fireController?.Update();
         _rotateController?.Update();
     }
 }
