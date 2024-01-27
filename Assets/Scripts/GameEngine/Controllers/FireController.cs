@@ -14,7 +14,7 @@ public sealed class FireController
     {
         if (Input.GetMouseButtonDown(0))
         {
-            _fireAction.Invoke();
+            _fireAction?.Invoke();
         }
     }
 }

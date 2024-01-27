@@ -123,6 +123,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &120303718
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 120303719}
+  m_Layer: 0
+  m_Name: BulletContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &120303719
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120303718}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 424084839}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &359143570
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -199,7 +230,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 424084839}
-  - component: {fileID: 424084838}
+  - component: {fileID: 424084840}
   m_Layer: 0
   m_Name: GameSystem
   m_TagString: Untagged
@@ -207,19 +238,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &424084838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 424084837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 033768375b5df4a3884eb570262f689b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _character: {fileID: 1473468276}
 --- !u!4 &424084839
 Transform:
   m_ObjectHideFlags: 0
@@ -231,10 +249,24 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 120303719}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &424084840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424084837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7ccbef8cd3b6435da95fa92fcdd7759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _character: {fileID: 1473468276}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,21 +470,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505466abcdc784d03ad4e79f5af76f6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementTransform: {fileID: 1473468277}
-  MovementDirection:
-    value: {x: 0, y: 0, z: 0}
-  MovementSpeed:
-    value: 3
-  MoveEnabled:
-    value: 1
+  _transform: {fileID: 1473468277}
   RotationSpeed:
     value: 3
-  BulletPrefab: {fileID: 5596066293772299527, guid: a2b005c6691c94e5588b90feb4f67382, type: 3}
-  FirePoint: {fileID: 1568770071}
-  Charges:
-    value: 10
-  ShootEnabled:
-    value: 1
+  FireComponent:
+    FireEnabled:
+      value: 1
+    _poolContainer: {fileID: 120303719}
+    _poolConfig: {fileID: 11400000, guid: 69873587c5836430bad59f648f81a6e5, type: 2}
+    FirePoint: {fileID: 1568770071}
+    Charges:
+      value: 10
+  MoveComponent:
+    MovementDirection:
+      value: {x: 0, y: 0, z: 0}
+    MovementSpeed:
+      value: 2
+    MoveEnabled:
+      value: 1
 --- !u!4 &1473468277 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3878403009064221307, guid: e5bfb4e1a1a4d4f059efedc672db885b, type: 3}
@@ -630,6 +665,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5596066293772299527, guid: a2b005c6691c94e5588b90feb4f67382, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8823354817017477057, guid: a2b005c6691c94e5588b90feb4f67382, type: 3}
+      propertyPath: MoveComponent.MoveEnabled.value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8823354817017477057, guid: a2b005c6691c94e5588b90feb4f67382, type: 3}
+      propertyPath: MoveComponent.MovementSpeed.value
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8823354817017477057, guid: a2b005c6691c94e5588b90feb4f67382, type: 3}
+      propertyPath: MoveComponent.MovementDirection.value.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

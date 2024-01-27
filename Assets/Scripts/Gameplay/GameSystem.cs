@@ -1,22 +1,31 @@
-using System;
+using Atomic.Elements;
+using Atomic.Extensions;
+using Atomic.Objects;
 using UnityEngine;
 
 public class GameSystem : MonoBehaviour
 {
-    [SerializeField] private Character _character;
-
+    [SerializeField] private AtomicObject _character;
+    
     private MoveController _moveController;
     private FireController _fireController;
+    private RotateController _rotateController;
 
-    private void Awake()
+    private void Start()
     {
-        _moveController = new MoveController(_character.MovementDirection);
-        _fireController = new FireController(_character.FireAction);
+        IAtomicVariable<Vector3> movementDirection = _character.GetVariable<Vector3>(ObjectAPI.MoveDirection);
+        IAtomicVariable<Vector3> rotateDirection = _character.GetVariable<Vector3>(ObjectAPI.RotateDirection);
+        IAtomicAction fireAction = _character.GetAction(ObjectAPI.FireAction);
+        
+        _moveController = new MoveController(movementDirection);
+        _fireController = new FireController(fireAction);
+        _rotateController = new RotateController(rotateDirection);
     }
 
     private void Update()
     {
-        _moveController.Update();
+        _moveController?.Update();
         _fireController.Update();
+        _rotateController?.Update();
     }
 }

@@ -1,24 +1,48 @@
-using System;
 using Atomic.Elements;
+using Atomic.Objects;
+using Homework3;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public sealed class Bullet : AtomicObject
 {
+    [SerializeField] private bool _setupOnAwake;
     [SerializeField] private Transform _transform;
 
-    public AtomicVariable<Vector3> MoveDirection = new(Vector3.forward);
-    public AtomicValue<float> Speed = new(5f);
-    public AtomicVariable<bool> IsActive = new(true);
+    [Section]
+    public MoveComponent MoveComponent;
 
-    private MovementMechanics _movementMechanics;
+    [Header("Lifetime")] 
+    public AtomicVariable<float> ElapsedTime;
+    public AtomicValue<float> DurationLife;
+    public IAtomicValue<bool> LifetimeEnabled;
+    
+    private LifetimeMechanics _lifetimeMechanics;
+    private ObjectPoolMechanics _objectPoolMechanics;
+
+    public void Setup()
+    {
+        Compose();
+        MoveComponent.Compose(_transform);
+        
+        _lifetimeMechanics = new LifetimeMechanics(ElapsedTime, DurationLife, _transform.gameObject, _objectPoolMechanics);
+    }
 
     private void Awake()
     {
-        _movementMechanics = new MovementMechanics(MoveDirection, Speed, _transform, IsActive);
+        if (_setupOnAwake)
+        {
+            Setup();
+        }
     }
 
     private void Update()
     {
-        _movementMechanics.Update();
+        MoveComponent.Update();
+        _lifetimeMechanics?.Update(Time.deltaTime);
+    }
+
+    public void SetupPoolMechanics(ObjectPoolMechanics poolMechanics)
+    {
+        _objectPoolMechanics = poolMechanics;
     }
 }

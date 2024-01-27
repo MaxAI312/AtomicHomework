@@ -1,49 +1,47 @@
+using System;
 using Atomic.Elements;
-using Game.Engine;
+using Atomic.Objects;
+using Homework3;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : AtomicObject
 {
+    [SerializeField] private Transform _transform;
+    
     [Header("Health")] 
     public IAtomicVariable<int> HitPoints = new AtomicVariable<int>(30);
     public IAtomicVariable<bool> IsAlive = new AtomicVariable<bool>(true);
 
-    [Header("Move")]
-    public Transform MovementTransform;
-    public AtomicVariable<Vector3> MovementDirection;
-    public AtomicValue<float> MovementSpeed;
-    public AtomicValue<bool> MoveEnabled = new(true);
-
     [Header("Rotate")]
+    [Get(ObjectAPI.RotateDirection)]
+    public IAtomicVariable<Vector3> RotationDirection = new AtomicVariable<Vector3>();
     public AtomicValue<float> RotationSpeed;
-    
-    [Header("Fire")]
-    public GameObject BulletPrefab;
-    public Transform FirePoint;
-    public AtomicVariable<int> Charges = new(10);
-    public FireAction FireAction;
-    public FireCondition FireCondition;
-    public SpawnBulletAction BulletAction = new();
 
-    private MovementMechanics _movementMechanics;
-    private RotationMechanics _rotationMechanics;
+    [Section]
+    public FireComponent FireComponent;
     
+    [Section]
+    public MoveComponent MoveComponent;
+
+    private RotationMechanics _rotationMechanics;
+
     private void Awake()
     {
-        _movementMechanics = new MovementMechanics(MovementDirection, MovementSpeed, MovementTransform, MoveEnabled);
-        _rotationMechanics = new RotationMechanics(MovementDirection, MovementTransform, RotationSpeed);
+        Compose();
+        _rotationMechanics = new RotationMechanics(RotationDirection, _transform, RotationSpeed);
         
-        FireCondition = new FireCondition();
-        FireCondition.Compose(IsAlive, Charges);
-
-        BulletAction.Compose(FirePoint, BulletPrefab);
-        
-        FireAction.Compose(Charges, FireCondition, BulletAction);
+        MoveComponent.Compose(_transform);
+        FireComponent.Compose();
     }
 
     private void Update()
     {
-        _movementMechanics.Update();
+        MoveComponent.Update();
         _rotationMechanics.Update();
+    }
+
+    private void OnDestroy()
+    {
+        
     }
 }

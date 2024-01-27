@@ -1,22 +1,27 @@
 using Atomic.Elements;
+using Homework3;
 using UnityEngine;
 
 public sealed class SpawnBulletAction : IAtomicAction
 {
+    private ObjectPoolMechanics _objectPoolMechanics;
     private Transform _firePoint;
-    private GameObject _bulletPrefab;
     
-    public void Compose(
-        Transform firePoint,
-        GameObject bulletPrefab)
+    public void Compose(ObjectPoolMechanics objectPoolMechanics, Transform firePoint)
     {
+        _objectPoolMechanics = objectPoolMechanics;
         _firePoint = firePoint;
-        _bulletPrefab = bulletPrefab;
-
     }
     
     public void Invoke()
     {
-        Object.Instantiate(_bulletPrefab, _firePoint.position, _firePoint.rotation, null);
+        GameObject bulletGameObject = _objectPoolMechanics.GetObject();
+        bulletGameObject.transform.position = _firePoint.position;
+        
+        Bullet bullet = bulletGameObject.GetComponent<Bullet>();
+        bullet.SetupPoolMechanics(_objectPoolMechanics);
+        bullet.Setup();
+        
+        bulletGameObject.SetActive(true);
     }
 }
