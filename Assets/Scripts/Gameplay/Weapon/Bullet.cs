@@ -7,13 +7,13 @@ public sealed class Bullet : MonoBehaviour
 
     public AtomicVariable<Vector3> MovementDirection;
     public AtomicValue<float> Speed = new(2f);
-
-    public AtomicValue<float> DurationAlive = new(5f);
+    
+    public AtomicVariable<float> RemainingTime = new(5);
 
     public AtomicValue<int> Damage = new(1);
         
     private MovementMechanics _movementMechanics;
-    private AliveMechanics _aliveMechanics;
+    private LifetimeMechanics _lifetimeMechanics;
     private CollisionMechanics _collisionMechanics;
 
     public void Setup(Vector3 movementDirection, LayerMask layerMask)
@@ -21,7 +21,7 @@ public sealed class Bullet : MonoBehaviour
         MovementDirection.Value = new Vector3(movementDirection.x, 0 , movementDirection.z);
         
         _movementMechanics = new MovementMechanics(MovementDirection, Speed, _transform);
-        _aliveMechanics = new AliveMechanics(DurationAlive, _transform);
+        _lifetimeMechanics = new LifetimeMechanics(_transform, RemainingTime);
         _collisionMechanics = new CollisionMechanics(Damage, _transform, layerMask);
     }
 
@@ -33,6 +33,6 @@ public sealed class Bullet : MonoBehaviour
     private void Update()
     {
         _movementMechanics.Update();
-        _aliveMechanics.Update(Time.deltaTime);
+        _lifetimeMechanics.Update(Time.deltaTime);
     }
 }
