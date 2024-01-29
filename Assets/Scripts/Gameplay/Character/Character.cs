@@ -1,9 +1,8 @@
 using Atomic.Elements;
 using UnityEngine;
 
-public sealed class Character : MonoBehaviour
+public sealed class Character : MonoBehaviour, IAttackable
 {
-    [SerializeField] private Camera _camera;
     [SerializeField] private BulletConfig _config;
     [SerializeField] private Transform _startFirePoint;
     [SerializeField] private Transform _movementTransform;
@@ -15,15 +14,18 @@ public sealed class Character : MonoBehaviour
 
     public AtomicEvent<int> TakeDamageEvent;
 
+    private SpawnBulletAction _spawnBulletAction;
+
     private DeathMechanics _deathMechanics;
     private TakeDamageMechanics _takeDamageMechanics;
-    private FireMechanics _fireMechanics;
 
     private void Awake()
     {
+        Debug.LogError("СКОРОСТЬ ПУЛИ РАЗНАЯ"); // ИСПРАВИТЬ
+        _spawnBulletAction = new SpawnBulletAction(_config, _startFirePoint);
+            
         _deathMechanics = new DeathMechanics(HitPoints, IsAlive, _movementTransform);
         _takeDamageMechanics = new TakeDamageMechanics(TakeDamageEvent, HitPoints);
-        _fireMechanics = new FireMechanics(_startFirePoint, _config, _camera);
     }
 
     private void OnEnable()
@@ -38,8 +40,8 @@ public sealed class Character : MonoBehaviour
         _takeDamageMechanics.OnDisable();
     }
 
-    private void Update()
+    public void Fire(Vector3 direction)
     {
-        _fireMechanics.Update();
+        _spawnBulletAction.Invoke(direction);
     }
 }

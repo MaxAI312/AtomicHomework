@@ -6,10 +6,10 @@ using Object = UnityEngine.Object;
 public sealed class DeathMechanics
 {
     private readonly AtomicVariable<int> _hitPoints;
-    private readonly AtomicVariable<bool> _isAlive;
+    private readonly IAtomicVariable<bool> _isAlive;
     private readonly Transform _transform;
 
-    public DeathMechanics(AtomicVariable<int> hitPoints, AtomicVariable<bool> isAlive, Transform transform)
+    public DeathMechanics(AtomicVariable<int> hitPoints, IAtomicVariable<bool> isAlive, Transform transform)
     {
         _hitPoints = hitPoints;
         _isAlive = isAlive;

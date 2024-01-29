@@ -7,7 +7,7 @@ namespace Atomic.Elements
 
     public interface IAtomicAction<in T>
     {
-        void Invoke(T args);
+        void Invoke(T direction);
     }
 
     public interface IAtomicAction<in T1, in T2>
