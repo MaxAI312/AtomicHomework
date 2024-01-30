@@ -1,7 +1,7 @@
 using Atomic.Elements;
 using UnityEngine;
 
-public sealed class Character : MonoBehaviour, IAttackable
+public sealed class Character : MonoBehaviour, IAttackable, IDamageable
 {
     [SerializeField] private BulletConfig _config;
     [SerializeField] private Transform _startFirePoint;
@@ -12,36 +12,28 @@ public sealed class Character : MonoBehaviour, IAttackable
     
     public AtomicValue<float> Speed = new(1f);
 
-    public AtomicEvent<int> TakeDamageEvent;
-
-    private SpawnBulletAction _spawnBulletAction;
+    public SpawnBulletAction _spawnBulletAction;
+    public TakeDamageAction _takeDamageAction;
 
     private DeathMechanics _deathMechanics;
-    private TakeDamageMechanics _takeDamageMechanics;
 
     private void Awake()
     {
-        Debug.LogError("СКОРОСТЬ ПУЛИ РАЗНАЯ"); // ИСПРАВИТЬ
-        _spawnBulletAction = new SpawnBulletAction(_config, _startFirePoint);
-            
+        _spawnBulletAction.Compose(_config, _startFirePoint);
+        _takeDamageAction.Compose(HitPoints);
+
         _deathMechanics = new DeathMechanics(HitPoints, IsAlive, _movementTransform);
-        _takeDamageMechanics = new TakeDamageMechanics(TakeDamageEvent, HitPoints);
     }
 
-    private void OnEnable()
-    {
+    private void OnEnable() => 
         _deathMechanics.OnEnable();
-        _takeDamageMechanics.OnEnable();
-    }
 
-    private void OnDisable()
-    {
+    private void OnDisable() => 
         _deathMechanics.OnDisable();
-        _takeDamageMechanics.OnDisable();
-    }
 
-    public void Fire(Vector3 direction)
-    {
+    public void Fire(Vector3 direction) => 
         _spawnBulletAction.Invoke(direction);
-    }
+
+    public void TakeDamage(int damage) => 
+        _takeDamageAction.Invoke(damage);
 }

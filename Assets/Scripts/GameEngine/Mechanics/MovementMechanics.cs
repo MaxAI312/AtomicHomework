@@ -3,11 +3,11 @@ using UnityEngine;
 
 public sealed class MovementMechanics
 {
-    private readonly AtomicVariable<Vector3> _direction;
-    private readonly AtomicValue<float> _speed;
+    private readonly IAtomicValue<Vector3> _direction;
+    private readonly IAtomicValue<float> _speed;
     private readonly Transform _transform;
 
-    public MovementMechanics(AtomicVariable<Vector3> direction, AtomicValue<float> speed, Transform transform)
+    public MovementMechanics(AtomicValue<Vector3> direction, AtomicValue<float> speed, Transform transform)
     {
         _direction = direction;
         _speed = speed;

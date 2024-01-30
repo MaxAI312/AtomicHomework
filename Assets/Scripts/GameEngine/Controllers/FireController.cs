@@ -25,7 +25,7 @@ public class FireController
             {
                 Vector3 targetPoint = hit.point;
                 Vector3 direction = (targetPoint - _startPoint.position).normalized;
-                
+
                 Debug.DrawLine(_startPoint.position, hit.point, Color.red, duration: 2.0f);
 
                 _attackable?.Fire(direction);

@@ -5,7 +5,7 @@ public sealed class Bullet : MonoBehaviour
 {
     [SerializeField] private Transform _transform;
 
-    public AtomicVariable<Vector3> MovementDirection;
+    public AtomicValue<Vector3> MovementDirection;
     public AtomicValue<float> Speed = new(2f);
     
     public AtomicVariable<float> RemainingTime = new(5);
@@ -18,7 +18,8 @@ public sealed class Bullet : MonoBehaviour
 
     public void Setup(Vector3 movementDirection, LayerMask layerMask)
     {
-        MovementDirection.Value = new Vector3(movementDirection.x, 0 , movementDirection.z);
+        Vector3 directionValue = new Vector3(movementDirection.x, 0, movementDirection.z);
+        MovementDirection = new AtomicValue<Vector3>(directionValue);
         
         _movementMechanics = new MovementMechanics(MovementDirection, Speed, _transform);
         _lifetimeMechanics = new LifetimeMechanics(_transform, RemainingTime);

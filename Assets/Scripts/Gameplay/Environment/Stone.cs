@@ -7,32 +7,30 @@ public class Stone : MonoBehaviour, IDamageable
     
     public AtomicVariable<int> HitPoints = new(10);
     public AtomicVariable<bool> IsAlive = new(true);
-    
-    public AtomicEvent<int> TakeDamageEvent;
+
+    public TakeDamageAction _takeDamageAction;
 
     private DeathMechanics _deathMechanics;
-    private TakeDamageMechanics _takeDamageMechanics;
-    
+
     private void Awake()
     {
+        _takeDamageAction.Compose(HitPoints);
+        
         _deathMechanics = new DeathMechanics(HitPoints, IsAlive, _transform);
-        _takeDamageMechanics = new TakeDamageMechanics(TakeDamageEvent, HitPoints);
     }
 
     private void OnEnable()
     {
         _deathMechanics.OnEnable();
-        _takeDamageMechanics.OnEnable();
     }
 
     private void OnDisable()
     {
         _deathMechanics.OnDisable();
-        _takeDamageMechanics.OnDisable();
     }
     
-    public void TakeDamage(int value)
+    public void TakeDamage(int damage)
     {
-        TakeDamageEvent?.Invoke(value);
+        _takeDamageAction.Invoke(damage);
     }
 }
