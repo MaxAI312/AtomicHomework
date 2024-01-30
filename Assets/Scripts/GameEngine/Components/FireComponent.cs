@@ -6,35 +6,40 @@ using UnityEngine;
 [Serializable]
 public class FireComponent : IDisposable
 {
-    public AtomicVariable<bool> FireEnabled = new(true);
-    public AtomicEvent FireEvent;
+    public Transform FirePoint;
     
+    public IAtomicVariable<bool> FireEnabled => _fireEnabled;
+    [SerializeField] private AtomicVariable<bool> _fireEnabled;
+    
+    public IAtomicEvent FireEvent => _fireEvent;
+    [SerializeField] private AtomicEvent _fireEvent;
+    
+    public IAtomicVariable<int> Charges => _charges;
+    [SerializeField] private AtomicVariable<int> _charges;
+
     [Header("Pool")]
     public Transform _poolContainer;
     public ObjectPoolConfig _poolConfig;
-    
-    public Transform FirePoint;
-    public AtomicVariable<int> Charges = new(10);
-    
-    public FireAction FireAction;
 
     public FireCondition FireCondition = new();
-    public SpawnBulletAction BulletAction = new();
     
-    private ObjectPoolMechanics _bulletPoolMechanics;
+    public SpawnBulletAction BulletAction = new();
+    public FireAction FireAction;
+    
+    private ObjectPool bulletPool;
 
     public void Compose()
     {
-        _bulletPoolMechanics = new ObjectPoolMechanics(_poolConfig, _poolContainer);
+        bulletPool = new ObjectPool(_poolConfig, _poolContainer);
         
         FireCondition.Compose(FireEnabled, Charges);
-        BulletAction.Compose(_bulletPoolMechanics, FirePoint);
+        BulletAction.Compose(bulletPool, FirePoint);
         FireAction.Compose(Charges, FireCondition, BulletAction, FireEvent);
     }
 
     public void Dispose()
     {
-        Charges?.Dispose();
-        FireEvent?.Dispose();
+        _charges?.Dispose();
+        _fireEvent?.Dispose();
     }
 }

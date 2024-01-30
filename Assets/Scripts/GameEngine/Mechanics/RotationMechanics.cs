@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class RotationMechanics
 {
-    private readonly IAtomicVariable<Vector3> _direction;
+    private readonly IAtomicValue<Vector3> _direction;
     private readonly Transform _transform;
     private readonly IAtomicValue<float> _speed;
 
-    public RotationMechanics(IAtomicVariable<Vector3> direction, Transform transform, IAtomicValue<float> speed)
+    public RotationMechanics(IAtomicValue<Vector3> direction, Transform transform, IAtomicValue<float> speed)
     {
         _direction = direction;
         _transform = transform;

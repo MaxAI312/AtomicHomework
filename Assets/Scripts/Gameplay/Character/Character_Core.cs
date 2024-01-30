@@ -12,28 +12,25 @@ public sealed class Character_Core : IDisposable
     public IAtomicVariable<bool> IsAlive = new AtomicVariable<bool>(true);
 
     [Header("Rotate")]
-    public IAtomicVariable<Vector3> RotationDirection = new AtomicVariable<Vector3>();
-    public AtomicValue<float> RotationSpeed;
+
 
     public FireComponent FireComponent;
     public MoveComponent MoveComponent;
+    public RotationComponent RotationComponent;
 
-    private RotationMechanics _rotationMechanics;
     
     public void Compose()
     {
-        _rotationMechanics = new RotationMechanics(RotationDirection, _transform, RotationSpeed);
-        
         MoveComponent.Compose(_transform);
         FireComponent.Compose();
-
+        RotationComponent.Compose(_transform);
     }
 
     public void Update()
     {
         MoveComponent.Update();
-        _rotationMechanics.Update();
         FireComponent.FireEnabled.Value = !MoveComponent.IsMoving.Value;
+        RotationComponent.Update();
     }
 
     public void Dispose()

@@ -1208,15 +1208,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Core:
     _transform: {fileID: 3878403009064221307}
-    RotationSpeed:
-      value: 2
     FireComponent:
-      FireEnabled:
-        value: 1
+      _fireEnabled:
+        value: 0
       _poolContainer: {fileID: 3878403009064221307}
       _poolConfig: {fileID: 11400000, guid: 69873587c5836430bad59f648f81a6e5, type: 2}
       FirePoint: {fileID: 24138888077842539}
-      Charges:
+      _charges:
         value: 10
     MoveComponent:
       MovementDirection:
@@ -1225,6 +1223,11 @@ MonoBehaviour:
         value: 2
       MoveEnabled:
         value: 0
+    RotationComponent:
+      _rotationDirection:
+        value: {x: 0, y: 0, z: 0}
+      _rotationSpeed:
+        value: 3
   View:
     _animator: {fileID: 3878403007874495527}
 --- !u!1 &6605967741728550523

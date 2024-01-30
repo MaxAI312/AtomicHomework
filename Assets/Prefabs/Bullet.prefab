@@ -153,11 +153,11 @@ MonoBehaviour:
   _setupOnAwake: 0
   _transform: {fileID: 5596066293772299526}
   MoveComponent:
-    MovementDirection:
+    _moveDirection:
       value: {x: 0, y: 0, z: 1}
-    MovementSpeed:
-      value: 5
-    MoveEnabled:
+    _movementSpeed:
+      value: 4
+    _moveEnabled:
       value: 1
   ElapsedTime:
     value: 0

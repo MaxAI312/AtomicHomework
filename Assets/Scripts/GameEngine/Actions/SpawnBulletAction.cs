@@ -4,22 +4,22 @@ using UnityEngine;
 
 public sealed class SpawnBulletAction : IAtomicAction
 {
-    private ObjectPoolMechanics _objectPoolMechanics;
+    private ObjectPool objectPool;
     private Transform _firePoint;
     
-    public void Compose(ObjectPoolMechanics objectPoolMechanics, Transform firePoint)
+    public void Compose(ObjectPool objectPool, Transform firePoint)
     {
-        _objectPoolMechanics = objectPoolMechanics;
+        this.objectPool = objectPool;
         _firePoint = firePoint;
     }
     
     public void Invoke()
     {
-        GameObject bulletGameObject = _objectPoolMechanics.GetObject();
+        GameObject bulletGameObject = objectPool.GetObject();
         bulletGameObject.transform.position = _firePoint.position;
         
         Bullet bullet = bulletGameObject.GetComponent<Bullet>();
-        bullet.SetupPoolMechanics(_objectPoolMechanics);
+        bullet.SetupPoolMechanics(objectPool);
         bullet.Setup();
         
         bulletGameObject.SetActive(true);

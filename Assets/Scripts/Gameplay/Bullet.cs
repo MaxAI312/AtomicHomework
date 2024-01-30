@@ -17,14 +17,14 @@ public sealed class Bullet : AtomicObject
     public IAtomicValue<bool> LifetimeEnabled;
     
     private LifetimeMechanics _lifetimeMechanics;
-    private ObjectPoolMechanics _objectPoolMechanics;
+    private ObjectPool objectPool;
 
     public void Setup()
     {
         Compose();
         MoveComponent.Compose(_transform);
         
-        _lifetimeMechanics = new LifetimeMechanics(ElapsedTime, DurationLife, _transform.gameObject, _objectPoolMechanics);
+        _lifetimeMechanics = new LifetimeMechanics(ElapsedTime, DurationLife, _transform.gameObject, objectPool);
     }
 
     private void Awake()
@@ -41,8 +41,8 @@ public sealed class Bullet : AtomicObject
         _lifetimeMechanics?.Update(Time.deltaTime);
     }
 
-    public void SetupPoolMechanics(ObjectPoolMechanics poolMechanics)
+    public void SetupPoolMechanics(ObjectPool pool)
     {
-        _objectPoolMechanics = poolMechanics;
+        objectPool = pool;
     }
 }

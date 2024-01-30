@@ -6,14 +6,14 @@ using Object = UnityEngine.Object;
 namespace Homework3
 {
     [Serializable]
-    public class ObjectPoolMechanics
+    public class ObjectPool
     {
         private readonly Stack<GameObject> _pool = new();
 
         private ObjectPoolConfig _config;
         private Transform _container;
 
-        public ObjectPoolMechanics(ObjectPoolConfig config, Transform container)
+        public ObjectPool(ObjectPoolConfig config, Transform container)
         {
             _config = config;
             _container = container;
