@@ -11,9 +11,9 @@ public sealed class Bullet : AtomicObject
     [Section]
     public MoveComponent MoveComponent;
 
-    [Header("Lifetime")] 
-    public AtomicVariable<float> ElapsedTime;
-    public AtomicValue<float> DurationLife;
+    //[Header("Lifetime")] 
+    public AtomicVariable<float> RemainigTime => _remainingTime;
+    [SerializeField] private AtomicVariable<float> _remainingTime;
     public IAtomicValue<bool> LifetimeEnabled;
     
     private LifetimeMechanics _lifetimeMechanics;
@@ -24,7 +24,7 @@ public sealed class Bullet : AtomicObject
         Compose();
         MoveComponent.Compose(_transform);
         
-        _lifetimeMechanics = new LifetimeMechanics(ElapsedTime, DurationLife, _transform.gameObject, objectPool);
+        _lifetimeMechanics = new LifetimeMechanics(RemainigTime, _transform.gameObject, objectPool);
     }
 
     private void Awake()
@@ -46,3 +46,4 @@ public sealed class Bullet : AtomicObject
         objectPool = pool;
     }
 }
+

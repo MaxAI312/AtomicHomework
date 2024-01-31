@@ -4,7 +4,7 @@ using Homework3;
 using UnityEngine;
 
 [Serializable]
-public class FireComponent : IDisposable
+public sealed class FireComponent : IDisposable
 {
     public Transform FirePoint;
     

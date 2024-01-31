@@ -37,6 +37,7 @@ namespace Homework3
             {
                 GameObject obj = Object.Instantiate(_config.Prefab, _container);
                 obj.gameObject.SetActive(false);
+                //obj.GetComponent<Bullet>().RemainigTime.Value = _config.DurationLifetime;
                 return obj;
             }
 

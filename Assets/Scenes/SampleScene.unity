@@ -174,6 +174,18 @@ PrefabInstance:
       propertyPath: Core.MoveComponent.MoveEnabled.value
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 237442404999535251, guid: e5bfb4e1a1a4d4f059efedc672db885b, type: 3}
+      propertyPath: Core.FireComponent._fireEnabled.value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 237442404999535251, guid: e5bfb4e1a1a4d4f059efedc672db885b, type: 3}
+      propertyPath: Core.MoveComponent._moveEnabled.value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 237442404999535251, guid: e5bfb4e1a1a4d4f059efedc672db885b, type: 3}
+      propertyPath: Core.MoveComponent._movementSpeed.value
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3878403009064221306, guid: e5bfb4e1a1a4d4f059efedc672db885b, type: 3}
       propertyPath: m_Name
       value: Stickman

@@ -3,7 +3,7 @@ using Atomic.Elements;
 using UnityEngine;
 
 [Serializable]
-public class RotationComponent
+public sealed class RotationComponent
 {
     public IAtomicVariable<Vector3> RotationDirection => _rotationDirection;
     [SerializeField] private AtomicVariable<Vector3> _rotationDirection;

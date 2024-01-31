@@ -6,30 +6,27 @@ namespace Homework3
 {
     public sealed class LifetimeMechanics
     {
-        private readonly IAtomicVariable<float> _elapsedTime;
-        private readonly IAtomicValue<float> _duration;
+        private readonly IAtomicVariable<float> _remainingTime;
         private readonly GameObject _gameObject;
         private readonly ObjectPool _objectPool;
 
         public LifetimeMechanics(
-            IAtomicVariable<float> elapsedTime,
-            IAtomicValue<float> duration,
+            IAtomicVariable<float> remainingTime,
             GameObject gameObject,
             ObjectPool objectPool)
         {
-            _elapsedTime = elapsedTime;
-            _duration = duration;
+            _remainingTime = remainingTime;
             _gameObject = gameObject;
             _objectPool = objectPool;
         }
 
         public void Update(float deltaTime)
         {
-            _elapsedTime.Value += deltaTime;
-            if (_duration.Value < _elapsedTime.Value && _gameObject.activeSelf)
+            _remainingTime.Value -= deltaTime;
+            if (_remainingTime.Value <= 0 && _gameObject.activeSelf)
             {
                 _objectPool.ReturnObject(_gameObject);
-                _elapsedTime.Value = 0;
+
             }
         }
     }

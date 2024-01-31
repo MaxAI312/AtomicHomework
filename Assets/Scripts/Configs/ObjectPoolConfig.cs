@@ -11,3 +11,8 @@ public class ObjectPoolConfig : ScriptableObject
     public bool ShouldExpand => _shouldExpand;
     public GameObject Prefab => _prefab;
 }
+
+// public class Bullet
+// {
+//
+// }
