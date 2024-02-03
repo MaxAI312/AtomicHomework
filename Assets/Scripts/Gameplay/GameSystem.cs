@@ -1,12 +1,24 @@
+using Homework3;
 using UnityEngine;
 
 public class GameSystem : MonoBehaviour
 {
     [SerializeField] private Character _character;
-    
+    [SerializeField] private ObjectPoolConfig _poolConfig;
+    [SerializeField] private Transform _poolContainer;
+
+    private ObjectPool _objectPool;
+
     private MoveController _moveController;
     private FireController _fireController;
     private RotateController _rotateController;
+
+    private void Awake()
+    {
+        _objectPool = new ObjectPool(_poolConfig, _poolContainer);
+
+        _character.Construct(_objectPool);
+    }
 
     private void Start()
     {

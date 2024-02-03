@@ -1,30 +1,48 @@
+using System;
 using Atomic.Elements;
 using Atomic.Objects;
 using Homework3;
 using UnityEngine;
 
-public sealed class Bullet : AtomicObject
+public sealed class Bullet : AtomicObject, IClearable
 {
     [SerializeField] private bool _setupOnAwake;
     [SerializeField] private Transform _transform;
-
-    [Section]
+    
+    public IAtomicValue<float> DurationLife => _durationLife;
+    [SerializeField] private AtomicValue<float> _durationLife;
+    
+    public IAtomicVariable<float> RemainingTime => _remainingTime;
+    [SerializeField] private AtomicVariable<float> _remainingTime;
+    
+    public IAtomicValue<int> Damage => _damage;
+    [SerializeField] private AtomicValue<int> _damage;
+    
     public MoveComponent MoveComponent;
 
-    //[Header("Lifetime")] 
-    public AtomicVariable<float> RemainigTime => _remainingTime;
-    [SerializeField] private AtomicVariable<float> _remainingTime;
-    public IAtomicValue<bool> LifetimeEnabled;
-    
     private LifetimeMechanics _lifetimeMechanics;
-    private ObjectPool objectPool;
+    private CollisionMechanics _collisionMechanics;
+    
+    public Cooldown Cooldown;
+    
+    private ObjectPool _objectPool;
+    
+    public void Construct(ObjectPool pool)
+    {
+        _objectPool = pool;
+    }
 
     public void Setup()
     {
         Compose();
+        
         MoveComponent.Compose(_transform);
         
-        _lifetimeMechanics = new LifetimeMechanics(RemainigTime, _transform.gameObject, objectPool);
+        _collisionMechanics = new CollisionMechanics(_objectPool, gameObject, _damage);
+        
+        Cooldown = new Cooldown(_remainingTime.Value);
+        _lifetimeMechanics = new LifetimeMechanics(_transform.gameObject, Cooldown, _objectPool);
+        _lifetimeMechanics.OnEnable();
     }
 
     private void Awake()
@@ -35,15 +53,24 @@ public sealed class Bullet : AtomicObject
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        _collisionMechanics.OnTriggerEnter(other);
+    }
+    
     private void Update()
     {
+        Cooldown.Tick(Time.deltaTime);
         MoveComponent.Update();
-        _lifetimeMechanics?.Update(Time.deltaTime);
     }
-
-    public void SetupPoolMechanics(ObjectPool pool)
+    
+    private void OnDestroy()
     {
-        objectPool = pool;
+        _lifetimeMechanics.OnDisable();
+    }
+    
+    public void Clear()
+    {
+        Cooldown.Reset();
     }
 }
-

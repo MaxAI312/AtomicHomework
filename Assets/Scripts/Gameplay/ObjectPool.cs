@@ -37,7 +37,6 @@ namespace Homework3
             {
                 GameObject obj = Object.Instantiate(_config.Prefab, _container);
                 obj.gameObject.SetActive(false);
-                //obj.GetComponent<Bullet>().RemainigTime.Value = _config.DurationLifetime;
                 return obj;
             }
 
@@ -46,6 +45,7 @@ namespace Homework3
 
         public void ReturnObject(GameObject obj)
         {
+            obj.GetComponent<IClearable>()?.Clear();
             obj.transform.position = Vector3.zero;
             obj.gameObject.SetActive(false);
             _pool.Push(obj);

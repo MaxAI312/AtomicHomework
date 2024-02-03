@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: face0a0f4786b46b8943a5bea9acb1ad, type: 3}
-  m_Name: ObjectPool
+  m_Name: ObjectPoolConfig
   m_EditorClassIdentifier: 
   _size: 20
   _shouldExpand: 0

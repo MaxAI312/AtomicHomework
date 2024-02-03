@@ -1,25 +1,23 @@
+using Homework3;
 using UnityEngine;
 
 public sealed class Character : MonoBehaviour
 {
     public Character_Core Core;
     public Character_View View;
+
+    public void Construct(ObjectPool objectPool)
+    {
+        Core.Construct(objectPool);
+    }
     
-    private void Awake()
+    public void Start()
     {
         Core.Compose();
         View.Compose(Core);
-    }
-    
-
-    private void OnEnable()
-    {
+        
+        Core.OnEnable();
         View.OnEnable();
-    }
-
-    private void OnDisable()
-    {
-        View.OnDisable();
     }
 
     private void Update()
@@ -30,6 +28,9 @@ public sealed class Character : MonoBehaviour
 
     private void OnDestroy()
     {
+        Core.OnDisable();
+        View.OnDisable();
+        
         Core.Dispose();
     }
 }
