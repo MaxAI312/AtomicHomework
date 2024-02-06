@@ -63,10 +63,10 @@ public sealed class Bullet : AtomicObject, IClearable
         Cooldown.Tick(Time.deltaTime);
         MoveComponent.Update();
     }
-    
+
     private void OnDestroy()
     {
-        _lifetimeMechanics.OnDisable();
+        _lifetimeMechanics?.OnDisable();
     }
     
     public void Clear()

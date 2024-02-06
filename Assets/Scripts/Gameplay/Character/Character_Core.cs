@@ -6,8 +6,8 @@ using UnityEngine;
 [Serializable]
 public sealed class Character_Core : IDisposable, IDamageable
 {
-    public Transform _transform;
-    
+    public Transform Transform;
+
     public IAtomicVariable<int> HitPoints => _hitPoints;
     [SerializeField] private AtomicVariable<int> _hitPoints = new(30);
 
@@ -31,11 +31,11 @@ public sealed class Character_Core : IDisposable, IDamageable
     {
         TakeDamageAction.Compose(HitPoints);
 
-        _deathMechanics = new DeathMechanics(_hitPoints, IsAlive, _transform.gameObject);
+        _deathMechanics = new DeathMechanics(_hitPoints, IsAlive, Transform.gameObject);
         
-        MoveComponent.Compose(_transform);
+        MoveComponent.Compose(Transform);
         FireComponent.Compose();
-        RotationComponent.Compose(_transform);
+        RotationComponent.Compose(Transform);
     }
 
     public void OnEnable()

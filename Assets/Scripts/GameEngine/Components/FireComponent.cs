@@ -6,6 +6,7 @@ using UnityEngine;
 [Serializable]
 public sealed class FireComponent : IDisposable
 {
+    public AnimatorDispatcher AnimatorDispatcher;
     public Transform FirePoint;
 
     public IAtomicVariable<bool> FireEnabled => _fireEnabled;
@@ -33,12 +34,13 @@ public sealed class FireComponent : IDisposable
     {
         FireCondition.Compose(FireEnabled, Charges);
         BulletAction.Compose(_bulletPool, FirePoint);
-        FireAction.Compose(Charges, FireCondition, BulletAction, FireEvent);
+        FireAction.Compose(Charges, FireCondition, BulletAction, FireEvent, AnimatorDispatcher);
     }
-    
+
     public void Dispose()
     {
         _charges?.Dispose();
         _fireEvent?.Dispose();
+        FireAction?.Dispose();
     }
 }

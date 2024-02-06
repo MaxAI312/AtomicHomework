@@ -9,17 +9,23 @@ public class FireAction : IAtomicAction
     private IAtomicValue<bool> _shootCondition;
     private IAtomicAction _shootAction;
     private IAtomicEvent _shootEvent;
+    private AnimatorDispatcher _animatorDispatcher;
 
     public void Compose(
         IAtomicVariable<int> charges,
         IAtomicValue<bool> shootCondition,
         IAtomicAction shootAction,
-        IAtomicEvent shootEvent)
+        IAtomicEvent shootEvent,
+        AnimatorDispatcher animatorDispatcher
+        )
     {
         _charges = charges;
         _shootCondition = shootCondition;
         _shootAction = shootAction;
         _shootEvent = shootEvent;
+        _animatorDispatcher = animatorDispatcher;
+        
+        _animatorDispatcher.OnFireEvent += HandleFireEvent;
     }
     
     [Button]
@@ -27,8 +33,22 @@ public class FireAction : IAtomicAction
     {
         if (_shootCondition.Value == false) return;
 
-        _shootAction.Invoke();
+        _shootEvent.Invoke();
+    }
+
+    public void OnEnable()
+    {
+
+    }
+
+    public void Dispose()
+    {
+        _animatorDispatcher.OnFireEvent -= HandleFireEvent;
+    }
+
+    private void HandleFireEvent()
+    {
         _charges.Value--;
-        _shootEvent?.Invoke();
+        _shootAction?.Invoke();
     }
 }

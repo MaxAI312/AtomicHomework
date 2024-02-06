@@ -8,6 +8,7 @@ public sealed class FireAnimMechanics
     private readonly Animator _animator;
     private readonly IAtomicObservable _shootEvent;
 
+
     public FireAnimMechanics(
         Animator animator,
         IAtomicObservable shootEvent)
@@ -28,7 +29,7 @@ public sealed class FireAnimMechanics
 
     private void OnStartShoot()
     {
-        Debug.LogError("OnStartShoot");
+        Debug.Log("Shoot");
         _animator.SetTrigger(Shoot);
     }
 }
