@@ -5,14 +5,21 @@ using UnityEngine;
 public sealed class Character_View
 {
     [SerializeField] private Animator _animator;
+    
+    [Header("SFX")]
     [SerializeField] private AudioClip _shootSound;
     [SerializeField] private AudioClip _deathSound;
+
+    [Header("VFX")]
+    [SerializeField] private ParticleSystem _shootParticle;
 
     private MoveAnimMechanics _moveAnimMechanics;
     private FireAnimMechanics _fireAnimMechanics;
     
     private ShootSoundMechanics _shootSoundMechanics;
     private DeathSoundMechanics _deathSoundMechanics;
+
+    private ShootingEffectMechanics _shootingEffectMechanics;
 
     private AudioSource _audioSource;
     
@@ -28,6 +35,8 @@ public sealed class Character_View
 
         _shootSoundMechanics = new ShootSoundMechanics(_audioSource, _shootSound, core.FireComponent.FireEvent);
         _deathSoundMechanics = new DeathSoundMechanics(_audioSource, _deathSound, core.HealthComponent.DeathEvent);
+
+        _shootingEffectMechanics = new ShootingEffectMechanics(_shootParticle, core.FireComponent.FireEvent);
     }
 
     public void OnEnable()
@@ -36,6 +45,8 @@ public sealed class Character_View
         
         _shootSoundMechanics.OnEnable();
         _deathSoundMechanics.OnEnable();
+        
+        _shootingEffectMechanics.OnEnable();
     }
 
     public void OnDisable()
@@ -44,6 +55,8 @@ public sealed class Character_View
         
         _shootSoundMechanics.OnDisable();
         _deathSoundMechanics.OnDisable();
+        
+        _shootingEffectMechanics.OnDisable();
     }
 
     public void Update()

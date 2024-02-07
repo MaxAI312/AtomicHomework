@@ -1,7 +1,7 @@
 using Atomic.Elements;
 using UnityEngine;
 
-public class ShootSoundMechanics
+public sealed class ShootSoundMechanics
 {
     private readonly AudioSource _audioSource;
     private readonly AudioClip _shootSound;

@@ -1,19 +1,17 @@
 using Atomic.Elements;
 using UnityEngine;
 
-public sealed class DeathSoundMechanics
+
+public sealed class ShootingEffectMechanics
 {
-    private readonly AudioSource _audioSource;
-    private readonly AudioClip _deathSound;
+    private readonly ParticleSystem _particle;
     private readonly IAtomicObservable _observable;
 
-    public DeathSoundMechanics(
-        AudioSource audioSource,
-        AudioClip deathSound,
+    public ShootingEffectMechanics(
+        ParticleSystem particle,
         IAtomicObservable observable)
     {
-        _audioSource = audioSource;
-        _deathSound = deathSound;
+        _particle = particle;
         _observable = observable;
     }
 
@@ -21,15 +19,14 @@ public sealed class DeathSoundMechanics
     {
         _observable.Subscribe(HandleEvent);
     }
-    
+
     public void OnDisable()
     {
         _observable.Unsubscribe(HandleEvent);
     }
-    
+
     private void HandleEvent()
     {
-        _audioSource.clip = _deathSound;
-        _audioSource.Play();
+        _particle.Play();
     }
 }
