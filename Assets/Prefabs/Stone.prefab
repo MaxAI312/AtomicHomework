@@ -131,10 +131,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _transform: {fileID: 777260052779969715}
-  HitPoints:
-    value: 3
-  IsAlive:
-    value: 1
+  HealthComponent:
+    _hitPoints:
+      value: 3
+    _isAlive:
+      value: 1
 --- !u!136 &8980347827039411933
 CapsuleCollider:
   m_ObjectHideFlags: 0

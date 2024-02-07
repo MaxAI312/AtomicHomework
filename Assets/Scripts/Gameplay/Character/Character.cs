@@ -6,9 +6,10 @@ public sealed class Character : MonoBehaviour
     public Character_Core Core;
     public Character_View View;
 
-    public void Construct(ObjectPool objectPool)
+    public void Construct(ObjectPool objectPool, AudioSource audioSource)
     {
         Core.Construct(objectPool);
+        View.Construct(audioSource);
     }
     
     public void Start()

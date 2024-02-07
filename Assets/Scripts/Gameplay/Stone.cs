@@ -1,32 +1,28 @@
-using Atomic.Elements;
 using UnityEngine;
 
 public class Stone : MonoBehaviour, IDamageable
 {
     [SerializeField] private Transform _transform;
-    
-    public AtomicVariable<int> HitPoints = new(3);
-    public AtomicVariable<bool> IsAlive = new(true);
 
     public TakeDamageAction _takeDamageAction;
-    
-    private DeathMechanics _deathMechanics;
+
+    public HealthComponent HealthComponent;
 
     private void Awake()
     {
-        _takeDamageAction.Compose(HitPoints);
-        
-        _deathMechanics = new DeathMechanics(HitPoints, IsAlive, _transform.gameObject);
+        HealthComponent = new HealthComponent();
+        HealthComponent.Compose(_transform);
+        _takeDamageAction.Compose(HealthComponent.HitPoints);
     }
 
     private void OnEnable()
     {
-        _deathMechanics.OnEnable();
+        HealthComponent.OnEnable();
     }
 
     private void OnDisable()
     {
-        _deathMechanics.OnDisable();
+        HealthComponent.OnDisable();
     }
 
     public void TakeDamage(int damage)

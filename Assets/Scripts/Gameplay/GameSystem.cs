@@ -6,6 +6,7 @@ public class GameSystem : MonoBehaviour
     [SerializeField] private Character _character;
     [SerializeField] private ObjectPoolConfig _poolConfig;
     [SerializeField] private Transform _poolContainer;
+    [SerializeField] private AudioSource _audioSource;
 
     private ObjectPool _objectPool;
 
@@ -17,7 +18,7 @@ public class GameSystem : MonoBehaviour
     {
         _objectPool = new ObjectPool(_poolConfig, _poolContainer);
 
-        _character.Construct(_objectPool);
+        _character.Construct(_objectPool, _audioSource);
     }
 
     private void Start()

@@ -36,11 +36,6 @@ public class FireAction : IAtomicAction
         _shootEvent.Invoke();
     }
 
-    public void OnEnable()
-    {
-
-    }
-
     public void Dispose()
     {
         _animatorDispatcher.OnFireEvent -= HandleFireEvent;

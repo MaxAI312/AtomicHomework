@@ -1,5 +1,4 @@
 using System;
-using Atomic.Elements;
 using Homework3;
 using UnityEngine;
 
@@ -7,20 +6,13 @@ using UnityEngine;
 public sealed class Character_Core : IDisposable, IDamageable
 {
     public Transform Transform;
-
-    public IAtomicVariable<int> HitPoints => _hitPoints;
-    [SerializeField] private AtomicVariable<int> _hitPoints = new(30);
-
-    public IAtomicVariable<bool> IsAlive => _isAlive;
-    [SerializeField] private AtomicVariable<bool> _isAlive = new(true);
-
+    
     public TakeDamageAction TakeDamageAction = new();
-
-    private DeathMechanics _deathMechanics;
-
+    
     public FireComponent FireComponent;
     public MoveComponent MoveComponent;
     public RotationComponent RotationComponent;
+    public HealthComponent HealthComponent;
 
     public void Construct(ObjectPool objectPool)
     {
@@ -29,23 +21,22 @@ public sealed class Character_Core : IDisposable, IDamageable
 
     public void Compose()
     {
-        TakeDamageAction.Compose(HitPoints);
-
-        _deathMechanics = new DeathMechanics(_hitPoints, IsAlive, Transform.gameObject);
-        
         MoveComponent.Compose(Transform);
         FireComponent.Compose();
         RotationComponent.Compose(Transform);
+        HealthComponent.Compose(Transform);
+        
+        TakeDamageAction.Compose(HealthComponent.HitPoints);
     }
 
     public void OnEnable()
     {
-        _deathMechanics.OnEnable();
+        HealthComponent.OnEnable();
     }
 
     public void OnDisable()
     {
-        _deathMechanics.OnDisable();
+        HealthComponent.OnDisable();
     }
 
     public void Update()

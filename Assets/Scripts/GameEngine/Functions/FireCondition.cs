@@ -1,4 +1,3 @@
-using System;
 using Atomic.Elements;
 
 public sealed class FireCondition : IAtomicValue<bool>
