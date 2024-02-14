@@ -8,9 +8,9 @@ namespace Content
         private static readonly int IsWorking = Animator.StringToHash("IsWorking");
         
         private readonly Animator _animator;
-        private readonly IAtomicObservable _observable;
+        private readonly IAtomicObservable<bool> _observable;
 
-        public WaitingAnimMechanics(Animator animator, IAtomicObservable observable)
+        public WaitingAnimMechanics(Animator animator, IAtomicObservable<bool> observable)
         {
             _animator = animator;
             _observable = observable;
@@ -26,9 +26,9 @@ namespace Content
             _observable.Unsubscribe(Play);
         }
 
-        private void Play()
+        private void Play(bool value)
         {
-            _animator.SetBool(IsWorking, false);
+            _animator.SetBool(IsWorking, value);
         }
     }
 }

@@ -1,13 +1,11 @@
 using System;
-using Atomic.Elements;
+using System.Collections.Generic;
 using Game.Gameplay.Conveyors;
 using GameEngine;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Content
 {
-    //TODO: Реализовать конвертер ресурсов   
     public sealed class Conveyor : MonoBehaviour, IStopable
     {
         [SerializeField] private ConveyourConfig _config;
@@ -46,7 +44,6 @@ namespace Content
         public void Stop()
         {
             _core.Countdown.Stop();
-            //_view.
         }
     }
 
@@ -73,14 +70,15 @@ namespace Content
             ConvertComponent.OnDisable();
         }
 
-        public void Start()
-        {
-        }
-
         public void Update()
         {
             Countdown.Tick(Time.deltaTime);
             ConvertComponent.Update();
+            if (Countdown.IsWorking && ConvertComponent.Enabled.Value == false)
+            {
+                Countdown.Stop();
+                Countdown.Reset();
+            }
         }
 
         public void Dispose()
@@ -94,6 +92,8 @@ namespace Content
     {
         [SerializeField] private Animator _animator;
         [SerializeField] private ProgressBar _progressBar;
+        [SerializeField] private List<GameObject> _loadGameObjects;
+        [SerializeField] private List<GameObject> _unloadGameObjects;
 
         private ConvertAnimMechanics _convertAnimMechanics;
         private WaitingAnimMechanics _waitingAnimMechanics;
@@ -103,27 +103,32 @@ namespace Content
         public void Compose(Conveyor_Core core)
         {
             _progressBarMechanics = new ProgressBarMechanics(_progressBar, core);
-            _convertAnimMechanics = new ConvertAnimMechanics(_animator, core.ConvertComponent.OnConvertedEvent);
-            //_waitingAnimMechanics = new WaitingAnimMechanics(_animator, core.)
+            _convertAnimMechanics = new ConvertAnimMechanics(_animator, core.ConvertComponent.ChangeEnabledObservable);
+            _waitingAnimMechanics = new WaitingAnimMechanics(_animator, core.ConvertComponent.ChangeEnabledObservable);
+            _transferResourcesMechanics = new TransferResourcesMechanics(
+                _loadGameObjects,
+                _unloadGameObjects,
+                core.ConvertComponent.ChangeCountObservable,
+                core.ConvertComponent.ResultCount);
         }
 
         public void OnEnable()
         {
-            //_waitingAnimMechanics.OnEnable();
+            _waitingAnimMechanics.OnEnable();
             _convertAnimMechanics.OnEnable();
+            _transferResourcesMechanics.OnEnable();
         }
 
         public void OnDisable()
         {
-            //_waitingAnimMechanics.OnDisable();
+            _waitingAnimMechanics.OnDisable();
             _convertAnimMechanics.OnDisable();
+            _transferResourcesMechanics.OnDisable();
         }
         
         public void Update()
         {
             _progressBarMechanics.Update();
         }
-        
-        
     }
 }

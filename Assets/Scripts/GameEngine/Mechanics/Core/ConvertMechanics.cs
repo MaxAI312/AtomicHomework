@@ -1,6 +1,5 @@
 using System;
 using Atomic.Elements;
-using UnityEngine;
 
 namespace Content
 {
@@ -12,7 +11,7 @@ namespace Content
         private readonly IAtomicVariable<int> _countUnload;
         private readonly IAtomicValue<int> _ingredientCount;
         private readonly IAtomicValue<int> _resultCount;
-        private readonly IAtomicEvent _onConverted;
+        private readonly IAtomicVariable<bool> _enabled;
 
         public ConvertMechanics(
             Countdown countdown,
@@ -20,14 +19,14 @@ namespace Content
             IAtomicVariable<int> countUnload,
             IAtomicValue<int> ingredientCount,
             IAtomicValue<int> resultCount,
-            IAtomicEvent onConverted)
+            IAtomicVariable<bool> enabled)
         {
             _countdown = countdown;
             _countLoad = countLoad;
             _countUnload = countUnload;
             _ingredientCount = ingredientCount;
             _resultCount = resultCount;
-            _onConverted = onConverted;
+            _enabled = enabled;
         }
 
         public void OnEnable()
@@ -35,7 +34,7 @@ namespace Content
             _countdown.Ended += HandleEnded;
             _countdown.Start();
         }
-        
+
         public void OnDisable()
         {
             _countdown.Ended -= HandleEnded;
@@ -43,12 +42,19 @@ namespace Content
 
         private void HandleEnded()
         {
-            Debug.Log("HandleEnded");
-            _countLoad.Value -= _ingredientCount.Value;
-            _countUnload.Value += _resultCount.Value;
-            _onConverted?.Invoke();
-            _countdown.Reset();
-            _countdown.Start();
+            if (_countLoad.Value > 0)
+            {
+                _countLoad.Value -= _ingredientCount.Value;
+                _countUnload.Value += _resultCount.Value;
+
+                _countdown.Reset();
+                _countdown.Start();
+            }
+            else
+            {
+                _enabled.Value = false;
+                _countdown.Stop();
+            }
         }
     }
 }

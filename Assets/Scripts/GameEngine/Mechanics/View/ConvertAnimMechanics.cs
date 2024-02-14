@@ -1,4 +1,3 @@
-using System;
 using Atomic.Elements;
 using UnityEngine;
 
@@ -9,9 +8,9 @@ namespace Content
         private static readonly int IsWorking = Animator.StringToHash("IsWorking");
         
         private readonly Animator _animator;
-        private readonly IAtomicObservable _observable;
+        private readonly IAtomicObservable<bool> _observable;
 
-        public ConvertAnimMechanics(Animator animator, IAtomicObservable observable)
+        public ConvertAnimMechanics(Animator animator, IAtomicObservable<bool> observable)
         {
             _animator = animator;
             _observable = observable;
@@ -19,8 +18,8 @@ namespace Content
 
         public void OnEnable()
         {
-            Play();
             _observable.Subscribe(Play);
+            Play(true);
         }
 
         public void OnDisable()
@@ -28,9 +27,9 @@ namespace Content
             _observable.Unsubscribe(Play);
         }
 
-        private void Play()
+        private void Play(bool value)
         {
-            _animator.SetBool(IsWorking, true);
+            _animator.SetBool(IsWorking, value);
         }
     }
 }

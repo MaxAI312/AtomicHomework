@@ -29,8 +29,8 @@ namespace Content
         public IAtomicValue<bool> Enabled => _enabled;
         [SerializeField] private AtomicVariable<bool> _enabled = new(true);
 
-        public IAtomicEvent OnConvertedEvent => onConvertedEvent;
-        [SerializeField] private AtomicEvent onConvertedEvent = new();
+        public IAtomicObservable<bool> ChangeEnabledObservable => _enabled;
+        public IAtomicObservable<int> ChangeCountObservable => _countLoad;
 
         private ConvertMechanics _convertMechanics;
 
@@ -55,7 +55,7 @@ namespace Content
                 _countUnload,
                 _ingredientCount,
                 _resultCount,
-                onConvertedEvent
+                _enabled
                 );
         }
 
@@ -71,7 +71,7 @@ namespace Content
 
         public void Update()
         {
-            _enabled.Value = _countdown.IsWorking;
+            _enabled.Value = !(_countLoad.Value <= 0 || !_countdown.IsWorking);
         }
 
         public void Dispose()
