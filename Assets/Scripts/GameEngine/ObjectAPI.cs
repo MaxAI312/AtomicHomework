@@ -1,6 +1,7 @@
 public static class ObjectAPI
 {
-    public const string MoveDirection = nameof(MoveDirection);
-    public const string RotateDirection = nameof(RotateDirection);
+    public const string MovementDirection = nameof(MovementDirection);
+    public const string RotationDirection = nameof(RotationDirection);
     public const string FireAction = nameof(FireAction);
+    //public const string 
 }

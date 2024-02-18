@@ -8,7 +8,7 @@ public sealed class Character_Core : IDisposable, IDamageable
     public Transform Transform;
     
     public TakeDamageAction TakeDamageAction = new();
-    
+
     public FireComponent FireComponent;
     public MoveComponent MoveComponent;
     public RotationComponent RotationComponent;
