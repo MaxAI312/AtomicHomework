@@ -26,7 +26,7 @@ namespace Content
 
         private void Update()
         {
-            _core.Update();
+            _core.Update(Time.deltaTime);
             _view.Update();
         }
 
@@ -43,21 +43,21 @@ namespace Content
 
         public void Stop()
         {
-            _core.Countdown.Stop();
+            _core.ConvertComponent.Countdown.Stop();
         }
     }
 
     [Serializable]
     public sealed class Conveyor_Core : IDisposable
     {
-        public Countdown Countdown;
+        //public Countdown Countdown;
         
         public ConvertComponent ConvertComponent;
 
         public void Compose(ConveyourConfig config)
         {
-            Countdown = new Countdown(config.workTime);
-            ConvertComponent.Compose(Countdown, config);
+            //Countdown = new Countdown(config.workTime);
+            ConvertComponent.Compose(config);
         }
 
         public void OnEnable()
@@ -70,15 +70,9 @@ namespace Content
             ConvertComponent.OnDisable();
         }
 
-        public void Update()
+        public void Update(float deltaTime)
         {
-            Countdown.Tick(Time.deltaTime);
-            ConvertComponent.Update();
-            if (Countdown.IsWorking && ConvertComponent.Enabled.Value == false)
-            {
-                Countdown.Stop();
-                Countdown.Reset();
-            }
+            ConvertComponent.Update(deltaTime);
         }
 
         public void Dispose()

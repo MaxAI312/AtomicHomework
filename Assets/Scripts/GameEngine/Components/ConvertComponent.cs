@@ -8,6 +8,9 @@ namespace Content
     [Serializable]
     public sealed class ConvertComponent
     {
+        public Countdown Countdown => _countdown;
+        [SerializeField] private Countdown _countdown;
+            
         public IAtomicValue<int> LoadCapacity => _loadCapacity;
         [SerializeField] private AtomicVariable<int> _loadCapacity = new();
         
@@ -33,10 +36,8 @@ namespace Content
         public IAtomicObservable<int> ChangeCountObservable => _countLoad;
 
         private ConvertMechanics _convertMechanics;
-
-        private Countdown _countdown;
         
-        public void Compose(Countdown countdown, ConveyourConfig config)
+        public void Compose(ConveyourConfig config)
         {
             _loadCapacity.Value = config.loadCapacity;
             _unloadCapacity.Value = config.unloadCapacity;
@@ -47,7 +48,7 @@ namespace Content
             _ingredientCount.Value = config.ingredientCount;
             _resultCount.Value = config.resultCount;
 
-            _countdown = countdown;
+            _countdown = new Countdown(config.workTime);
             
             _convertMechanics = new ConvertMechanics(
                 _countdown,
@@ -69,9 +70,16 @@ namespace Content
             _convertMechanics.OnDisable();
         }
 
-        public void Update()
+        public void Update(float deltaTime)
         {
             _enabled.Value = !(_countLoad.Value <= 0 || !_countdown.IsWorking);
+            
+            _countdown.Tick(deltaTime);
+            if (Countdown.IsWorking && _enabled.Value == false)
+            {
+                Countdown.Stop();
+                Countdown.Reset();
+            }
         }
 
         public void Dispose()

@@ -14,7 +14,7 @@ namespace Content
         public ProgressBarMechanics(ProgressBar bar, Conveyor_Core core)
         {
             _bar = bar;
-            _countdown = core.Countdown;
+            _countdown = core.ConvertComponent.Countdown;
         }
 
         public void Update()
