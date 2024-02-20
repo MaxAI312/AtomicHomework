@@ -3,6 +3,7 @@ using UnityEngine;
 
 public sealed class Character : MonoBehaviour
 {
+    public CharacterConfig CharacterConfig;
     public Character_Core Core;
     public Character_View View;
 

@@ -14,6 +14,8 @@ public sealed class Character_Core : IDisposable, IDamageable
     public RotationComponent RotationComponent;
     public HealthComponent HealthComponent;
 
+    public WeaponStorage _weaponStorage;
+
     public void Construct(ObjectPool objectPool)
     {
         FireComponent.Construct(objectPool);

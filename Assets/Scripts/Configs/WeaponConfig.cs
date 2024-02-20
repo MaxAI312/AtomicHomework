@@ -1,6 +1,9 @@
+using System;
 using UnityEngine;
 
-public class WeaponConfig : ScriptableObject
+[Serializable]
+public abstract class WeaponConfig
 {
-    
 }
+
+

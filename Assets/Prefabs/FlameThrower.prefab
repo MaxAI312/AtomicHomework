@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33873488317132366}
   - component: {fileID: 23460970426849210}
   m_Layer: 0
-  m_Name: SM_Wep_FlameThrower_01
+  m_Name: FlameThrower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

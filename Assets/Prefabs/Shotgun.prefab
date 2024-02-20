@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33893723093038062}
   - component: {fileID: 23936371116652476}
   m_Layer: 0
-  m_Name: SM_Wep_Shotgun_01
+  m_Name: Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

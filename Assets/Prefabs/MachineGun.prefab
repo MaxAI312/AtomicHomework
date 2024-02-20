@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 33663670229232278}
   - component: {fileID: 23317016817134544}
   m_Layer: 0
-  m_Name: SM_Wep_MachineGun_01
+  m_Name: MachineGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

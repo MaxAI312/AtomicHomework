@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 33070997758550968}
   - component: {fileID: 23230514362325894}
   m_Layer: 0
-  m_Name: SM_Wep_HuntingRifle_Clean_01
+  m_Name: HuntingRifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
