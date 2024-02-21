@@ -89,19 +89,21 @@ namespace Content
         [SerializeField] private List<GameObject> _loadGameObjects;
         [SerializeField] private List<GameObject> _unloadGameObjects;
 
+        private ResourceZoneView _resourceZoneView;
+
         private WorkAnimMechanics _workAnimMechanics;
         private TransferResourcesMechanics _transferResourcesMechanics;
         private ProgressBarMechanics _progressBarMechanics;
         
         public void Compose(Conveyor_Core core)
         {
+            _resourceZoneView = new ResourceZoneView();
             _progressBarMechanics = new ProgressBarMechanics(_progressBar, core);
             _workAnimMechanics = new WorkAnimMechanics(_animator, core.ConvertComponent.ChangeEnabledObservable);
             _transferResourcesMechanics = new TransferResourcesMechanics(
-                _loadGameObjects,
-                _unloadGameObjects,
                 core.ConvertComponent.ChangeCountObservable,
-                core.ConvertComponent.ResultCount);
+                core.ConvertComponent.ResultCount,
+                _resourceZoneView);
         }
 
         public void OnEnable()

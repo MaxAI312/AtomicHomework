@@ -6,31 +6,58 @@ using UnityEngine;
 
 namespace Content
 {
-    [Serializable]
-    public sealed class TransferResourcesMechanics
+    public sealed class ResourceZoneView
     {
         private readonly List<GameObject> _loadGameObjects;
         private readonly List<GameObject> _unloadGameObjects;
-        private readonly IAtomicObservable<int> _changedCountObservable;
         private readonly IAtomicValue<int> _resultCount;
 
-        public TransferResourcesMechanics(
-            List<GameObject> loadGameObjects,
-            List<GameObject> unloadGameObjects,
-            IAtomicObservable<int> changedCountObservable,
-            IAtomicValue<int> ingredientCount)
+        public ResourceZoneView()
         {
-            _loadGameObjects = loadGameObjects;
-            _unloadGameObjects = unloadGameObjects;
-            _changedCountObservable = changedCountObservable;
-            _resultCount = ingredientCount;
         }
 
         public void OnEnable()
         {
             _unloadGameObjects.ForEach(a => a.SetActive(false));
-            DisableLastMatch();
+            RemoveResource();
+        }
 
+        public void OnDisable()
+        {
+        }
+
+        public void RemoveResource()
+        {
+            GameObject gameObject = _loadGameObjects.LastOrDefault(a => a.activeSelf);
+            if (gameObject is not null) gameObject.SetActive(false);
+        }
+
+        public void AddResource()
+        {
+            GameObject unloadGameObject = _unloadGameObjects.FirstOrDefault(a => a.activeSelf == false);
+            if (unloadGameObject is not null) unloadGameObject.SetActive(true);
+        }
+    }
+
+    [Serializable]
+    public sealed class TransferResourcesMechanics
+    {
+        private readonly IAtomicObservable<int> _changedCountObservable;
+        private readonly IAtomicValue<int> _resultCount;
+        private readonly ResourceZoneView _resourceZoneView;
+
+        public TransferResourcesMechanics(
+            IAtomicObservable<int> changedCountObservable,
+            IAtomicValue<int> resultCount,
+            ResourceZoneView resourceZoneView)
+        {
+            _changedCountObservable = changedCountObservable;
+            _resultCount = resultCount;
+            _resourceZoneView = resourceZoneView;
+        }
+
+        public void OnEnable()
+        {
             _changedCountObservable.Subscribe(OnChangedCount);
         }
 
@@ -43,28 +70,33 @@ namespace Content
         {
             if (value >= 0)
             {
-                GameObject loadGameObject = _loadGameObjects.LastOrDefault(a => a.activeSelf);
-                if (loadGameObject is not null)
-                {
-                    loadGameObject.SetActive(false);
-                }
+                _resourceZoneView.RemoveResource();
+
                 for (int i = 0; i < _resultCount.Value; i++)
-                {
-                    EnableFirstMatch();
-                }
+                    _resourceZoneView.AddResource();
+
+                // GameObject loadGameObject = _loadGameObjects.LastOrDefault(a => a.activeSelf);
+                // if (loadGameObject is not null)
+                // {
+                //     loadGameObject.SetActive(false);
+                // }
+                // for (int i = 0; i < _resultCount.Value; i++)
+                // {
+                //     EnableFirstMatch();
+                // }
             }
         }
 
-        private void DisableLastMatch()
-        {
-            GameObject gameObject = _loadGameObjects.LastOrDefault(a => a.activeSelf);
-            if (gameObject is not null) gameObject.SetActive(false);
-        }
+        // private void DisableLastMatch()
+        // {
+        //     GameObject gameObject = _loadGameObjects.LastOrDefault(a => a.activeSelf);
+        //     if (gameObject is not null) gameObject.SetActive(false);
+        // }
 
-        private void EnableFirstMatch()
-        {
-            GameObject unloadGameObject = _unloadGameObjects.FirstOrDefault(a => a.activeSelf == false);
-            if (unloadGameObject is not null) unloadGameObject.SetActive(true);
-        }
+        // private void EnableFirstMatch()
+        // {
+        //     GameObject unloadGameObject = _unloadGameObjects.FirstOrDefault(a => a.activeSelf == false);
+        //     if (unloadGameObject is not null) unloadGameObject.SetActive(true);
+        // }
     }
 }
