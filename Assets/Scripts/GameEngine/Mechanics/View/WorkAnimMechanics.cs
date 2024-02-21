@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Content
 {
-    public sealed class ConvertAnimMechanics
+    public sealed class WorkAnimMechanics
     {
         private static readonly int IsWorking = Animator.StringToHash("IsWorking");
         
         private readonly Animator _animator;
         private readonly IAtomicObservable<bool> _observable;
 
-        public ConvertAnimMechanics(Animator animator, IAtomicObservable<bool> observable)
+        public WorkAnimMechanics(Animator animator, IAtomicObservable<bool> observable)
         {
             _animator = animator;
             _observable = observable;

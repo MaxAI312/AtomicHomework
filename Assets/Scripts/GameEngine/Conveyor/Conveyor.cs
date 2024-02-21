@@ -89,16 +89,14 @@ namespace Content
         [SerializeField] private List<GameObject> _loadGameObjects;
         [SerializeField] private List<GameObject> _unloadGameObjects;
 
-        private ConvertAnimMechanics _convertAnimMechanics;
-        private WaitingAnimMechanics _waitingAnimMechanics;
+        private WorkAnimMechanics _workAnimMechanics;
         private TransferResourcesMechanics _transferResourcesMechanics;
         private ProgressBarMechanics _progressBarMechanics;
         
         public void Compose(Conveyor_Core core)
         {
             _progressBarMechanics = new ProgressBarMechanics(_progressBar, core);
-            _convertAnimMechanics = new ConvertAnimMechanics(_animator, core.ConvertComponent.ChangeEnabledObservable);
-            _waitingAnimMechanics = new WaitingAnimMechanics(_animator, core.ConvertComponent.ChangeEnabledObservable);
+            _workAnimMechanics = new WorkAnimMechanics(_animator, core.ConvertComponent.ChangeEnabledObservable);
             _transferResourcesMechanics = new TransferResourcesMechanics(
                 _loadGameObjects,
                 _unloadGameObjects,
@@ -108,15 +106,13 @@ namespace Content
 
         public void OnEnable()
         {
-            _waitingAnimMechanics.OnEnable();
-            _convertAnimMechanics.OnEnable();
+            _workAnimMechanics.OnEnable();
             _transferResourcesMechanics.OnEnable();
         }
 
         public void OnDisable()
         {
-            _waitingAnimMechanics.OnDisable();
-            _convertAnimMechanics.OnDisable();
+            _workAnimMechanics.OnDisable();
             _transferResourcesMechanics.OnDisable();
         }
         
