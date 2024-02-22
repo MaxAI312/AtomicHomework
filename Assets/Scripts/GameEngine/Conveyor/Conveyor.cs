@@ -97,7 +97,7 @@ namespace Content
         
         public void Compose(Conveyor_Core core)
         {
-            _resourceZoneView = new ResourceZoneView();
+            _resourceZoneView = new ResourceZoneView(_loadGameObjects, _unloadGameObjects);
             _progressBarMechanics = new ProgressBarMechanics(_progressBar, core);
             _workAnimMechanics = new WorkAnimMechanics(_animator, core.ConvertComponent.ChangeEnabledObservable);
             _transferResourcesMechanics = new TransferResourcesMechanics(
@@ -108,6 +108,7 @@ namespace Content
 
         public void OnEnable()
         {
+            _resourceZoneView.OnEnable();
             _workAnimMechanics.OnEnable();
             _transferResourcesMechanics.OnEnable();
         }

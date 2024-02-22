@@ -1,44 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Atomic.Elements;
-using UnityEngine;
 
 namespace Content
 {
-    public sealed class ResourceZoneView
-    {
-        private readonly List<GameObject> _loadGameObjects;
-        private readonly List<GameObject> _unloadGameObjects;
-        private readonly IAtomicValue<int> _resultCount;
-
-        public ResourceZoneView()
-        {
-        }
-
-        public void OnEnable()
-        {
-            _unloadGameObjects.ForEach(a => a.SetActive(false));
-            RemoveResource();
-        }
-
-        public void OnDisable()
-        {
-        }
-
-        public void RemoveResource()
-        {
-            GameObject gameObject = _loadGameObjects.LastOrDefault(a => a.activeSelf);
-            if (gameObject is not null) gameObject.SetActive(false);
-        }
-
-        public void AddResource()
-        {
-            GameObject unloadGameObject = _unloadGameObjects.FirstOrDefault(a => a.activeSelf == false);
-            if (unloadGameObject is not null) unloadGameObject.SetActive(true);
-        }
-    }
-
     [Serializable]
     public sealed class TransferResourcesMechanics
     {
