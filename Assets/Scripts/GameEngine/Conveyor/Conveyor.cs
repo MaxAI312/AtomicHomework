@@ -50,13 +50,10 @@ namespace Content
     [Serializable]
     public sealed class Conveyor_Core : IDisposable
     {
-        //public Countdown Countdown;
-        
         public ConvertComponent ConvertComponent;
 
         public void Compose(ConveyourConfig config)
         {
-            //Countdown = new Countdown(config.workTime);
             ConvertComponent.Compose(config);
         }
 
@@ -84,12 +81,12 @@ namespace Content
     [Serializable]
     public sealed class Conveyor_View
     {
-        [SerializeField] private Animator _animator;
-        [SerializeField] private ProgressBar _progressBar;
         [SerializeField] private List<GameObject> _loadGameObjects;
         [SerializeField] private List<GameObject> _unloadGameObjects;
+        [SerializeField] private Animator _animator;
+        [SerializeField] private ProgressBar _progressBar;
 
-        private ResourceZoneView _resourceZoneView;
+        private ResourceZoneView _rsourceZoneView;
 
         private WorkAnimMechanics _workAnimMechanics;
         private TransferResourcesMechanics _transferResourcesMechanics;
@@ -97,18 +94,23 @@ namespace Content
         
         public void Compose(Conveyor_Core core)
         {
-            _resourceZoneView = new ResourceZoneView(_loadGameObjects, _unloadGameObjects);
-            _progressBarMechanics = new ProgressBarMechanics(_progressBar, core);
+            _rsourceZoneView = new ResourceZoneView(
+                core.ConvertComponent.IngredientCount,
+                core.ConvertComponent.ResultCount,
+                _loadGameObjects,
+                _unloadGameObjects);
+
+            _progressBarMechanics = new ProgressBarMechanics(_progressBar, core.ConvertComponent.Countdown);
             _workAnimMechanics = new WorkAnimMechanics(_animator, core.ConvertComponent.ChangeEnabledObservable);
+            
             _transferResourcesMechanics = new TransferResourcesMechanics(
                 core.ConvertComponent.ChangeCountObservable,
-                core.ConvertComponent.ResultCount,
-                _resourceZoneView);
+                _rsourceZoneView);
         }
 
         public void OnEnable()
         {
-            _resourceZoneView.OnEnable();
+            _rsourceZoneView.OnEnable();
             _workAnimMechanics.OnEnable();
             _transferResourcesMechanics.OnEnable();
         }

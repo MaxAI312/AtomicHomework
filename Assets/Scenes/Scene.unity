@@ -439,6 +439,102 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 777046176}
     - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[12]
+      value: 
+      objectReference: {fileID: 303917861}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[13]
+      value: 
+      objectReference: {fileID: 1601060571}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[14]
+      value: 
+      objectReference: {fileID: 364534820}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[15]
+      value: 
+      objectReference: {fileID: 1993784100}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[16]
+      value: 
+      objectReference: {fileID: 587069555}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[17]
+      value: 
+      objectReference: {fileID: 820993574}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[18]
+      value: 
+      objectReference: {fileID: 934971068}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[19]
+      value: 
+      objectReference: {fileID: 29010080}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[20]
+      value: 
+      objectReference: {fileID: 696742136}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[21]
+      value: 
+      objectReference: {fileID: 267453537}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[22]
+      value: 
+      objectReference: {fileID: 171409459}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[23]
+      value: 
+      objectReference: {fileID: 777046176}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[24]
+      value: 
+      objectReference: {fileID: 303917861}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[25]
+      value: 
+      objectReference: {fileID: 1601060571}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[26]
+      value: 
+      objectReference: {fileID: 364534820}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[27]
+      value: 
+      objectReference: {fileID: 1993784100}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[28]
+      value: 
+      objectReference: {fileID: 587069555}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[29]
+      value: 
+      objectReference: {fileID: 820993574}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[30]
+      value: 
+      objectReference: {fileID: 934971068}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[31]
+      value: 
+      objectReference: {fileID: 29010080}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[32]
+      value: 
+      objectReference: {fileID: 696742136}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[33]
+      value: 
+      objectReference: {fileID: 267453537}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[34]
+      value: 
+      objectReference: {fileID: 171409459}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view._loadGameObjects.Array.data[35]
+      value: 
+      objectReference: {fileID: 777046176}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
       propertyPath: _view._unloadGameObjects.Array.data[0]
       value: 
       objectReference: {fileID: 1110669325}
@@ -532,6 +628,158 @@ PrefabInstance:
       objectReference: {fileID: 923152929}
     - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
       propertyPath: _view._unloadGameObjects.Array.data[23]
+      value: 
+      objectReference: {fileID: 1947350101}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._loadGameObjects.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.size
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._loadGameObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 303917861}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._loadGameObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 1601060571}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._loadGameObjects.Array.data[2]
+      value: 
+      objectReference: {fileID: 364534820}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._loadGameObjects.Array.data[3]
+      value: 
+      objectReference: {fileID: 1993784100}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._loadGameObjects.Array.data[4]
+      value: 
+      objectReference: {fileID: 587069555}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._loadGameObjects.Array.data[5]
+      value: 
+      objectReference: {fileID: 820993574}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._loadGameObjects.Array.data[6]
+      value: 
+      objectReference: {fileID: 934971068}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._loadGameObjects.Array.data[7]
+      value: 
+      objectReference: {fileID: 29010080}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._loadGameObjects.Array.data[8]
+      value: 
+      objectReference: {fileID: 696742136}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._loadGameObjects.Array.data[9]
+      value: 
+      objectReference: {fileID: 267453537}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._loadGameObjects.Array.data[10]
+      value: 
+      objectReference: {fileID: 171409459}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._loadGameObjects.Array.data[11]
+      value: 
+      objectReference: {fileID: 777046176}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 1110669325}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 330956107}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[2]
+      value: 
+      objectReference: {fileID: 1111005020}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[3]
+      value: 
+      objectReference: {fileID: 1572229991}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[4]
+      value: 
+      objectReference: {fileID: 888976621}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[5]
+      value: 
+      objectReference: {fileID: 1825022690}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[6]
+      value: 
+      objectReference: {fileID: 27514435}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[7]
+      value: 
+      objectReference: {fileID: 1718745687}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[8]
+      value: 
+      objectReference: {fileID: 2019819759}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[9]
+      value: 
+      objectReference: {fileID: 2095197560}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[10]
+      value: 
+      objectReference: {fileID: 1012624847}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[11]
+      value: 
+      objectReference: {fileID: 1400483402}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[12]
+      value: 
+      objectReference: {fileID: 457435195}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[13]
+      value: 
+      objectReference: {fileID: 151596546}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[14]
+      value: 
+      objectReference: {fileID: 954918142}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[15]
+      value: 
+      objectReference: {fileID: 382457662}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[16]
+      value: 
+      objectReference: {fileID: 870594455}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[17]
+      value: 
+      objectReference: {fileID: 1512931310}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[18]
+      value: 
+      objectReference: {fileID: 2059044519}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[19]
+      value: 
+      objectReference: {fileID: 2083202105}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[20]
+      value: 
+      objectReference: {fileID: 427695071}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[21]
+      value: 
+      objectReference: {fileID: 1300085087}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[22]
+      value: 
+      objectReference: {fileID: 923152929}
+    - target: {fileID: 940122637, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}
+      propertyPath: _view.ResourceZoneView._unloadGameObjects.Array.data[23]
       value: 
       objectReference: {fileID: 1947350101}
     - target: {fileID: 321564266908410341, guid: c18c524f16f214510ac37b6b2febb7fa, type: 3}

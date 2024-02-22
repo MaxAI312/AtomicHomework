@@ -11,10 +11,10 @@ namespace Content
         private readonly ProgressBar _bar;
         private readonly Countdown _countdown;
 
-        public ProgressBarMechanics(ProgressBar bar, Conveyor_Core core)
+        public ProgressBarMechanics(ProgressBar bar, Countdown countdown)
         {
             _bar = bar;
-            _countdown = core.ConvertComponent.Countdown;
+            _countdown = countdown;
         }
 
         public void Update()
