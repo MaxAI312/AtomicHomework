@@ -1,7 +1,5 @@
 using System;
-using Atomic.Elements;
 using GameEngine;
-using UnityEngine;
 
 namespace Content
 {

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Atomic.Elements;
 using Game.Gameplay.Conveyors;
 using UnityEngine;
@@ -11,19 +10,10 @@ namespace Content
     {
         public Countdown Countdown => _countdown;
         [SerializeField] private Countdown _countdown;
-            
-        public IAtomicValue<int> LoadCapacity => _loadCapacity;
-        [SerializeField] private AtomicVariable<int> _loadCapacity = new();
-        
-        public IAtomicValue<int> UnloadCapacity => _unloadCapacity;
-        [SerializeField] private AtomicVariable<int> _unloadCapacity = new();
 
-        public IAtomicVariable<int> CountLoad => _countLoad;
-        [SerializeField] private AtomicVariable<int> _countLoad = new();
-        
-        public IAtomicVariable<int> CountUnload => _countUnload;
-        [SerializeField] private AtomicVariable<int> _countUnload = new();
-        
+        private ResourceZone _loadZone;
+        private ResourceZone _unloadZone;
+
         public IAtomicValue<int> IngredientCount => _ingredientCount;
         [SerializeField] private AtomicVariable<int> _ingredientCount = new();
         
@@ -34,17 +24,18 @@ namespace Content
         [SerializeField] private AtomicVariable<bool> _enabled = new(true);
 
         public IAtomicObservable<bool> ChangeEnabledObservable => _enabled;
-        public IAtomicObservable<int> ChangeCountObservable => _countLoad;
+
+        public IAtomicObservable<int> ChangeCountObservable => _changeCountObservable;
+        [SerializeField] private AtomicEvent<int> _changeCountObservable = new();
 
         private ConvertMechanics _convertMechanics;
-        
+
         public void Compose(ConveyourConfig config)
         {
-            _loadCapacity.Value = config.loadCapacity;
-            _unloadCapacity.Value = config.unloadCapacity;
-            
-            _countLoad.Value = _loadCapacity.Value;
-            _countUnload.Value = _unloadCapacity.Value;
+            _loadZone = new ResourceZone(config.loadCapacity, config.loadCapacity);
+            _unloadZone = new ResourceZone(0, config.unloadCapacity);
+
+            _changeCountObservable = _loadZone.Changed;
 
             _ingredientCount.Value = config.ingredientCount;
             _resultCount.Value = config.resultCount;
@@ -53,12 +44,12 @@ namespace Content
             
             _convertMechanics = new ConvertMechanics(
                 _countdown,
-                _countLoad,
-                _countUnload,
+                _loadZone,
+                _unloadZone,
                 _ingredientCount,
                 _resultCount,
                 _enabled
-                );
+            );
         }
 
         public void OnEnable()
@@ -73,7 +64,7 @@ namespace Content
 
         public void Update(float deltaTime)
         {
-            _enabled.Value = !(_countLoad.Value <= 0 || !_countdown.IsWorking);
+            _enabled.Value = !(_loadZone.Current <= 0 || !_countdown.IsWorking);
             
             _countdown.Tick(deltaTime);
             if (Countdown.IsWorking && _enabled.Value == false)
@@ -85,12 +76,8 @@ namespace Content
 
         public void Dispose()
         {
-            _loadCapacity?.Dispose();
-            _unloadCapacity?.Dispose();
-            _countLoad?.Dispose();
-            _countUnload?.Dispose();
-            _ingredientCount?.Dispose();
-            _resultCount?.Dispose();
+            _enabled?.Dispose();
+            _changeCountObservable?.Dispose();
         }
     }
 }

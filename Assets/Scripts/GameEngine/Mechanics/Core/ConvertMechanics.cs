@@ -7,23 +7,23 @@ namespace Content
     public sealed class ConvertMechanics
     {
         private readonly Countdown _countdown;
-        private readonly IAtomicVariable<int> _countLoad;
-        private readonly IAtomicVariable<int> _countUnload;
+        private readonly ResourceZone _loadZone;
+        private readonly ResourceZone _unloadZone;
         private readonly IAtomicValue<int> _ingredientCount;
         private readonly IAtomicValue<int> _resultCount;
         private readonly IAtomicVariable<bool> _enabled;
 
         public ConvertMechanics(
             Countdown countdown,
-            IAtomicVariable<int> countLoad,
-            IAtomicVariable<int> countUnload,
+            ResourceZone loadZone,
+            ResourceZone unloadZone,
             IAtomicValue<int> ingredientCount,
             IAtomicValue<int> resultCount,
             IAtomicVariable<bool> enabled)
         {
             _countdown = countdown;
-            _countLoad = countLoad;
-            _countUnload = countUnload;
+            _loadZone = loadZone;
+            _unloadZone = unloadZone;
             _ingredientCount = ingredientCount;
             _resultCount = resultCount;
             _enabled = enabled;
@@ -42,10 +42,10 @@ namespace Content
 
         private void HandleEnded()
         {
-            if (_countLoad.Value > 0)
+            if (_loadZone.Current > 0)
             {
-                _countLoad.Value -= _ingredientCount.Value;
-                _countUnload.Value += _resultCount.Value;
+                _loadZone.Current -= _ingredientCount.Value;
+                _unloadZone.Current += _resultCount.Value;
 
                 _countdown.Reset();
                 _countdown.Start();

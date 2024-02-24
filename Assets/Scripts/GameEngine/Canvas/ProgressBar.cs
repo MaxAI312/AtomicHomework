@@ -1,7 +1,6 @@
 using System.Runtime.Serialization;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace GameEngine

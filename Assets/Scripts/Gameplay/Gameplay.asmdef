@@ -2,7 +2,7 @@
     "name": "Gameplay",
     "rootNamespace": "",
     "references": [
-        ""
+        "Atomic.Elements"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

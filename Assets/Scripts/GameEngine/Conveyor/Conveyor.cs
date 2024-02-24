@@ -86,7 +86,7 @@ namespace Content
         [SerializeField] private Animator _animator;
         [SerializeField] private ProgressBar _progressBar;
 
-        private ResourceZoneView _rsourceZoneView;
+        private ResourceZoneView _resourceZoneView;
 
         private WorkAnimMechanics _workAnimMechanics;
         private TransferResourcesMechanics _transferResourcesMechanics;
@@ -94,7 +94,7 @@ namespace Content
         
         public void Compose(Conveyor_Core core)
         {
-            _rsourceZoneView = new ResourceZoneView(
+            _resourceZoneView = new ResourceZoneView(
                 core.ConvertComponent.IngredientCount,
                 core.ConvertComponent.ResultCount,
                 _loadGameObjects,
@@ -105,12 +105,12 @@ namespace Content
             
             _transferResourcesMechanics = new TransferResourcesMechanics(
                 core.ConvertComponent.ChangeCountObservable,
-                _rsourceZoneView);
+                _resourceZoneView);
         }
 
         public void OnEnable()
         {
-            _rsourceZoneView.OnEnable();
+            _resourceZoneView.OnEnable();
             _workAnimMechanics.OnEnable();
             _transferResourcesMechanics.OnEnable();
         }

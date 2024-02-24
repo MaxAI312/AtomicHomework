@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Atomic.Elements;
-using Game.Gameplay.Conveyors;
 using UnityEngine;
 
 namespace Content
@@ -41,14 +40,12 @@ namespace Content
 
         private void AddResource()
         {
-            Debug.Log("AddResource");
             GameObject unloadGameObject = _unloadGameObjects.FirstOrDefault(a => a.activeSelf == false);
             if (unloadGameObject is not null) unloadGameObject.SetActive(true);
         }
         
         public void OnChangedCount(int value)
         {
-            Debug.Log("OnChangedCount - " + value);
             if (value >= 0)
             {
                 for (int i = 0; i < _ingredientCount.Value; i++) 
