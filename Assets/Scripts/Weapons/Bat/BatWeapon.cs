@@ -1,18 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
+using Atomic.Elements;
 using UnityEngine;
 
-public class BatWeapon : MonoBehaviour
+public sealed class BatWeapon : Weapon
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public BatWeapon_Core Core;
+    public BatWeapon_View View;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
         
     }
 }
+
+public sealed class BatWeapon_Core
+{
+    [Header("Attack")] 
+    public AtomicFunction<bool> FireCondition;
+    public AtomicEvent FireEvent;
+    public AtomicAction FireAction;
+
+    [Header("Hit")] 
+    public DamageHitSphereAction HitAction;
+    public Transform HitTransform;
+
+    [Header("Damage")] 
+    public IsAliveEnemyFunction dealDamageCondition;
+}
+
+public sealed class BatWeapon_View
+{
+}
+
