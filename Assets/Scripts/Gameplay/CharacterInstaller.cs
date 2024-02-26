@@ -11,6 +11,6 @@ public sealed class CharacterInstaller : MonoBehaviour
         _entity.AddValue(ObjectAPI.FireAction, _character.Core.FireComponent.FireAction);
         _entity.AddValue(ObjectAPI.RotationDirection, _character.Core.RotationComponent.RotationDirection);
 
-        //_entity.AddValue(ObjectAPI.WeaponStorage, _character.Core.WeaponStorage);
+        _entity.AddValue(ObjectAPI.IsAlive, _character.Core.HealthComponent.IsAlive);
     }
 }

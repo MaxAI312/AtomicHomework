@@ -7,14 +7,14 @@ public class DamageHitSphereAction : IAtomicAction
 {
     private static readonly Collider[] _buffer = new Collider[32];
 
-    private IAtomicFunction<IAtomicObject, bool> _dealDamageCondition;
-    private IAtomicAction<IAtomicObject> _dealDamageAction;
+    private IAtomicFunction<Entity, bool> _dealDamageCondition;
+    private IAtomicAction<Entity> _dealDamageAction;
     private IAtomicValue<Vector3> _hitPoint;
     private IAtomicValue<float> _hitRadius;
 
-    public DamageHitSphereAction(
-        IAtomicFunction<IAtomicObject, bool> dealDamageCondition,
-        IAtomicAction<IAtomicObject> dealDamageAction,
+    public void Compose(
+        IAtomicFunction<Entity, bool> dealDamageCondition,
+        IAtomicAction<Entity> dealDamageAction,
         IAtomicValue<Vector3> hitPoint,
         IAtomicValue<float> hitRadius)
     {
@@ -31,10 +31,10 @@ public class DamageHitSphereAction : IAtomicAction
         for (int i = 0; i < size; i++)
         {
             Collider collider = _buffer[i];
-            if (collider.TryGetComponent(out IAtomicObject target) && _dealDamageCondition.Invoke(target))
-            {
-                _dealDamageAction.Invoke(target);
-            }
+            // if (collider.TryGetComponent(out IAtomicObject target) && _dealDamageCondition.Invoke(target))
+            // {
+            //     _dealDamageAction.Invoke(target);
+            // }
         }
     }
 }

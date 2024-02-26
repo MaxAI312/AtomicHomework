@@ -45,6 +45,6 @@ public class GameSystem : MonoBehaviour
         _moveController?.Update();
         _fireController?.Update();
         _rotateController?.Update();
-        _switchWeaponController.Update();
+        //_switchWeaponController.Update();
     }
 }

@@ -5,5 +5,5 @@ public static class ObjectAPI
     public const string FireAction = nameof(FireAction);
     public const string Dispatcher = nameof(Dispatcher);
     public const string WeaponStorage = nameof(WeaponStorage);
-    
+    public const string IsAlive = nameof(IsAlive);
 }
