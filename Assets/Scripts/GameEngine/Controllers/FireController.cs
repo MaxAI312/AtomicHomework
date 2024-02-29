@@ -1,20 +1,24 @@
 using Atomic.Elements;
+using Atomic.Objects;
 using UnityEngine;
 
 public sealed class FireController
 {
-    private IAtomicAction _fireAction;
-
-    public FireController(IAtomicAction fireAction)
+    private IAtomicObject _fireable;
+    
+    public FireController(IAtomicObject fireable)
     {
-        _fireAction = fireAction;
+        _fireable = fireable;
     }
 
     public void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            _fireAction?.Invoke();
+            if (_fireable.TryGet(AttackAPI.FireAction, out IAtomicAction fireAction))
+            {
+                fireAction?.Invoke();
+            }
         }
     }
 }

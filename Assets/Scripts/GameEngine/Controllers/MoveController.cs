@@ -1,19 +1,20 @@
 using Atomic.Elements;
+using Atomic.Objects;
 using UnityEngine;
 
 public sealed class MoveController
 {
-    private readonly IAtomicVariable<Vector3> _moveDirection;
+    private readonly IAtomicObject _moveable;
 
-    public MoveController(IAtomicVariable<Vector3> moveDirection)
+    public MoveController(IAtomicObject moveable)
     {
-        _moveDirection = moveDirection;
+        _moveable = moveable;
     }
 
     public void Update()
     {
         Vector3 direction = Vector3.zero;
-        
+
         if (Input.GetKey(KeyCode.W))
         {
             direction.z = 1f;
@@ -31,6 +32,9 @@ public sealed class MoveController
             direction.x = 1f;
         }
 
-        _moveDirection.Value = direction;
+        if (_moveable.TryGet(CommonAPI.MovementDirection, out IAtomicVariable<Vector3> moveDirection))
+        {
+            moveDirection.Value = direction;
+        }
     }
 }

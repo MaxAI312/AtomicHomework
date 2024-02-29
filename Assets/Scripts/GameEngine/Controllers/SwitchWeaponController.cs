@@ -1,29 +1,43 @@
 using Atomic.Elements;
+using Atomic.Objects;
 using UnityEngine;
 
 public sealed class SwitchWeaponController
 {
-    private readonly IAtomicAction<int> _switchAction;
-    private readonly IAtomicValue<bool> _hasSwitchEnded;
+    private readonly IAtomicObject _character;
+    private readonly KeyCode _keyCode;
 
-    public SwitchWeaponController(IAtomicAction<int> switchAction, IAtomicValue<bool> hasSwitchEnded)
+    public SwitchWeaponController(
+        IAtomicObject character,
+        KeyCode keyCode)
     {
-        _switchAction = switchAction;
-        _hasSwitchEnded = hasSwitchEnded;
+        _character = character;
+        _keyCode = keyCode;
     }
 
     public void Update()
     {
         float scroll = Input.GetAxis("Mouse ScrollWheel");
-        
-        if (scroll > 0f && _hasSwitchEnded.Value)
+
+        if (_character.TryGet(AttackAPI.SwitchToNextWeapon, out IAtomicEvent switchToNextWeaponAction))
         {
-            Debug.Log("ScrollDown");
-            
+            if (Input.GetKeyDown(_keyCode))
+            {
+                switchToNextWeaponAction.Invoke();
+            }
         }
-        else if (scroll < 0f && _hasSwitchEnded.Value)
-        {
-            Debug.Log("ScrollUp");
-        }
+
+
+
+
+        // if (scroll > 0f && _hasSwitchEnded.Value)
+        // {
+        //     Debug.Log("ScrollDown");
+        //     
+        // }
+        // else if (scroll < 0f && _hasSwitchEnded.Value)
+        // {
+        //     Debug.Log("ScrollUp");
+        // }
     }
 }

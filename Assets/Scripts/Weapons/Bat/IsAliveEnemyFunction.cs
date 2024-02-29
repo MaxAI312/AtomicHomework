@@ -13,7 +13,7 @@ public class IsAliveEnemyFunction : IAtomicFunction<Entity, bool>
             return false;
         }
 
-        IAtomicVariable<bool> isAlive = target.GetValue<IAtomicVariable<bool>>(ObjectAPI.IsAlive);
+        IAtomicVariable<bool> isAlive = target.GetValue<IAtomicVariable<bool>>(HealthAPI.IsAlive);
         
         
         return false;

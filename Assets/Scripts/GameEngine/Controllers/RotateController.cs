@@ -1,13 +1,14 @@
 using Atomic.Elements;
+using Atomic.Objects;
 using UnityEngine;
 
 public sealed class RotateController
 {
-    private readonly IAtomicVariable<Vector3> _rotateDirection;
+    private readonly IAtomicObject _rotateable;
 
-    public RotateController(IAtomicVariable<Vector3> rotateDirection)
+    public RotateController(IAtomicObject rotateable)
     {
-        _rotateDirection = rotateDirection;
+        _rotateable = rotateable;
     }
 
     public void Update()
@@ -30,7 +31,10 @@ public sealed class RotateController
         {
             direction.x = 1f;
         }
-        
-        _rotateDirection.Value = direction;
+
+        if (_rotateable.TryGet(CommonAPI.RotationDirection, out IAtomicVariable<Vector3> rotateDirection))
+        {
+            rotateDirection.Value = direction;
+        }
     }
 }

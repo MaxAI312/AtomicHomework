@@ -18,7 +18,7 @@ public sealed class MachineGunWeaponController : WeaponController
         MachineGunWeaponConfig config)
     {
         _owner = owner;
-        _ownerAnimator = owner.Get<AnimatorDispatcher>(ObjectAPI.Dispatcher);
+        _ownerAnimator = owner.Get<AnimatorDispatcher>(CommonAPI.Dispatcher);
 
         _weapon = weapon;
         _config = config;

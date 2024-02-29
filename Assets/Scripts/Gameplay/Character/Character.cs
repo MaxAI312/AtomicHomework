@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Atomic.Elements;
+using Atomic.Objects;
 using Homework3;
 using UnityEngine;
 
-public sealed class Character : MonoBehaviour
+public sealed class Character : AtomicObject
 {
     public Character_Core Core;
     public Character_View View;
@@ -20,6 +21,13 @@ public sealed class Character : MonoBehaviour
         Core.Compose();
         View.Compose(Core);
         
+        AddData(CommonAPI.MovementDirection, Core.MoveComponent.MovementDirection);
+        AddData(AttackAPI.FireAction, Core.FireComponent.FireAction);
+        AddData(CommonAPI.RotationDirection, Core.RotationComponent.RotationDirection);
+
+        AddData(HealthAPI.IsAlive, Core.HealthComponent.IsAlive);
+        AddData(AttackAPI.SwitchToNextWeapon, Core.SwitchToNextWeaponAction);
+
         Core.OnEnable();
         View.OnEnable();
     }
@@ -54,10 +62,16 @@ public sealed class Character_Core : IDisposable, IDamageable
     [Header("Weapons")] 
     public AtomicVariable<Weapon> _currentWeapon;
     
-    public AtomicEvent _switchToMeleeWeaponAction;
-    public AtomicEvent _switchToRangeWeaponAction;
-    
-    
+    public AtomicEvent SwitchToNextWeaponAction;
+    //public AtomicEvent SwitchToRangeWeaponAction;
+
+    public Countdown SwitchWeaponCountdown;
+
+    public BatWeapon BatWeapon;
+    public MachineGunWeapon MachineGunWeapon;
+    public ShotgunWeapon ShotgunWeapon;
+    public SniperGunWeapon SniperGunWeapon;
+    public FlamethrowerWeapon FlamethrowerWeapon;
 
     public void Construct(ObjectPool objectPool)
     {
@@ -72,6 +86,7 @@ public sealed class Character_Core : IDisposable, IDamageable
         HealthComponent.Compose(Transform);
         
         TakeDamageAction.Compose(HealthComponent.HitPoints);
+        SwitchToNextWeaponAction.Subscribe(() =>Debug.LogError("WORRRRRRKKKKK"));
     }
 
     public void OnEnable()
