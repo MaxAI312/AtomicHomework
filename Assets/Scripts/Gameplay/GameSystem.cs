@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Atomic.Elements;
 using Atomic.Objects;
 using Homework3;
@@ -18,7 +19,8 @@ public class GameSystem : MonoBehaviour
     private RotateController _rotateController;
     
     private SwitchWeaponController _switchWeaponController;
-    private MachineGunWeaponController _machineGunWeaponController;
+    private WeaponController _weaponController;
+    //private MachineGunWeaponController _machineGunWeaponController;
     
     private void Awake()
     {
@@ -32,10 +34,9 @@ public class GameSystem : MonoBehaviour
         _moveController = new MoveController(_character);
         _fireController = new FireController(_character);
         _rotateController = new RotateController(_character);
-        
-        _switchWeaponController = new SwitchWeaponController(
-            _character,
-            KeyCode.T);
+
+        _weaponController = new WeaponController(_character, 0);
+        _switchWeaponController = new SwitchWeaponController(_character, KeyCode.T);
         
          // _switchWeaponController = new SwitchWeaponController(
          //     _characterEntity.GetValue<SwitchWeaponAction>("SwitchWeaponAction"),
@@ -50,5 +51,13 @@ public class GameSystem : MonoBehaviour
         _fireController?.Update();
         _rotateController?.Update();
         _switchWeaponController.Update();
+        _weaponController.Update();
     }
+}
+
+public interface IWeaponController
+{
+    void Enable();
+    void Disable();
+    void OnUpdate(float deltaTime);
 }

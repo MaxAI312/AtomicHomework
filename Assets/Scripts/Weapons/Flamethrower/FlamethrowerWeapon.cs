@@ -1,18 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using Atomic.Objects;
 using UnityEngine;
 
-public class FlamethrowerWeapon : Weapon
+public sealed class FlamethrowerWeapon : Weapon
 {
-    // Start is called before the first frame update
-    void Start()
+    public FlamethrowerWeapon_Core Core;
+    public FlamethrowerWeapon_View View;
+
+    public override void Compose()
     {
-        
+        base.Compose();
+        Core.Compose();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        AddData(AttackAPI.FireAction, Core.FireComponent.FireAction);
     }
 }
+
+[Serializable]
+public sealed class FlamethrowerWeapon_Core
+{
+    public IAtomicObject Owner;
+    public FireComponent FireComponent;
+    
+    public void Compose()
+    {
+        FireComponent.Compose();
+        Debug.Log("COMPOSE");
+    }
+    
+    
+}
+
+[Serializable]
+public sealed class FlamethrowerWeapon_View
+{
+    
+}
+

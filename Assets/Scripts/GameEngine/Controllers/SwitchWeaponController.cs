@@ -19,7 +19,7 @@ public sealed class SwitchWeaponController
     {
         float scroll = Input.GetAxis("Mouse ScrollWheel");
 
-        if (_character.TryGet(AttackAPI.SwitchToNextWeapon, out IAtomicEvent switchToNextWeaponAction))
+        if (_character.TryGet(AttackAPI.SwitchToNextWeaponAction, out IAtomicEvent switchToNextWeaponAction))
         {
             if (Input.GetKeyDown(_keyCode))
             {

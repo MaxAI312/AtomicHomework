@@ -30,6 +30,6 @@ public class SelectNextWeaponWhenPreviousEndedMechanics : MonoBehaviour
 
     private void OnWeaponChanged(Weapon weapon)
     {
-        _switchWeaponAction.Invoke(weapon.WeaponConfig);
+        //_switchWeaponAction.Invoke();
     }
 }

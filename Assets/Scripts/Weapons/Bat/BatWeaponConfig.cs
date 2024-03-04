@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using Atomic.Elements;
 using UnityEngine;
 
+[CreateAssetMenu(
+    fileName = "BatWeaponConfig",
+    menuName = "Project/Configs/Weapons/Bat"
+)]
 public class BatWeaponConfig : WeaponConfig
 {
-    public int Damagee { get; set; }
     public float HitRadius { get; set; }
 }

@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using Atomic.Elements;
 using Atomic.Objects;
 using Homework3;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public sealed class Character : AtomicObject
 {
+    [Header("Weapon")] 
+    [SerializeField] private List<AtomicObject> _weapons;
+
     public Character_Core Core;
     public Character_View View;
 
@@ -15,18 +19,21 @@ public sealed class Character : AtomicObject
         Core.Construct(objectPool);
         View.Construct(audioSource);
     }
-    
+
     public void Start()
     {
-        Core.Compose();
-        View.Compose(Core);
-        
+        _weapons.ForEach(a => a.Compose());
+        Core.Compose(_weapons);
+        View.Compose(Core, _weapons);
+
         AddData(CommonAPI.MovementDirection, Core.MoveComponent.MovementDirection);
-        AddData(AttackAPI.FireAction, Core.FireComponent.FireAction);
         AddData(CommonAPI.RotationDirection, Core.RotationComponent.RotationDirection);
 
+        AddData(AttackAPI.WeaponsStorage, _weapons);
+        AddData(AttackAPI.SwitchToNextWeaponAction, Core.SwitchToNextWeaponAction);
+
         AddData(HealthAPI.IsAlive, Core.HealthComponent.IsAlive);
-        AddData(AttackAPI.SwitchToNextWeapon, Core.SwitchToNextWeaponAction);
+
 
         Core.OnEnable();
         View.OnEnable();
@@ -42,7 +49,7 @@ public sealed class Character : AtomicObject
     {
         Core.OnDisable();
         View.OnDisable();
-        
+
         Core.Dispose();
     }
 }
@@ -51,42 +58,78 @@ public sealed class Character : AtomicObject
 public sealed class Character_Core : IDisposable, IDamageable
 {
     public Transform Transform;
-    
+
     public TakeDamageAction TakeDamageAction = new();
 
-    public FireComponent FireComponent;
+    //public FireComponent FireComponent;
     public MoveComponent MoveComponent;
     public RotationComponent RotationComponent;
     public HealthComponent HealthComponent;
 
     [Header("Weapons")] 
-    public AtomicVariable<Weapon> _currentWeapon;
-    
+    public AtomicVariable<AtomicObject> CurrentWeapon = new();
     public AtomicEvent SwitchToNextWeaponAction;
-    //public AtomicEvent SwitchToRangeWeaponAction;
 
     public Countdown SwitchWeaponCountdown;
 
-    public BatWeapon BatWeapon;
-    public MachineGunWeapon MachineGunWeapon;
-    public ShotgunWeapon ShotgunWeapon;
-    public SniperGunWeapon SniperGunWeapon;
-    public FlamethrowerWeapon FlamethrowerWeapon;
+    private ObjectPool _objectPool;
 
     public void Construct(ObjectPool objectPool)
     {
-        FireComponent.Construct(objectPool);
+        _objectPool = objectPool;
+        //FireComponent.Construct(objectPool);
     }
 
-    public void Compose()
+    public void Compose(List<AtomicObject> weapons)
     {
+        //return a.Config.Type == Weapon.Type.Default;
+
+        if (weapons.Find(a =>
+            {
+
+                //return a.Config.Type == Weapon.Type.Default;
+                if (a.TryGet(WeaponAPI.Config, out WeaponConfig config))
+                {
+                    
+                    Debug.Log("TEsSST");
+                    return config.Type == Weapon.Type.Default;
+                }
+                return false;
+            })
+            is { } found)
+        {
+            CurrentWeapon.Value = found;
+        }
+
         MoveComponent.Compose(Transform);
-        FireComponent.Compose();
+        //FireComponent.Compose();
         RotationComponent.Compose(Transform);
         HealthComponent.Compose(Transform);
-        
+
+        ComposeAction(weapons);
+    }
+
+    private void ComposeAction(List<AtomicObject> weapons)
+    {
         TakeDamageAction.Compose(HealthComponent.HitPoints);
-        SwitchToNextWeaponAction.Subscribe(() =>Debug.LogError("WORRRRRRKKKKK"));
+
+        SwitchToNextWeaponAction.Subscribe(() =>
+        {
+            int indexCurrentWeapon = weapons.IndexOf(CurrentWeapon.Value);
+
+            if (weapons.Count == 0)
+            {
+                Debug.Log("Check weapons storage!!!");
+                return;
+            }
+
+            if (indexCurrentWeapon + 1 == weapons.Count)
+                CurrentWeapon.Value = weapons[0];
+            else
+                CurrentWeapon.Value = weapons[indexCurrentWeapon + 1];
+
+            Debug.Log("Current weapon - " + CurrentWeapon.Value);
+        });
     }
 
     public void OnEnable()
@@ -102,13 +145,13 @@ public sealed class Character_Core : IDisposable, IDamageable
     public void Update()
     {
         MoveComponent.Update();
-        FireComponent.FireEnabled.Value = !MoveComponent.IsMoving.Value;
+        //FireComponent.FireEnabled.Value = !MoveComponent.IsMoving.Value;
         RotationComponent.Update();
     }
 
     public void Dispose()
     {
-        FireComponent?.Dispose();
+        //FireComponent?.Dispose();
     }
 
     public void TakeDamage(int damage)
@@ -120,63 +163,91 @@ public sealed class Character_Core : IDisposable, IDamageable
 [Serializable]
 public sealed class Character_View
 {
-    [Header("Weapon")] 
-    [SerializeField] private List<Weapon> _weapons;
-    
-    [Header("Animator")]
-    [SerializeField] private Animator _animator;
-    
-    [Header("SFX")]
-    [SerializeField] private AudioClip _shootSound;
+    [Header("Animator")] [SerializeField] private Animator _animator;
+
+    [Header("SFX")] [SerializeField] private AudioClip _shootSound;
     [SerializeField] private AudioClip _deathSound;
 
-    [Header("VFX")]
-    [SerializeField] private ParticleSystem _shootParticle;
+    [Header("VFX")] [SerializeField] private ParticleSystem _shootParticle;
 
     private MoveAnimMechanics _moveAnimMechanics;
     private FireAnimMechanics _fireAnimMechanics;
-    
+
     private ShootSoundMechanics _shootSoundMechanics;
     private DeathSoundMechanics _deathSoundMechanics;
 
     private ShootingEffectMechanics _shootingEffectMechanics;
 
     private AudioSource _audioSource;
-    
+
     public void Construct(AudioSource audioSource)
     {
         _audioSource = audioSource;
     }
-    
-    public void Compose(Character_Core core)
-    {
-        _moveAnimMechanics = new MoveAnimMechanics(_animator, core.MoveComponent.IsMoving);
-        _fireAnimMechanics = new FireAnimMechanics(_animator, core.FireComponent.FireEvent);
 
-        _shootSoundMechanics = new ShootSoundMechanics(_audioSource, _shootSound, core.FireComponent.FireEvent);
+    public void Compose(Character_Core core, List<AtomicObject> weaponsStorage)
+    {
+        if (weaponsStorage.Find(a =>
+            {
+                // Weapon.Type currentWeaponType = core.CurrentWeapon.Value.Config.Type;
+                // return a.Config.Type == currentWeaponType;
+                AtomicObject currentWeapon = core.CurrentWeapon.Value;
+
+                if (a.TryGet(WeaponAPI.Config, out WeaponConfig targetConfig) &&
+                    currentWeapon.TryGet(WeaponAPI.Config, out WeaponConfig currentConfig))
+                {
+                    return targetConfig == currentConfig;
+                }
+
+                return false;
+            }) is { } found)
+        {
+            found.gameObject.SetActive(true);
+        }
+
+        _moveAnimMechanics = new MoveAnimMechanics(_animator, core.MoveComponent.IsMoving);
+        //_fireAnimMechanics = new FireAnimMechanics(_animator, core.FireComponent.FireEvent);
+
+        //_shootSoundMechanics = new ShootSoundMechanics(_audioSource, _shootSound, core.FireComponent.FireEvent);
         _deathSoundMechanics = new DeathSoundMechanics(_audioSource, _deathSound, core.HealthComponent.DeathEvent);
 
-        _shootingEffectMechanics = new ShootingEffectMechanics(_shootParticle, core.FireComponent.FireEvent);
+        //_shootingEffectMechanics = new ShootingEffectMechanics(_shootParticle, core.FireComponent.FireEvent);
+
+
+        // core.SwitchToNextWeaponAction.Subscribe(() =>
+        // {
+        //     foreach (Weapon weapon in weaponsStorage.FindAll(a => a.gameObject.activeSelf)) 
+        //         weapon.gameObject.SetActive(false);
+        //
+        //     if (weaponsStorage.Find(a =>
+        //         {
+        //             Weapon.Type currentWeaponType = core.CurrentWeapon.Value.Config.Type;
+        //             return a.Config.Type == currentWeaponType;
+        //         }) is {} found1)
+        //     {
+        //         found1.gameObject.SetActive(true);
+        //     }
+        // });
     }
 
     public void OnEnable()
     {
-        _fireAnimMechanics.OnEnable();
-        
-        _shootSoundMechanics.OnEnable();
+        //_fireAnimMechanics.OnEnable();
+
+        //_shootSoundMechanics.OnEnable();
         _deathSoundMechanics.OnEnable();
-        
-        _shootingEffectMechanics.OnEnable();
+
+        //_shootingEffectMechanics.OnEnable();
     }
 
     public void OnDisable()
     {
-        _fireAnimMechanics.OnDisable();
-        
-        _shootSoundMechanics.OnDisable();
+        //_fireAnimMechanics.OnDisable();
+
+        //_shootSoundMechanics.OnDisable();
         _deathSoundMechanics.OnDisable();
-        
-        _shootingEffectMechanics.OnDisable();
+
+        //_shootingEffectMechanics.OnDisable();
     }
 
     public void Update()

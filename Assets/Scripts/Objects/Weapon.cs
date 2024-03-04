@@ -1,6 +1,7 @@
+using Atomic.Objects;
 using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour
+public abstract class Weapon : AtomicObject
 {
     public enum Type
     {
@@ -8,10 +9,15 @@ public abstract class Weapon : MonoBehaviour
         Flamethrower = 1,
         MachineGun = 2,
         Shotgun = 3,
-        SniperGun = 4
+        SniperGun = 4,
+        Default = Bat
     }
-    public WeaponConfig WeaponConfig => _weaponConfig;
-    [SerializeField] private WeaponConfig _weaponConfig;
     
-    
+    public WeaponConfig Config => _config;
+    [SerializeField] private WeaponConfig _config;
+
+    public override void Compose()
+    {
+        AddData(WeaponAPI.Config, _config);
+    }
 }

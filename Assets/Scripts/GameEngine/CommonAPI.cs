@@ -8,12 +8,17 @@ public static class CommonAPI
 
 public static class AttackAPI
 {
-    public const string WeaponStorage = nameof(WeaponStorage);
+    public const string WeaponsStorage = nameof(WeaponsStorage);
     public const string FireAction = nameof(FireAction);
-    public const string SwitchToNextWeapon = nameof(SwitchToNextWeapon);
+    public const string SwitchToNextWeaponAction = nameof(SwitchToNextWeaponAction);
 }
 
 public static class HealthAPI
 {
     public const string IsAlive = nameof(IsAlive);
+}
+
+public static class WeaponAPI
+{
+    public const string Config = nameof(Config);
 }

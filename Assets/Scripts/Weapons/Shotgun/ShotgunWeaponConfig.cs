@@ -1,6 +1,9 @@
-using System;
+using UnityEngine;
 
-[Serializable]
+[CreateAssetMenu(
+    fileName = "ShotgunWeaponConfig",
+    menuName = "Project/Configs/Weapons/Shotgun"
+)]
 public class ShotgunWeaponConfig : WeaponConfig
 {
 

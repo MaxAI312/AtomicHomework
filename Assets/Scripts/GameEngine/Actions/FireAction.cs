@@ -1,6 +1,7 @@
 using System;
 using Atomic.Elements;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
 [Serializable]
 public class FireAction : IAtomicAction
@@ -32,6 +33,7 @@ public class FireAction : IAtomicAction
     public void Invoke()
     {
         if (_shootCondition.Value == false) return;
+        Debug.Log("PISISISISSISISISISSISISI");
 
         _shootEvent.Invoke();
     }
