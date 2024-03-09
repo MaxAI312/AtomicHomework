@@ -1,9 +1,16 @@
 using Atomic.Objects;
+using Homework3;
 using UnityEngine;
 
 public abstract class Weapon : AtomicObject
 {
     public enum Type
+    {
+        Range,
+        Melee
+    }
+    
+    public enum Model
     {
         Bat = 0,
         Flamethrower = 1,
@@ -15,6 +22,11 @@ public abstract class Weapon : AtomicObject
     
     public WeaponConfig Config => _config;
     [SerializeField] private WeaponConfig _config;
+
+    public void Construct(ObjectPool objectPool = null)
+    {
+        
+    }
 
     public override void Compose()
     {

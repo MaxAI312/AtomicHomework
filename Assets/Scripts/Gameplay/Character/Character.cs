@@ -22,7 +22,19 @@ public sealed class Character : AtomicObject
 
     public void Start()
     {
+        _weapons.ForEach(a =>
+        {
+            if (a.TryGet(WeaponAPI.Config, out WeaponConfig config))
+            {
+                if (config.Type == Weapon.Type.Range)
+                {
+                    Weapon weapon = (Weapon)a;
+                    //weapon.Construct();
+                }
+            }
+        });
         _weapons.ForEach(a => a.Compose());
+        
         Core.Compose(_weapons);
         View.Compose(Core, _weapons);
 
@@ -82,18 +94,11 @@ public sealed class Character_Core : IDisposable, IDamageable
 
     public void Compose(List<AtomicObject> weapons)
     {
-        //return a.Config.Type == Weapon.Type.Default;
-
         if (weapons.Find(a =>
             {
-
-                //return a.Config.Type == Weapon.Type.Default;
                 if (a.TryGet(WeaponAPI.Config, out WeaponConfig config))
-                {
-                    
-                    Debug.Log("TEsSST");
-                    return config.Type == Weapon.Type.Default;
-                }
+                    return config.Model == Weapon.Model.Default;
+                
                 return false;
             })
             is { } found)
@@ -127,8 +132,6 @@ public sealed class Character_Core : IDisposable, IDamageable
                 CurrentWeapon.Value = weapons[0];
             else
                 CurrentWeapon.Value = weapons[indexCurrentWeapon + 1];
-
-            Debug.Log("Current weapon - " + CurrentWeapon.Value);
         });
     }
 
@@ -187,23 +190,7 @@ public sealed class Character_View
 
     public void Compose(Character_Core core, List<AtomicObject> weaponsStorage)
     {
-        if (weaponsStorage.Find(a =>
-            {
-                // Weapon.Type currentWeaponType = core.CurrentWeapon.Value.Config.Type;
-                // return a.Config.Type == currentWeaponType;
-                AtomicObject currentWeapon = core.CurrentWeapon.Value;
-
-                if (a.TryGet(WeaponAPI.Config, out WeaponConfig targetConfig) &&
-                    currentWeapon.TryGet(WeaponAPI.Config, out WeaponConfig currentConfig))
-                {
-                    return targetConfig == currentConfig;
-                }
-
-                return false;
-            }) is { } found)
-        {
-            found.gameObject.SetActive(true);
-        }
+        SetWeapon(core, weaponsStorage);
 
         _moveAnimMechanics = new MoveAnimMechanics(_animator, core.MoveComponent.IsMoving);
         //_fireAnimMechanics = new FireAnimMechanics(_animator, core.FireComponent.FireEvent);
@@ -214,20 +201,30 @@ public sealed class Character_View
         //_shootingEffectMechanics = new ShootingEffectMechanics(_shootParticle, core.FireComponent.FireEvent);
 
 
-        // core.SwitchToNextWeaponAction.Subscribe(() =>
-        // {
-        //     foreach (Weapon weapon in weaponsStorage.FindAll(a => a.gameObject.activeSelf)) 
-        //         weapon.gameObject.SetActive(false);
-        //
-        //     if (weaponsStorage.Find(a =>
-        //         {
-        //             Weapon.Type currentWeaponType = core.CurrentWeapon.Value.Config.Type;
-        //             return a.Config.Type == currentWeaponType;
-        //         }) is {} found1)
-        //     {
-        //         found1.gameObject.SetActive(true);
-        //     }
-        // });
+        core.SwitchToNextWeaponAction.Subscribe(() =>
+        {
+            foreach (AtomicObject weapon in weaponsStorage.FindAll(a => a.gameObject.activeSelf)) 
+                weapon.gameObject.SetActive(false);
+
+            SetWeapon(core, weaponsStorage);
+        });
+    }
+
+    private void SetWeapon(Character_Core core, List<AtomicObject> weaponsStorage)
+    {
+        if (weaponsStorage.Find(a =>
+            {
+                AtomicObject currentWeapon = core.CurrentWeapon.Value;
+
+                if (a.TryGet(WeaponAPI.Config, out WeaponConfig targetConfig) &&
+                    currentWeapon.TryGet(WeaponAPI.Config, out WeaponConfig currentConfig))
+                    return targetConfig == currentConfig;
+
+                return false;
+            }) is { } found)
+        {
+            found.gameObject.SetActive(true);
+        }
     }
 
     public void OnEnable()

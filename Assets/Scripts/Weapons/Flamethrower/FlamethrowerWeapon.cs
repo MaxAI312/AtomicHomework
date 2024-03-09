@@ -1,16 +1,18 @@
 using System;
 using Atomic.Objects;
+using Homework3;
 using UnityEngine;
 
 public sealed class FlamethrowerWeapon : Weapon
 {
     public FlamethrowerWeapon_Core Core;
     public FlamethrowerWeapon_View View;
-
+    
     public override void Compose()
     {
         base.Compose();
         Core.Compose();
+        View.Compose(Core);
     }
 
     private void Start()
@@ -24,6 +26,11 @@ public sealed class FlamethrowerWeapon_Core
 {
     public IAtomicObject Owner;
     public FireComponent FireComponent;
+
+    public void Construct(ObjectPool objectPool)
+    {
+        FireComponent.Construct(objectPool);
+    }
     
     public void Compose()
     {
@@ -37,6 +44,9 @@ public sealed class FlamethrowerWeapon_Core
 [Serializable]
 public sealed class FlamethrowerWeapon_View
 {
-    
+    public void Compose(FlamethrowerWeapon_Core core)
+    {
+        
+    }
 }
 
