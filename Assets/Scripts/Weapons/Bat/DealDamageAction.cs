@@ -1,24 +1,26 @@
 using Atomic.Elements;
+using Atomic.Objects;
 using UnityEngine;
 
 public sealed class DealDamageAction : IAtomicAction<Entity>
 {
     private IAtomicValue<int> _damage;
-    private Entity _owner;
+    private IAtomicValue<IAtomicObject> _owner;
     private IAtomicValue<Vector3> _point;
     private IAtomicValue<Vector3> _normal;
 
-    private IAtomicValue<Entity> _damageEvent;
+    private IAtomicEvent<IAtomicObject> _damageEvent;
 
     public void Compose(
         IAtomicValue<int> damage,
-        Entity owner,
-        IAtomicEvent<Entity> damageEvent,
+        IAtomicValue<IAtomicObject> owner,
+        IAtomicEvent<IAtomicObject> damageEvent,
         IAtomicValue<Vector3> point = null,
         IAtomicValue<Vector3> normal = null)
     {
         _damage = damage;
         _owner = owner;
+        _damageEvent = damageEvent;
         _point = point;
         _normal = normal;
     }

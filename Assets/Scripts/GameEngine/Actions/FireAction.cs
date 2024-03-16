@@ -32,6 +32,7 @@ public class FireAction : IAtomicAction
     [Button]
     public void Invoke()
     {
+        Debug.Log(_shootCondition.Value + " - TEEEEST");
         if (_shootCondition.Value == false) return;
         Debug.Log("PISISISISSISISISISSISISI");
 

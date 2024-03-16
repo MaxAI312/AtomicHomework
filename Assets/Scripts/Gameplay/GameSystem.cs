@@ -54,10 +54,3 @@ public class GameSystem : MonoBehaviour
         _weaponController.Update();
     }
 }
-
-public interface IWeaponController
-{
-    void Enable();
-    void Disable();
-    void OnUpdate(float deltaTime);
-}

@@ -327,7 +327,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a46e7176f637465fa64da6007434dea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: a84a999653b0b42a88c2b5011db707b4, type: 2}
+  _owner:
+    value: {fileID: 1473468276}
+  _sniperGunWeaponConfig: {fileID: 11400000, guid: a84a999653b0b42a88c2b5011db707b4, type: 2}
 --- !u!1 &424084837
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,7 +521,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78fb756cf0484f22a176f94ec52bcb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: dacb7520b05b34e598c5bbd6a5c85c31, type: 2}
+  _owner:
+    value: {fileID: 1473468276}
+  _machineGunWeaponConfig: {fileID: 11400000, guid: dacb7520b05b34e598c5bbd6a5c85c31, type: 2}
 --- !u!1 &490142147
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,7 +569,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3754b6564f5b9426b83d2390a14a6364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: b732f7955472444e38cedda306bb9a7a, type: 2}
+  _owner:
+    value: {fileID: 1473468276}
+  _shotgunWeaponConfig: {fileID: 11400000, guid: b732f7955472444e38cedda306bb9a7a, type: 2}
 --- !u!1001 &601163336
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -798,16 +804,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aab6d6f24eb34511aecc1c93d6e2d0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 3d9ac37da9de04f618f58cbf40538d83, type: 2}
+  _owner:
+    value: {fileID: 1473468276}
+  _batWeaponConfig: {fileID: 11400000, guid: 3d9ac37da9de04f618f58cbf40538d83, type: 2}
   Core:
-    FireComponent:
-      GameObject: {fileID: 795749072}
-      FirePoint: {fileID: 795749073}
-      AnimatorDispatcher: {fileID: 910644747}
-      _fireEnabled:
-        value: 0
-      _charges:
-        value: 10
+    HitTransform: {fileID: 795749073}
+    Damage:
+      value: 0
 --- !u!114 &910644747 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5838933635348012815, guid: e5bfb4e1a1a4d4f059efedc672db885b, type: 3}
@@ -1193,7 +1196,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a5a91005b714dc29e4aed1f8dd18b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 52e6a2811683743f198cfd24b7649b4d, type: 2}
+  _owner:
+    value: {fileID: 1473468276}
   Core:
     FireComponent:
       GameObject: {fileID: 2022199848}
@@ -1203,6 +1207,7 @@ MonoBehaviour:
         value: 0
       _charges:
         value: 10
+  _flamethrowerWeaponConfig: {fileID: 11400000, guid: 52e6a2811683743f198cfd24b7649b4d, type: 2}
 --- !u!4 &1333903190214202756
 Transform:
   m_ObjectHideFlags: 0

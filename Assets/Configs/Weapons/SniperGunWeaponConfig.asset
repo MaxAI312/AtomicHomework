@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb7e4834d9741428fafd06097bf0be9a, type: 3}
   m_Name: SniperGunWeaponConfig
   m_EditorClassIdentifier: 
-  _type: 4
+  _model: 4
+  _type: 0
   _damage: 80

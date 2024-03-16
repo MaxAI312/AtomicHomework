@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3d14a463487147228179945ebcfdea0, type: 3}
   m_Name: ShotgunWeaponConfig
   m_EditorClassIdentifier: 
-  _type: 3
+  _model: 3
+  _type: 0
   _damage: 20

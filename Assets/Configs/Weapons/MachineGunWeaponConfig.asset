@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26dacbd5603d14fa9a0545c11e2b3e02, type: 3}
   m_Name: MachineGunWeaponConfig
   m_EditorClassIdentifier: 
-  _type: 2
+  _model: 2
+  _type: 0
   _damage: 5

@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class MachineGunWeapon : Weapon
 {
-    public void Construct(ObjectPool objectPool)
-    {
-        
-    }
+    public override WeaponConfig Config => _machineGunWeaponConfig;
+    [SerializeField] private MachineGunWeaponConfig _machineGunWeaponConfig;
+    
     // protected override void Compose()
     // {
     //     base.Compose();

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96658067e2f8344f887ed48865f6c396, type: 3}
   m_Name: BatWeaponConfig
   m_EditorClassIdentifier: 
-  _type: 0
+  _model: 0
+  _type: 1
   _damage: 60

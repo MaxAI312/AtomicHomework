@@ -22,3 +22,9 @@ public static class WeaponAPI
 {
     public const string Config = nameof(Config);
 }
+
+public static class TeamAPI
+{
+    public const string Team = nameof(Team);
+    public const string IsEnemy = nameof(IsEnemy);
+}

@@ -5,75 +5,78 @@ using Atomic.Elements;
 using Atomic.Objects;
 using UnityEngine;
 
+[Serializable]
 public sealed class BatWeapon : Weapon
 {
+    public override WeaponConfig Config => _batWeaponConfig;
+    [SerializeField] private BatWeaponConfig _batWeaponConfig;
+    
     public BatWeapon_Core Core;
     public BatWeapon_View View;
 
     public override void Compose()
     {
         base.Compose();
-        Core.Compose();
+        Core.Compose(this, _batWeaponConfig);
     }
 }
 
 [Serializable]
 public sealed class BatWeapon_Core
 {
-    public IAtomicObject Owner;
-    public FireComponent FireComponent;
-    // [Header("Attack")] 
-    // public AtomicFunction<bool> FireCondition;
-    // public AtomicEvent FireEvent;
-    // public AtomicAction FireAction;
-    //
-    // [Header("Hit")] 
-    // public DamageHitSphereAction HitAction;
-    // public Transform HitTransform;
-    //
-    // [Header("Damage")] 
-    // public IsAliveEnemyFunction DealDamageCondition;
-    // public DealDamageAction DealDamageAction;
-    // public AtomicEvent<IAtomicObject> DealDamageEvent;
-    // public AtomicVariable<int> Damage;
-
-    public void Compose()
-    {
-        Debug.Log("COMPOSE");
-    }
-
-    // public void Compose(IAtomicObject owner)
-    // {
-    //     FireComponent.Compose();
-    //     Owner = owner;
-    //     Debug.Log(Owner + " Owner");
-    // }
+    //public FireComponent FireComponent;
+    [Header("Attack")] 
+    public AtomicFunction<bool> FireCondition;
+    public AtomicEvent FireEvent;
+    public AtomicAction FireAction;
     
-    private void ComposeData()
+    [Header("Hit")] 
+    public DamageHitSphereAction HitAction;
+    public Transform HitTransform;
+    
+    [Header("Damage")] 
+    public IsAliveEnemyFunction DealDamageCondition;
+    public DealDamageAction DealDamageAction;
+    public AtomicEvent<IAtomicObject> DealDamageEvent;
+    public AtomicVariable<int> Damage;
+
+    public void Compose(BatWeapon weapon, BatWeaponConfig config)
     {
-        
+        Debug.Log(weapon + " - weapon");
+        //ComposeConditions(weapon);
+        //ComposeActions(config, weapon);
     }
 
-    private void ComposeActions(BatWeaponConfig config)
+    private void ComposeConditions(BatWeapon batWeapon)
     {
+        Debug.Log(batWeapon.OwnerTeam.Value + " - batWeapon.OwnerTeam");
+        //DealDamageCondition.Compose(batWeapon.OwnerTeam);
+    }
+    
+    private void ComposeActions(BatWeaponConfig config, BatWeapon weapon)
+    {
+        FireAction.Compose(() =>
+        {
+            if (FireCondition.Value)
+            {
+                HitAction.Invoke();
+                FireEvent.Invoke();
+            }
+        });
+            
+        HitAction.Compose(
+            DealDamageCondition,
+            DealDamageAction,
+            HitTransform.AsFunction(it => it.position),
+            config.AsFunction(it => it.HitRadius)
+            );
 
-        // FireAction.Compose(() =>
-        // {
-        //     if (FireCondition.Value)
-        //     {
-        //         HitAction.Invoke();
-        //         FireEvent.Invoke();
-        //     }
-        // });
-        //     
-        // HitAction.Compose(
-        //     DealDamageCondition,
-        //     DealDamageAction,
-        //     HitTransform.AsFunction(it => it.position),
-        //     config.AsFunction(it => it.HitRadius)
-        //     );
-        
-        //DealDamageAction.Compose
+        DealDamageAction.Compose(
+            Damage,
+            weapon.Owner,
+            DealDamageEvent,
+            null,
+            null);
     }
 
     public void OnEnable()

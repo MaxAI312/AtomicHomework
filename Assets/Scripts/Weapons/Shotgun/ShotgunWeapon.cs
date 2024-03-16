@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class ShotgunWeapon : Weapon
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public override WeaponConfig Config => _shotgunWeaponConfig;
+    [SerializeField] private ShotgunWeaponConfig _shotgunWeaponConfig;
 }

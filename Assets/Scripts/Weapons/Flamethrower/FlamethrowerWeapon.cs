@@ -7,7 +7,10 @@ public sealed class FlamethrowerWeapon : Weapon
 {
     public FlamethrowerWeapon_Core Core;
     public FlamethrowerWeapon_View View;
-    
+
+    public override WeaponConfig Config => _flamethrowerWeaponConfig;
+    [SerializeField] private FlamethrowerWeaponConfig _flamethrowerWeaponConfig;
+
     public override void Compose()
     {
         base.Compose();
@@ -35,7 +38,7 @@ public sealed class FlamethrowerWeapon_Core
     public void Compose()
     {
         FireComponent.Compose();
-        Debug.Log("COMPOSE");
+        //Debug.Log("COMPOSE");
     }
     
     

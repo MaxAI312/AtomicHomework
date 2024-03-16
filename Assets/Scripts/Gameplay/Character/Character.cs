@@ -11,6 +11,10 @@ public sealed class Character : AtomicObject
     [Header("Weapon")] 
     [SerializeField] private List<AtomicObject> _weapons;
 
+    private IAtomicValue<TeamType> _team = new AtomicValue<TeamType>(TeamType.PLAYER);
+
+    private ObjectPool _objectPool;
+
     public Character_Core Core;
     public Character_View View;
 
@@ -18,23 +22,18 @@ public sealed class Character : AtomicObject
     {
         Core.Construct(objectPool);
         View.Construct(audioSource);
+
+        _objectPool = objectPool;
+
+        AddData(TeamAPI.Team, _team);
+
+        _weapons.ForEach(a => a.Compose());
+        
+        ConstructRangeWeapons(_objectPool);
     }
 
     public void Start()
     {
-        _weapons.ForEach(a =>
-        {
-            if (a.TryGet(WeaponAPI.Config, out WeaponConfig config))
-            {
-                if (config.Type == Weapon.Type.Range)
-                {
-                    Weapon weapon = (Weapon)a;
-                    //weapon.Construct();
-                }
-            }
-        });
-        _weapons.ForEach(a => a.Compose());
-        
         Core.Compose(_weapons);
         View.Compose(Core, _weapons);
 
@@ -43,9 +42,9 @@ public sealed class Character : AtomicObject
 
         AddData(AttackAPI.WeaponsStorage, _weapons);
         AddData(AttackAPI.SwitchToNextWeaponAction, Core.SwitchToNextWeaponAction);
+        //AddData(AttackAPI.FireAction, Core.FireComponent.FireAction);
 
         AddData(HealthAPI.IsAlive, Core.HealthComponent.IsAlive);
-
 
         Core.OnEnable();
         View.OnEnable();
@@ -64,6 +63,24 @@ public sealed class Character : AtomicObject
 
         Core.Dispose();
     }
+    
+    private void ConstructRangeWeapons(ObjectPool objectPool)
+    {
+        _weapons.ForEach(a =>
+        {
+            if (a.TryGet(WeaponAPI.Config, out WeaponConfig config))
+            {
+                Debug.Log("ConstructWeaponsConstructWeaponsConstructWeaponsCConstructWeapons");
+                Weapon weapon = (Weapon)a;
+                
+                if (config.Type == Weapon.Type.Range)
+                {
+                    Debug.Log("RAAAAANGE");
+                    weapon.Construct(objectPool);
+                }
+            }
+        });
+    }
 }
 
 [Serializable]
@@ -73,7 +90,7 @@ public sealed class Character_Core : IDisposable, IDamageable
 
     public TakeDamageAction TakeDamageAction = new();
 
-    //public FireComponent FireComponent;
+    public FireComponent FireComponent;
     public MoveComponent MoveComponent;
     public RotationComponent RotationComponent;
     public HealthComponent HealthComponent;

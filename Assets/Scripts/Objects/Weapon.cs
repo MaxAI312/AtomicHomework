@@ -1,3 +1,4 @@
+using Atomic.Elements;
 using Atomic.Objects;
 using Homework3;
 using UnityEngine;
@@ -20,16 +21,34 @@ public abstract class Weapon : AtomicObject
         Default = Bat
     }
     
-    public WeaponConfig Config => _config;
-    [SerializeField] private WeaponConfig _config;
+    public abstract WeaponConfig Config { get; }
+    // public WeaponConfig Config => _config;
+    // [SerializeField] private WeaponConfig _config;
 
-    public void Construct(ObjectPool objectPool = null)
+    public ObjectPool ObjectPool => _objectPool;
+    private ObjectPool _objectPool;
+    
+    public IAtomicValue<IAtomicObject> Owner => _owner;
+    [SerializeField] private AtomicVariable<AtomicObject> _owner;
+
+    public IAtomicValue<TeamType> OwnerTeam => _ownerTeam;
+    [SerializeField] private GetTeamOwnerFunction _ownerTeam;
+
+    public virtual void Construct(ObjectPool objectPool = null)
     {
-        
+        _objectPool = objectPool;
     }
 
     public override void Compose()
     {
-        AddData(WeaponAPI.Config, _config);
+        base.Compose();
+
+        //AddData(TeamAPI.Team, _ownerTeam);
+        AddData(WeaponAPI.Config, Config);
+        _ownerTeam.Compose(_owner);
+        Debug.Log("WEAPON ___ COMPOSE");
+        Debug.LogError(_owner.Value + " OWWWWNEEERRRR");
+        Debug.LogError(_ownerTeam.Invoke() + " - FUCKCKCKCKCKCKCKCKC");
+        Debug.LogError(Config.Type + " - FUCKCKCKCKCKCKCKCKC");
     }
 }

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 479f96f2607fe4b768050b1312330d03, type: 3}
   m_Name: FlamethrowerWeaponConfig
   m_EditorClassIdentifier: 
+  _model: 1
   _type: 1
   _damage: 10
