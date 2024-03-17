@@ -16,19 +16,15 @@ public class WeaponController
 
     public void Update()
     {
-        if (Input.GetMouseButtonDown(_numberButton))
+        if (Input.GetMouseButtonDown(_numberButton) == false) return;
+        
+        if (_attackable.TryGet(AttackAPI.CurrentWeapon, out AtomicVariable<AtomicObject> currentWeapon))
         {
-            if (_attackable.TryGet(AttackAPI.WeaponsStorage, out List<AtomicObject> weapons))//attackable наверно лучше weapon снизу назвать
+            if (currentWeapon.Value.TryGet(AttackAPI.FireAction, out IAtomicAction fireAction))
             {
-                foreach (AtomicObject weapon in weapons)
-                {
-                    //fireAction.Invoke();
-                    if (weapon.TryGet(AttackAPI.FireAction, out IAtomicAction fireAction))
-                    {
-                        Debug.Log("EBANA SIR");
-                        fireAction.Invoke();
-                    }
-                }
+                Debug.Log(currentWeapon.Value.Get(WeaponAPI.Config));
+                Debug.Log("EBANA SIR");
+                fireAction.Invoke();
             }
         }
     }

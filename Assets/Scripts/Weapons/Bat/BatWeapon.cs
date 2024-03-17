@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Atomic.Elements;
 using Atomic.Objects;
 using UnityEngine;
 
-[Serializable]
 public sealed class BatWeapon : Weapon
 {
     public override WeaponConfig Config => _batWeaponConfig;
@@ -18,6 +15,11 @@ public sealed class BatWeapon : Weapon
     {
         base.Compose();
         Core.Compose(this, _batWeaponConfig);
+    }
+
+    private void Start()
+    {
+        AddData(AttackAPI.FireAction, Core.FireAction);
     }
 }
 

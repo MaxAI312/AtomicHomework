@@ -329,6 +329,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _owner:
     value: {fileID: 1473468276}
+  Core:
+    FireComponent:
+      GameObject: {fileID: 365769555}
+      FirePoint: {fileID: 365769556}
+      AnimatorDispatcher: {fileID: 910644747}
+      _fireEnabled:
+        value: 1
+      _charges:
+        value: 0
   _sniperGunWeaponConfig: {fileID: 11400000, guid: a84a999653b0b42a88c2b5011db707b4, type: 2}
 --- !u!1 &424084837
 GameObject:
@@ -377,6 +386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _character: {fileID: 1473468276}
+  _atomicObject: {fileID: 1473468276}
   _poolConfig: {fileID: 11400000, guid: 69873587c5836430bad59f648f81a6e5, type: 2}
   _poolContainer: {fileID: 120303719}
   _audioSource: {fileID: 424084841}
@@ -523,6 +533,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _owner:
     value: {fileID: 1473468276}
+  Core:
+    FireComponent:
+      GameObject: {fileID: 464864645}
+      FirePoint: {fileID: 464864646}
+      AnimatorDispatcher: {fileID: 910644747}
+      _fireEnabled:
+        value: 1
+      _charges:
+        value: 100
   _machineGunWeaponConfig: {fileID: 11400000, guid: dacb7520b05b34e598c5bbd6a5c85c31, type: 2}
 --- !u!1 &490142147
 GameObject:
@@ -571,6 +590,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _owner:
     value: {fileID: 1473468276}
+  Core:
+    FireComponent:
+      GameObject: {fileID: 490142147}
+      FirePoint: {fileID: 490142148}
+      AnimatorDispatcher: {fileID: 910644747}
+      _fireEnabled:
+        value: 1
+      _charges:
+        value: 0
   _shotgunWeaponConfig: {fileID: 11400000, guid: b732f7955472444e38cedda306bb9a7a, type: 2}
 --- !u!1001 &601163336
 PrefabInstance:

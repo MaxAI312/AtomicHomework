@@ -16,6 +16,8 @@ public class RotationMechanics
 
     public void Update()
     {
+        if (_direction.Value == Vector3.zero) return;
+        
         float targetAngle = Mathf.Atan2(_direction.Value.x, _direction.Value.z) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
         _transform.rotation = Quaternion.Slerp(_transform.rotation, targetRotation, Time.deltaTime * _speed.Value);

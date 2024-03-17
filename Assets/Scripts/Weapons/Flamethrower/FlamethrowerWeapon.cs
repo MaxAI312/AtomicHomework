@@ -40,8 +40,6 @@ public sealed class FlamethrowerWeapon_Core
         FireComponent.Compose();
         //Debug.Log("COMPOSE");
     }
-    
-    
 }
 
 [Serializable]

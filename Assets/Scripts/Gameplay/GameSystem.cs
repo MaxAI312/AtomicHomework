@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using Atomic.Elements;
 using Atomic.Objects;
 using Homework3;
 using UnityEngine;
@@ -7,6 +5,7 @@ using UnityEngine;
 public class GameSystem : MonoBehaviour
 {
     [SerializeField] private Character _character;
+    [SerializeField] private AtomicObject _atomicObject;
 
     [SerializeField] private ObjectPoolConfig _poolConfig;
     [SerializeField] private Transform _poolContainer;
@@ -31,12 +30,12 @@ public class GameSystem : MonoBehaviour
 
     private void Start()
     {
-        _moveController = new MoveController(_character);
-        _fireController = new FireController(_character);
-        _rotateController = new RotateController(_character);
+        _moveController = new MoveController(_atomicObject);
+        _fireController = new FireController(_atomicObject);
+        _rotateController = new RotateController(_atomicObject);
 
-        _weaponController = new WeaponController(_character, 0);
-        _switchWeaponController = new SwitchWeaponController(_character, KeyCode.T);
+        _weaponController = new WeaponController(_atomicObject, 0);
+        _switchWeaponController = new SwitchWeaponController(_atomicObject, KeyCode.T);
         
          // _switchWeaponController = new SwitchWeaponController(
          //     _characterEntity.GetValue<SwitchWeaponAction>("SwitchWeaponAction"),

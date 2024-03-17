@@ -46,9 +46,5 @@ public abstract class Weapon : AtomicObject
         //AddData(TeamAPI.Team, _ownerTeam);
         AddData(WeaponAPI.Config, Config);
         _ownerTeam.Compose(_owner);
-        Debug.Log("WEAPON ___ COMPOSE");
-        Debug.LogError(_owner.Value + " OWWWWNEEERRRR");
-        Debug.LogError(_ownerTeam.Invoke() + " - FUCKCKCKCKCKCKCKCKC");
-        Debug.LogError(Config.Type + " - FUCKCKCKCKCKCKCKCKC");
     }
 }

@@ -42,7 +42,7 @@ public sealed class Character : AtomicObject
 
         AddData(AttackAPI.WeaponsStorage, _weapons);
         AddData(AttackAPI.SwitchToNextWeaponAction, Core.SwitchToNextWeaponAction);
-        //AddData(AttackAPI.FireAction, Core.FireComponent.FireAction);
+        AddData(AttackAPI.CurrentWeapon, Core.CurrentWeapon);
 
         AddData(HealthAPI.IsAlive, Core.HealthComponent.IsAlive);
 
@@ -70,12 +70,10 @@ public sealed class Character : AtomicObject
         {
             if (a.TryGet(WeaponAPI.Config, out WeaponConfig config))
             {
-                Debug.Log("ConstructWeaponsConstructWeaponsConstructWeaponsCConstructWeapons");
                 Weapon weapon = (Weapon)a;
                 
                 if (config.Type == Weapon.Type.Range)
                 {
-                    Debug.Log("RAAAAANGE");
                     weapon.Construct(objectPool);
                 }
             }
@@ -89,8 +87,7 @@ public sealed class Character_Core : IDisposable, IDamageable
     public Transform Transform;
 
     public TakeDamageAction TakeDamageAction = new();
-
-    public FireComponent FireComponent;
+    
     public MoveComponent MoveComponent;
     public RotationComponent RotationComponent;
     public HealthComponent HealthComponent;
@@ -121,10 +118,10 @@ public sealed class Character_Core : IDisposable, IDamageable
             is { } found)
         {
             CurrentWeapon.Value = found;
+            
         }
 
         MoveComponent.Compose(Transform);
-        //FireComponent.Compose();
         RotationComponent.Compose(Transform);
         HealthComponent.Compose(Transform);
 
