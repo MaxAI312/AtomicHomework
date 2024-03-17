@@ -2,6 +2,7 @@ using System;
 using Atomic.Elements;
 using Homework3;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
 public sealed class FireComponent : IDisposable
@@ -22,7 +23,9 @@ public sealed class FireComponent : IDisposable
     public FireCondition FireCondition = new();
 
     public SpawnBulletAction BulletAction = new();
-    public FireAction FireAction;
+    [FormerlySerializedAs("rangeFireAction")] 
+    [FormerlySerializedAs("FireAction")] 
+    public RangeFireAction RangeFireAction;
 
     private ObjectPool _bulletPool;
     
@@ -35,13 +38,13 @@ public sealed class FireComponent : IDisposable
     {
         FireCondition.Compose(FireEnabled, Charges, GameObject);
         BulletAction.Compose(_bulletPool, FirePoint);
-        FireAction.Compose(Charges, FireCondition, BulletAction, FireEvent, AnimatorDispatcher);
+        RangeFireAction.Compose(Charges, FireCondition, BulletAction, FireEvent, AnimatorDispatcher);
     }
 
     public void Dispose()
     {
         _charges?.Dispose();
         _fireEvent?.Dispose();
-        FireAction?.Dispose();
+        RangeFireAction?.Dispose();
     }
 }

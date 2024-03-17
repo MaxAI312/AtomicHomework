@@ -19,7 +19,7 @@ public sealed class MachineGunWeapon : Weapon
 
     private void Start()
     {
-        AddData(AttackAPI.FireAction, Core.FireComponent.FireAction);
+        AddData(AttackAPI.FireAction, Core.FireComponent.RangeFireAction);
     }
 }
 

@@ -7,7 +7,7 @@ public sealed class BatWeapon : Weapon
 {
     public override WeaponConfig Config => _batWeaponConfig;
     [SerializeField] private BatWeaponConfig _batWeaponConfig;
-    
+
     public BatWeapon_Core Core;
     public BatWeapon_View View;
 
@@ -16,6 +16,13 @@ public sealed class BatWeapon : Weapon
         base.Compose();
         Core.Compose(this, _batWeaponConfig);
     }
+
+
+    private void OnDrawGizmos()
+    {
+        Core.OnDrawGizmos(_batWeaponConfig);
+    }
+
 
     private void Start()
     {
@@ -26,52 +33,49 @@ public sealed class BatWeapon : Weapon
 [Serializable]
 public sealed class BatWeapon_Core
 {
-    //public FireComponent FireComponent;
+    public AtomicVariable<bool> IsEnabled = new(true);
+
     [Header("Attack")] 
-    public AtomicFunction<bool> FireCondition;
-    public AtomicEvent FireEvent;
-    public AtomicAction FireAction;
-    
+    public AtomicFunction<bool> FireCondition = new();
+    public AtomicEvent FireEvent = new();
+    public MeleeFireAction FireAction = new();
+
     [Header("Hit")] 
-    public DamageHitSphereAction HitAction;
+    public DamageHitSphereAction HitAction = new();
     public Transform HitTransform;
-    
+
     [Header("Damage")] 
-    public IsAliveEnemyFunction DealDamageCondition;
-    public DealDamageAction DealDamageAction;
-    public AtomicEvent<IAtomicObject> DealDamageEvent;
+    public IsAliveEnemyFunction DealDamageCondition = new();
+    public DealDamageAction DealDamageAction = new();
+    public AtomicEvent<IAtomicObject> DealDamageEvent = new();
     public AtomicVariable<int> Damage;
 
     public void Compose(BatWeapon weapon, BatWeaponConfig config)
     {
         Debug.Log(weapon + " - weapon");
-        //ComposeConditions(weapon);
-        //ComposeActions(config, weapon);
+        ComposeConditions(weapon);
+        ComposeActions(config, weapon);
     }
 
     private void ComposeConditions(BatWeapon batWeapon)
     {
-        Debug.Log(batWeapon.OwnerTeam.Value + " - batWeapon.OwnerTeam");
-        //DealDamageCondition.Compose(batWeapon.OwnerTeam);
+        FireCondition.Compose(() => IsEnabled.Value);
+        DealDamageCondition.Compose(batWeapon.OwnerTeam);
     }
-    
+
     private void ComposeActions(BatWeaponConfig config, BatWeapon weapon)
     {
-        FireAction.Compose(() =>
-        {
-            if (FireCondition.Value)
-            {
-                HitAction.Invoke();
-                FireEvent.Invoke();
-            }
-        });
-            
+        FireAction.Compose(
+            FireCondition,
+            HitAction,
+            FireEvent);
+
         HitAction.Compose(
             DealDamageCondition,
             DealDamageAction,
             HitTransform.AsFunction(it => it.position),
             config.AsFunction(it => it.HitRadius)
-            );
+        );
 
         DealDamageAction.Compose(
             Damage,
@@ -81,35 +85,17 @@ public sealed class BatWeapon_Core
             null);
     }
 
-    public void OnEnable()
+    public void OnDrawGizmos(BatWeaponConfig batWeaponConfig)
     {
+        if (this.HitTransform != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(this.HitTransform.position, batWeaponConfig.HitRadius);
+        }
     }
-
-    public void OnDisable()
-    {
-        
-    }
-
-    public void Update()
-    {
-        
-        //FireComponent.FireEnabled.Value = 
-    }
-//
-// #if UNITY_EDITOR
-//         public void OnDrawGizmos(BatWeaponConfig config)
-//         {
-//             if (HitTransform != null)
-//             {
-//                 Gizmos.color = Color.red;
-//                 Gizmos.DrawWireSphere(this.HitTransform.position, config.HitRadius);
-//             }
-//         }
-// #endif
 }
 
 [Serializable]
 public sealed class BatWeapon_View
 {
 }
-

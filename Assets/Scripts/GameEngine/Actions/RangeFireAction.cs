@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 [Serializable]
-public class FireAction : IAtomicAction
+public class RangeFireAction : IAtomicAction
 {
     private IAtomicVariable<int> _charges;
     private IAtomicValue<bool> _shootCondition;

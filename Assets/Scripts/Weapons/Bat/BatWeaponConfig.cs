@@ -6,5 +6,6 @@ using UnityEngine;
 )]
 public class BatWeaponConfig : WeaponConfig
 {
-    public float HitRadius { get; set; }
+    public float HitRadius => _hitRadius;
+    [SerializeField] private float _hitRadius;
 }

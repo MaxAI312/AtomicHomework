@@ -7,14 +7,14 @@ public class DamageHitSphereAction : IAtomicAction
 {
     private static readonly Collider[] _buffer = new Collider[32];
 
-    private IAtomicFunction<Entity, bool> _dealDamageCondition;
-    private IAtomicAction<Entity> _dealDamageAction;
+    private IAtomicFunction<IAtomicObject, bool> _dealDamageCondition;
+    private IAtomicAction<IAtomicObject> _dealDamageAction;
     private IAtomicValue<Vector3> _hitPoint;
     private IAtomicValue<float> _hitRadius;
 
     public void Compose(
-        IAtomicFunction<Entity, bool> dealDamageCondition,
-        IAtomicAction<Entity> dealDamageAction,
+        IAtomicFunction<IAtomicObject, bool> dealDamageCondition,
+        IAtomicAction<IAtomicObject> dealDamageAction,
         IAtomicValue<Vector3> hitPoint,
         IAtomicValue<float> hitRadius)
     {
@@ -26,15 +26,18 @@ public class DamageHitSphereAction : IAtomicAction
 
     public void Invoke()
     {
+        Debug.Log("DamageHitSphereAction");
         int size = Physics.OverlapSphereNonAlloc(_hitPoint.Value, _hitRadius.Value, _buffer);
 
         for (int i = 0; i < size; i++)
         {
+
             Collider collider = _buffer[i];
-            // if (collider.TryGetComponent(out IAtomicObject target) && _dealDamageCondition.Invoke(target))
-            // {
-            //     _dealDamageAction.Invoke(target);
-            // }
+            if (collider.TryGetComponent(out IAtomicObject target) && _dealDamageCondition.Invoke(target))
+            {
+                Debug.Log("WOOOOOOOOORK");
+                //_dealDamageAction.Invoke(target);
+            }
         }
     }
 }

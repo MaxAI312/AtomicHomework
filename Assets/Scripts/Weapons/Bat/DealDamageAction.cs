@@ -2,7 +2,7 @@ using Atomic.Elements;
 using Atomic.Objects;
 using UnityEngine;
 
-public sealed class DealDamageAction : IAtomicAction<Entity>
+public sealed class DealDamageAction : IAtomicAction<IAtomicObject>
 {
     private IAtomicValue<int> _damage;
     private IAtomicValue<IAtomicObject> _owner;
@@ -25,9 +25,9 @@ public sealed class DealDamageAction : IAtomicAction<Entity>
         _normal = normal;
     }
     
-    public void Invoke(Entity target)
+
+    public void Invoke(IAtomicObject args)
     {
-        //var args = new TakeDamageArgs 
         
     }
 }
