@@ -330,7 +330,7 @@ MonoBehaviour:
   _owner:
     value: {fileID: 1473468276}
   Core:
-    FireComponent:
+    fireBulletComponent:
       GameObject: {fileID: 365769555}
       FirePoint: {fileID: 365769556}
       AnimatorDispatcher: {fileID: 910644747}
@@ -534,14 +534,14 @@ MonoBehaviour:
   _owner:
     value: {fileID: 1473468276}
   Core:
-    FireComponent:
+    FireBulletComponent:
       GameObject: {fileID: 464864645}
       FirePoint: {fileID: 464864646}
       AnimatorDispatcher: {fileID: 910644747}
       _fireEnabled:
         value: 1
       _charges:
-        value: 100
+        value: 50
   _machineGunWeaponConfig: {fileID: 11400000, guid: dacb7520b05b34e598c5bbd6a5c85c31, type: 2}
 --- !u!1 &490142147
 GameObject:
@@ -591,7 +591,7 @@ MonoBehaviour:
   _owner:
     value: {fileID: 1473468276}
   Core:
-    FireComponent:
+    fireBulletComponent:
       GameObject: {fileID: 490142147}
       FirePoint: {fileID: 490142148}
       AnimatorDispatcher: {fileID: 910644747}
@@ -1229,7 +1229,7 @@ MonoBehaviour:
   _owner:
     value: {fileID: 1473468276}
   Core:
-    FireComponent:
+    FireBulletComponent:
       GameObject: {fileID: 2022199848}
       FirePoint: {fileID: 2022199849}
       AnimatorDispatcher: {fileID: 910644747}
