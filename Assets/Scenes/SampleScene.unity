@@ -836,6 +836,8 @@ MonoBehaviour:
     value: {fileID: 1473468276}
   _batWeaponConfig: {fileID: 11400000, guid: 3d9ac37da9de04f618f58cbf40538d83, type: 2}
   Core:
+    IsEnabled:
+      value: 1
     HitTransform: {fileID: 795749073}
     Damage:
       value: 0

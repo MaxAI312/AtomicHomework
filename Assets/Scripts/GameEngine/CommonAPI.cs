@@ -13,9 +13,10 @@ public static class AttackAPI
     public const string CurrentWeapon = nameof(CurrentWeapon);
 }
 
-public static class HealthAPI
+public static class LifeAPI
 {
     public const string IsAlive = nameof(IsAlive);
+    public const string TakeDamageAction = nameof(TakeDamageAction);
 }
 
 public static class WeaponAPI

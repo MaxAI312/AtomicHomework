@@ -26,26 +26,29 @@ public class RangeFireAction : IAtomicAction
         _shootEvent = shootEvent;
         _animatorDispatcher = animatorDispatcher;
         
-        _animatorDispatcher.OnFireEvent += HandleFireEvent;
+        //_animatorDispatcher.OnFireEvent += HandleFireEvent;
     }
     
     [Button]
     public void Invoke()
     {
-        Debug.Log(_shootCondition.Value + " - TEEEEST");
+        Debug.Log(_shootCondition.Value + " - RangeFireAction - Invoke");
+        
         if (_shootCondition.Value == false) return;
-        Debug.Log("PISISISISSISISISISSISISI");
+        //Все понял нужны не разные Action для Range, а просто передавать expressense с списком условий
 
+        HandleFireEvent();
         _shootEvent.Invoke();
     }
 
     public void Dispose()
     {
-        _animatorDispatcher.OnFireEvent -= HandleFireEvent;
+        //_animatorDispatcher.OnFireEvent -= HandleFireEvent;
     }
 
     private void HandleFireEvent()
     {
+        Debug.Log("HandleFireEvent");
         _charges.Value--;
         _shootAction?.Invoke();
     }

@@ -28,6 +28,6 @@ public class HealthComponent
 
     public void OnDisable()
     {
-        _deathMechanics.OnDisable();
+        _deathMechanics?.OnDisable();
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Atomic.Elements;
 using Atomic.Objects;
 using Homework3;
@@ -26,10 +27,10 @@ public sealed class Character : AtomicObject
         _objectPool = objectPool;
 
         AddData(TeamAPI.Team, _team);
-
-        _weapons.ForEach(a => a.Compose());
         
         ConstructRangeWeapons(_objectPool);
+
+        _weapons.ForEach(a => a.Compose());
     }
 
     public void Start()
@@ -44,7 +45,7 @@ public sealed class Character : AtomicObject
         AddData(AttackAPI.SwitchToNextWeaponAction, Core.SwitchToNextWeaponAction);
         AddData(AttackAPI.CurrentWeapon, Core.CurrentWeapon);
 
-        AddData(HealthAPI.IsAlive, Core.HealthComponent.IsAlive);
+        AddData(LifeAPI.IsAlive, Core.HealthComponent.IsAlive);
 
         Core.OnEnable();
         View.OnEnable();
@@ -66,18 +67,24 @@ public sealed class Character : AtomicObject
     
     private void ConstructRangeWeapons(ObjectPool objectPool)
     {
-        _weapons.ForEach(a =>
-        {
-            if (a.TryGet(WeaponAPI.Config, out WeaponConfig config))
-            {
-                Weapon weapon = (Weapon)a;
-                
-                if (config.Type == Weapon.Type.Range)
-                {
-                    weapon.Construct(objectPool);
-                }
-            }
-        });
+        List<Weapon> listRangeWeapons = _weapons
+            .OfType<Weapon>()
+            .Where(w => w.Config.Type == Weapon.Type.Range).ToList();
+        
+        listRangeWeapons.ForEach(a => a.Construct(objectPool));
+        
+        // _weapons.ForEach(a =>
+        // {
+        //     if (a.TryGet(WeaponAPI.Config, out WeaponConfig config))
+        //     {
+        //         Weapon weapon = (Weapon)a;
+        //         
+        //         if (config.Type == Weapon.Type.Range)
+        //         {
+        //             weapon.Construct(objectPool);
+        //         }
+        //     }
+        // });
     }
 }
 
@@ -104,28 +111,58 @@ public sealed class Character_Core : IDisposable, IDamageable
     {
         _objectPool = objectPool;
         //FireComponent.Construct(objectPool);
+        
     }
 
     public void Compose(List<AtomicObject> weapons)
+    {
+        SetDefaultWeapon(weapons);
+        ComposeComponents();
+        ComposeAction(weapons);
+    }
+    
+    public void OnEnable()
+    {
+        HealthComponent.OnEnable();
+    }
+
+    public void OnDisable()
+    {
+        HealthComponent.OnDisable();
+    }
+
+    public void Update()
+    {
+        MoveComponent.Update();
+        //FireComponent.FireEnabled.Value = !MoveComponent.IsMoving.Value;
+        RotationComponent.Update();
+    }
+
+    public void Dispose()
+    {
+        //FireComponent?.Dispose();
+    }
+
+    private void SetDefaultWeapon(List<AtomicObject> weapons)
     {
         if (weapons.Find(a =>
             {
                 if (a.TryGet(WeaponAPI.Config, out WeaponConfig config))
                     return config.Model == Weapon.Model.Default;
-                
+
                 return false;
             })
             is { } found)
         {
             CurrentWeapon.Value = found;
-            
         }
+    }
 
+    private void ComposeComponents()
+    {
         MoveComponent.Compose(Transform);
         RotationComponent.Compose(Transform);
         HealthComponent.Compose(Transform);
-
-        ComposeAction(weapons);
     }
 
     private void ComposeAction(List<AtomicObject> weapons)
@@ -149,31 +186,9 @@ public sealed class Character_Core : IDisposable, IDamageable
         });
     }
 
-    public void OnEnable()
+    void IDamageable.TakeDamage(TakeDamageArgs args)
     {
-        HealthComponent.OnEnable();
-    }
-
-    public void OnDisable()
-    {
-        HealthComponent.OnDisable();
-    }
-
-    public void Update()
-    {
-        MoveComponent.Update();
-        //FireComponent.FireEnabled.Value = !MoveComponent.IsMoving.Value;
-        RotationComponent.Update();
-    }
-
-    public void Dispose()
-    {
-        //FireComponent?.Dispose();
-    }
-
-    public void TakeDamage(int damage)
-    {
-        TakeDamageAction.Invoke(damage);
+        TakeDamageAction.Invoke(args);
     }
 }
 

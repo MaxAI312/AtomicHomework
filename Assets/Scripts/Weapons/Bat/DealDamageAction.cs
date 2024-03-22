@@ -1,7 +1,11 @@
+using System;
 using Atomic.Elements;
+using Atomic.Extensions;
 using Atomic.Objects;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
+[Serializable]
 public sealed class DealDamageAction : IAtomicAction<IAtomicObject>
 {
     private IAtomicValue<int> _damage;
@@ -25,25 +29,13 @@ public sealed class DealDamageAction : IAtomicAction<IAtomicObject>
         _normal = normal;
     }
     
-
-    public void Invoke(IAtomicObject args)
+    [Button]
+    public void Invoke(IAtomicObject target)
     {
-        
+        var args = new TakeDamageArgs(
+            _damage.Value,
+            _owner?.Value
+        );
+        target.InvokeAction(LifeAPI.TakeDamageAction, args);
     }
-}
-
-public struct TakeDamageArg
-{
-    // public int Damage;
-    // public Vector3? Point;
-    // public Vector3? Normal;
-    // public Entity Owner;
-    //
-    // public TakeDamageArg(
-    //     int damage,
-    //     Vector3? point = null,
-    //     Vector3? normal = null)
-    // {
-    //     
-    // }
 }

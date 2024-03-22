@@ -15,6 +15,7 @@ public sealed class SpawnBulletAction : IAtomicAction
     
     public void Invoke()
     {
+        Debug.Log(_objectPool + " - ObjectPool SPAWNBULLET");
         GameObject bulletGameObject = _objectPool.GetObject();
         bulletGameObject.transform.position = _firePoint.position;
         

@@ -1,6 +1,7 @@
 using System;
 using Homework3;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public sealed class MachineGunWeapon : Weapon
 {
@@ -9,7 +10,13 @@ public sealed class MachineGunWeapon : Weapon
     
     public override WeaponConfig Config => _machineGunWeaponConfig;
     [SerializeField] private MachineGunWeaponConfig _machineGunWeaponConfig;
-    
+
+    public override void Construct(ObjectPool objectPool)
+    {
+        Debug.Log(objectPool + " - objectPool");
+        Core.Construct(objectPool);
+    }
+
     public override void Compose()
     {
         base.Compose();
@@ -19,23 +26,25 @@ public sealed class MachineGunWeapon : Weapon
 
     private void Start()
     {
-        AddData(AttackAPI.FireAction, Core.FireComponent.RangeFireAction);
+        AddData(AttackAPI.FireAction, Core.FireBulletComponent.RangeFireAction);
     }
 }
 
 [Serializable]
 public sealed class MachineGunWeapon_Core
 {
-    public FireComponent FireComponent;
-
+    [FormerlySerializedAs("fireBulletComponent")] 
+    [FormerlySerializedAs("FireComponent")] 
+    public FireBulletComponent FireBulletComponent;
+    
     public void Construct(ObjectPool objectPool)
     {
-        FireComponent.Construct(objectPool);
+        FireBulletComponent.Construct(objectPool);
     }
 
     public void Compose()
     {
-        FireComponent.Compose();
+        FireBulletComponent.Compose();
     }
 }
 

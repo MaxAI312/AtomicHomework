@@ -1,5 +1,4 @@
 using Atomic.Elements;
-using UnityEngine;
 
 public sealed class MeleeFireAction : IAtomicAction
 {

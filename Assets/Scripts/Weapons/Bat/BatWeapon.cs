@@ -52,7 +52,7 @@ public sealed class BatWeapon_Core
 
     public void Compose(BatWeapon weapon, BatWeaponConfig config)
     {
-        Debug.Log(weapon + " - weapon");
+        Damage.Value = config.Damage;
         ComposeConditions(weapon);
         ComposeActions(config, weapon);
     }

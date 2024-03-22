@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 [Serializable]
-public sealed class FireComponent : IDisposable
+public sealed class FireBulletComponent : IDisposable
 {
     public GameObject GameObject;
     public Transform FirePoint;
@@ -32,6 +32,7 @@ public sealed class FireComponent : IDisposable
     public void Construct(ObjectPool objectPool)
     {
         _bulletPool = objectPool;
+        Debug.Log(_bulletPool + " - _bulletPool");
     }
     
     public void Compose()

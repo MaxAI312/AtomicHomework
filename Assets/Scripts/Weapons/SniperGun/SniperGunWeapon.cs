@@ -1,6 +1,7 @@
 using System;
 using Homework3;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public sealed class SniperGunWeapon : Weapon
 {
@@ -19,23 +20,24 @@ public sealed class SniperGunWeapon : Weapon
 
     private void Start()
     {
-        AddData(AttackAPI.FireAction, Core.FireComponent.RangeFireAction);
+        AddData(AttackAPI.FireAction, Core.fireBulletComponent.RangeFireAction);
     }
 }
 
 [Serializable]
 public sealed class SniperGunWeapon_Core
 {
-    public FireComponent FireComponent;
+    [FormerlySerializedAs("FireComponent")] 
+    public FireBulletComponent fireBulletComponent;
 
     public void Construct(ObjectPool objectPool)
     {
-        FireComponent.Construct(objectPool);
+        fireBulletComponent.Construct(objectPool);
     }
     
     public void Compose()
     {
-        FireComponent.Compose();
+        fireBulletComponent.Compose();
     }
 }
 

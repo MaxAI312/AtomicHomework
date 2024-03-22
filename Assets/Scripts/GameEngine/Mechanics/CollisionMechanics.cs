@@ -22,7 +22,8 @@ public sealed class CollisionMechanics
     
     public void OnTriggerEnter(Collider collider)
     {
-        collider.GetComponent<IDamageable>()?.TakeDamage(_damage.Value);
+        TakeDamageArgs args = new TakeDamageArgs(_damage.Value);
+        collider.GetComponent<IDamageable>()?.TakeDamage(args);
         _objectPool.ReturnObject(_gameObject);
     }
 }

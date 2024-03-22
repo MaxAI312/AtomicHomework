@@ -133,7 +133,7 @@ MonoBehaviour:
   _transform: {fileID: 777260052779969715}
   HealthComponent:
     _hitPoints:
-      value: 3
+      value: 100
     _isAlive:
       value: 1
 --- !u!136 &8980347827039411933

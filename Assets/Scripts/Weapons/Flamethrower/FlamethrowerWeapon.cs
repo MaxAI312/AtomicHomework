@@ -2,6 +2,7 @@ using System;
 using Atomic.Objects;
 using Homework3;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public sealed class FlamethrowerWeapon : Weapon
 {
@@ -20,7 +21,7 @@ public sealed class FlamethrowerWeapon : Weapon
 
     private void Start()
     {
-        AddData(AttackAPI.FireAction, Core.FireComponent.RangeFireAction);
+        AddData(AttackAPI.FireAction, Core.FireBulletComponent.RangeFireAction);
     }
 }
 
@@ -28,16 +29,18 @@ public sealed class FlamethrowerWeapon : Weapon
 public sealed class FlamethrowerWeapon_Core
 {
     public IAtomicObject Owner;
-    public FireComponent FireComponent;
+    [FormerlySerializedAs("fireBulletComponent")]
+    [FormerlySerializedAs("FireComponent")] 
+    public FireBulletComponent FireBulletComponent;
 
     public void Construct(ObjectPool objectPool)
     {
-        FireComponent.Construct(objectPool);
+        FireBulletComponent.Construct(objectPool);
     }
     
     public void Compose()
     {
-        FireComponent.Compose();
+        FireBulletComponent.Compose();
         //Debug.Log("COMPOSE");
     }
 }

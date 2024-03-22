@@ -26,17 +26,17 @@ public class DamageHitSphereAction : IAtomicAction
 
     public void Invoke()
     {
-        Debug.Log("DamageHitSphereAction");
         int size = Physics.OverlapSphereNonAlloc(_hitPoint.Value, _hitRadius.Value, _buffer);
-
+        Debug.Log(size + " - size buffer");
         for (int i = 0; i < size; i++)
         {
-
             Collider collider = _buffer[i];
-            if (collider.TryGetComponent(out IAtomicObject target) && _dealDamageCondition.Invoke(target))
+            //if (collider.TryGetComponent(out IAtomicObject target) && _dealDamageCondition.Invoke(target))
+            if (collider.TryGetComponent(out AtomicObject target) && 
+                _dealDamageCondition.Invoke(target))
             {
-                Debug.Log("WOOOOOOOOORK");
-                //_dealDamageAction.Invoke(target);
+                Debug.Log("DamageHitSphereAction - Invoke");
+                _dealDamageAction.Invoke(target);
             }
         }
     }

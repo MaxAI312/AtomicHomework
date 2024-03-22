@@ -23,7 +23,6 @@ public class WeaponController
             if (currentWeapon.Value.TryGet(AttackAPI.FireAction, out IAtomicAction fireAction))
             {
                 Debug.Log(currentWeapon.Value.Get(WeaponAPI.Config));
-                Debug.Log("EBANA SIR");
                 fireAction.Invoke();
             }
         }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Homework3;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public sealed class ShotgunWeapon : Weapon
 {
@@ -21,23 +22,23 @@ public sealed class ShotgunWeapon : Weapon
 
     private void Start()
     {
-        AddData(AttackAPI.FireAction, Core.FireComponent.RangeFireAction);
+        AddData(AttackAPI.FireAction, Core.fireBulletComponent.RangeFireAction);
     }
 }
 
 [Serializable]
 public sealed class ShotgunWeapon_Core
 {
-    public FireComponent FireComponent;
+    [FormerlySerializedAs("FireComponent")] public FireBulletComponent fireBulletComponent;
 
     public void Construct(ObjectPool objectPool)
     {
-        FireComponent.Construct(objectPool);
+        fireBulletComponent.Construct(objectPool);
     }
     
     public void Compose()
     {
-        FireComponent.Compose();
+        fireBulletComponent.Compose();
     }
 }
 

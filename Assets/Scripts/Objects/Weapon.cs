@@ -25,8 +25,8 @@ public abstract class Weapon : AtomicObject
     // public WeaponConfig Config => _config;
     // [SerializeField] private WeaponConfig _config;
 
-    public ObjectPool ObjectPool => _objectPool;
-    private ObjectPool _objectPool;
+    // public ObjectPool ObjectPool => _objectPool;
+    // private ObjectPool _objectPool;
     
     public IAtomicValue<IAtomicObject> Owner => _owner;
     [SerializeField] private AtomicVariable<AtomicObject> _owner;
@@ -34,9 +34,9 @@ public abstract class Weapon : AtomicObject
     public IAtomicValue<TeamType> OwnerTeam => _ownerTeam;
     [SerializeField] private GetTeamOwnerFunction _ownerTeam;
 
-    public virtual void Construct(ObjectPool objectPool = null)
+    public virtual void Construct(ObjectPool objectPool)
     {
-        _objectPool = objectPool;
+        //_objectPool = objectPool;
     }
 
     public override void Compose()
