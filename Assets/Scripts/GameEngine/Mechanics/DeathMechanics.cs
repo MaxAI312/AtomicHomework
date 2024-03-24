@@ -36,7 +36,7 @@ public sealed class DeathMechanics
         {
             _isAlive.Value = false;
             _deathEvent.Invoke();
-            Object.Destroy(_gameObject);
+            //Object.Destroy(_gameObject);
         }
     }
 }

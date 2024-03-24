@@ -5,34 +5,66 @@ using UnityEngine;
 [Serializable]
 public sealed class FireRaycastComponent : IDisposable
 {
+    [SerializeField] public LayerMask _layerMask;
+    
     public GameObject GameObject;
     public Transform FirePoint;
     public AnimatorDispatcher AnimatorDispatcher;
 
     public IAtomicVariable<bool> FireEnabled => _fireEnabled;
     [SerializeField] private AtomicVariable<bool> _fireEnabled;
+    // public IAtomicExpression<bool> FireEnabled => _fireEnabled;
+    // [SerializeField] private AtomicValue<bool> _fireEnabled = new(true);
 
     public IAtomicEvent FireEvent => _fireEvent;
     [SerializeField] private AtomicEvent _fireEvent;
 
-    public IAtomicVariable<int> Charges => _charges;
-    [SerializeField] private AtomicVariable<int> _charges;
-
-    public FireCondition FireCondition = new();
+    public AtomicFunction<bool> FireCondition = new();
     public RaycastAction RaycastAction = new();
-    public RangeFireAction RangeFireAction;
+    //public RangeFireAction RangeFireAction;
+    public AtomicAction<Vector3> RangeFireAction = new();
 
-    public void Compose()
+    public void Compose(WeaponConfig config)
     {
-        FireCondition.Compose(FireEnabled, Charges, GameObject);
-        RaycastAction.Compose(FirePoint);
-        RangeFireAction.Compose(Charges, FireCondition, RaycastAction, FireEvent, AnimatorDispatcher);
+        ComposeCondition();
+        ComposeActions(config);
+    }
+
+    private void ComposeCondition()
+    {
+        FireCondition.Compose(() => _fireEnabled.Value && GameObject.activeSelf);
+    }
+
+    private void ComposeActions(WeaponConfig config)
+    {
+        RaycastAction.Compose(
+            FirePoint,
+            config.Damage.AsValue(),
+            _layerMask);
+        
+        RangeFireAction.Compose(clickPoint =>
+        {
+            if (FireCondition.Value)
+            {
+                RaycastAction.Invoke();
+                FireEvent?.Invoke();
+            }
+        });
+    }
+
+    public void OnDrawGizmos()
+    {
+        if (FirePoint != null)
+        {
+            Vector3 direction = FirePoint.forward;
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(FirePoint.transform.position, direction * 5f);
+        }
     }
 
     public void Dispose()
     {
-        _charges?.Dispose();
         _fireEvent?.Dispose();
-        RangeFireAction?.Dispose();
+        //RangeFireAction?.Dispose();
     }
 }

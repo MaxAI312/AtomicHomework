@@ -8,7 +8,7 @@ public class HealthComponent
     public IAtomicVariable<int> HitPoints => _hitPoints;
     [SerializeField] private AtomicVariable<int> _hitPoints = new(30);
 
-    public IAtomicVariable<bool> IsAlive => _isAlive;
+    public IAtomicValue<bool> IsAlive => _isAlive;
     [SerializeField] private AtomicVariable<bool> _isAlive = new(true);
     
     public IAtomicEvent DeathEvent => _deathEvent;
@@ -18,7 +18,7 @@ public class HealthComponent
 
     public void Compose(Transform transform)
     {
-        _deathMechanics = new DeathMechanics(_hitPoints, IsAlive, transform.gameObject, _deathEvent);
+        _deathMechanics = new DeathMechanics(_hitPoints, _isAlive, transform.gameObject, _deathEvent);
     }
     
     public void OnEnable()

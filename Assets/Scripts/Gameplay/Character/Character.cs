@@ -38,7 +38,9 @@ public sealed class Character : AtomicObject
         Core.Compose(_weapons);
         View.Compose(Core, _weapons);
 
-        AddData(CommonAPI.MovementDirection, Core.MoveComponent.MovementDirection);
+        AddData(MovementAPI.Direction, Core.MoveComponent.MovementDirection);
+        AddData(MovementAPI.IsMoving, Core.MoveComponent.IsMoving);
+        
         AddData(CommonAPI.RotationDirection, Core.RotationComponent.RotationDirection);
 
         AddData(AttackAPI.WeaponsStorage, _weapons);

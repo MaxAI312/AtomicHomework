@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 [Serializable]
-public class RangeFireAction : IAtomicAction
+public class RangeFireAction : IAtomicAction<Vector3>
 {
     private IAtomicVariable<int> _charges;
     private IAtomicValue<bool> _shootCondition;
@@ -30,12 +30,11 @@ public class RangeFireAction : IAtomicAction
     }
     
     [Button]
-    public void Invoke()
+    public void Invoke(Vector3 clickPoint)
     {
         Debug.Log(_shootCondition.Value + " - RangeFireAction - Invoke");
         
         if (_shootCondition.Value == false) return;
-        //Все понял нужны не разные Action для Range, а просто передавать expressense с списком условий
 
         HandleFireEvent();
         _shootEvent.Invoke();

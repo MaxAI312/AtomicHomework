@@ -14,13 +14,18 @@ public sealed class SniperGunWeapon : Weapon
     public override void Compose()
     {
         base.Compose();
-        Core.Compose();
+        Core.Compose(Config);
         View.Compose(Core);
     }
 
     private void Start()
     {
-        AddData(AttackAPI.FireAction, Core.fireBulletComponent.RangeFireAction);
+        AddData(AttackAPI.FireAction, Core.FireRaycastComponent.RangeFireAction);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Core.FireRaycastComponent.OnDrawGizmos();
     }
 }
 
@@ -28,16 +33,12 @@ public sealed class SniperGunWeapon : Weapon
 public sealed class SniperGunWeapon_Core
 {
     [FormerlySerializedAs("FireComponent")] 
-    public FireBulletComponent fireBulletComponent;
+    public FireRaycastComponent FireRaycastComponent;
 
-    public void Construct(ObjectPool objectPool)
+    public void Compose(WeaponConfig config)
     {
-        fireBulletComponent.Construct(objectPool);
-    }
-    
-    public void Compose()
-    {
-        fireBulletComponent.Compose();
+        Debug.Log(FireRaycastComponent + " - FireRaycastComponent");
+        FireRaycastComponent.Compose(config);
     }
 }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Atomic.Elements;
 using Homework3;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -22,23 +23,26 @@ public sealed class ShotgunWeapon : Weapon
 
     private void Start()
     {
-        AddData(AttackAPI.FireAction, Core.fireBulletComponent.RangeFireAction);
+        //AddData(AttackAPI.FireAction, Core.fireBulletComponent.RangeFireAction);
     }
 }
 
 [Serializable]
 public sealed class ShotgunWeapon_Core
 {
-    [FormerlySerializedAs("FireComponent")] public FireBulletComponent fireBulletComponent;
+    public IAtomicValue<bool> IsEnabled => _isEnabled;
+    [SerializeField] private AtomicVariable<bool> _isEnabled;
+    
+    
 
     public void Construct(ObjectPool objectPool)
     {
-        fireBulletComponent.Construct(objectPool);
+        
     }
     
     public void Compose()
     {
-        fireBulletComponent.Compose();
+        
     }
 }
 

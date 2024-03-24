@@ -20,6 +20,7 @@ public sealed class FireBulletComponent : IDisposable
     public IAtomicVariable<int> Charges => _charges;
     [SerializeField] private AtomicVariable<int> _charges;
 
+    //public FireCondition FireCondition = new();
     public FireCondition FireCondition = new();
 
     public SpawnBulletAction BulletAction = new();
@@ -37,7 +38,17 @@ public sealed class FireBulletComponent : IDisposable
     
     public void Compose()
     {
+        ComposeCondition();
+        ComposeActions();
+    }
+
+    public void ComposeCondition()
+    {
         FireCondition.Compose(FireEnabled, Charges, GameObject);
+    }
+
+    private void ComposeActions()
+    {
         BulletAction.Compose(_bulletPool, FirePoint);
         RangeFireAction.Compose(Charges, FireCondition, BulletAction, FireEvent, AnimatorDispatcher);
     }

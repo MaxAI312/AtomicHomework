@@ -1,6 +1,8 @@
 using Atomic.Elements;
+using Sirenix.OdinInspector;
+using UnityEngine;
 
-public sealed class MeleeFireAction : IAtomicAction
+public sealed class MeleeFireAction : IAtomicAction<Vector3>
 {
     private IAtomicFunction<bool> _fireCondition;
     private DamageHitSphereAction _hitAction;
@@ -16,7 +18,8 @@ public sealed class MeleeFireAction : IAtomicAction
         _fireEvent = fireEvent;
     }
 
-    public void Invoke()
+    [Button]
+    public void Invoke(Vector3 clickPoint)
     {
         if (_fireCondition.Value)
         {

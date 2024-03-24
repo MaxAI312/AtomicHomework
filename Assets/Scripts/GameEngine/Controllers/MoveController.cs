@@ -32,7 +32,7 @@ public sealed class MoveController
             direction.x = 1f;
         }
 
-        if (_moveable.TryGet(CommonAPI.MovementDirection, out IAtomicVariable<Vector3> moveDirection))
+        if (_moveable.TryGet(MovementAPI.Direction, out IAtomicVariable<Vector3> moveDirection))
         {
             moveDirection.Value = direction;
         }

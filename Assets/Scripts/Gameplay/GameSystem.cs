@@ -18,30 +18,19 @@ public class GameSystem : MonoBehaviour
     private RotateController _rotateController;
     
     private SwitchWeaponController _switchWeaponController;
-    private WeaponController _weaponController;
-    //private MachineGunWeaponController _machineGunWeaponController;
-    
+
     private void Awake()
     {
         _objectPool = new ObjectPool(_poolConfig, _poolContainer);
-
         _character.Construct(_objectPool, _audioSource);
     }
 
     private void Start()
     {
         _moveController = new MoveController(_atomicObject);
-        _fireController = new FireController(_atomicObject);
+        _fireController = new FireController(_atomicObject, 0);
         _rotateController = new RotateController(_atomicObject);
-
-        _weaponController = new WeaponController(_atomicObject, 0);
         _switchWeaponController = new SwitchWeaponController(_atomicObject, KeyCode.T);
-        
-         // _switchWeaponController = new SwitchWeaponController(
-         //     _characterEntity.GetValue<SwitchWeaponAction>("SwitchWeaponAction"),
-         //     _characterEntity.GetValue<IAtomicValue<bool>>("HasSwitchEnded"));
-
-         //_machineGunWeaponController = new MachineGunWeaponController();
     }
 
     private void Update()
@@ -50,6 +39,5 @@ public class GameSystem : MonoBehaviour
         _fireController?.Update();
         _rotateController?.Update();
         _switchWeaponController.Update();
-        _weaponController.Update();
     }
 }

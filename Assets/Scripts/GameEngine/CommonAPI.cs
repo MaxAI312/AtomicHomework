@@ -1,8 +1,13 @@
 public static class CommonAPI
 {
-    public const string MovementDirection = nameof(MovementDirection);
     public const string RotationDirection = nameof(RotationDirection);
     public const string Dispatcher = nameof(Dispatcher);
+}
+
+public static class MovementAPI
+{
+    public const string Direction = nameof(Direction);
+    public const string IsMoving = nameof(IsMoving);
 }
 
 public static class AttackAPI

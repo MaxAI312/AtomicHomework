@@ -52,9 +52,14 @@ public sealed class BatWeapon_Core
 
     public void Compose(BatWeapon weapon, BatWeaponConfig config)
     {
-        Damage.Value = config.Damage;
+        ComposeData(config);
         ComposeConditions(weapon);
         ComposeActions(config, weapon);
+    }
+
+    private void ComposeData(BatWeaponConfig config)
+    {
+        Damage.Value = config.Damage;
     }
 
     private void ComposeConditions(BatWeapon batWeapon)
