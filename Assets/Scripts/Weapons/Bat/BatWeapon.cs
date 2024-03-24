@@ -16,17 +16,15 @@ public sealed class BatWeapon : Weapon
         base.Compose();
         Core.Compose(this, _batWeaponConfig);
     }
-
+    
+    private void Start()
+    {
+        AddData(AttackAPI.FireAction, Core.FireAction);
+    }
 
     private void OnDrawGizmos()
     {
         Core.OnDrawGizmos(_batWeaponConfig);
-    }
-
-
-    private void Start()
-    {
-        AddData(AttackAPI.FireAction, Core.FireAction);
     }
 }
 

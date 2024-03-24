@@ -21,7 +21,6 @@ public sealed class Character : AtomicObject
 
     public void Construct(ObjectPool objectPool, AudioSource audioSource)
     {
-        Core.Construct(objectPool);
         View.Construct(audioSource);
 
         _objectPool = objectPool;
@@ -106,15 +105,6 @@ public sealed class Character_Core : IDisposable, IDamageable
     public AtomicEvent SwitchToNextWeaponAction;
 
     public Countdown SwitchWeaponCountdown;
-
-    private ObjectPool _objectPool;
-
-    public void Construct(ObjectPool objectPool)
-    {
-        _objectPool = objectPool;
-        //FireComponent.Construct(objectPool);
-        
-    }
 
     public void Compose(List<AtomicObject> weapons)
     {

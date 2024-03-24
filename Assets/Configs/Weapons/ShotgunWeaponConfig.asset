@@ -15,3 +15,5 @@ MonoBehaviour:
   _model: 3
   _type: 0
   _damage: 20
+  _charges: 10
+  _hitRadius: 3

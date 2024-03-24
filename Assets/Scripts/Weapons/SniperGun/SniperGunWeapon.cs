@@ -3,7 +3,7 @@ using Homework3;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public sealed class SniperGunWeapon : Weapon
+public sealed class SniperGunWeapon : Weapon, IDisposable
 {
     public SniperGunWeapon_Core Core;
     public SniperGunWeapon_View View;
@@ -27,6 +27,11 @@ public sealed class SniperGunWeapon : Weapon
     {
         Core.FireRaycastComponent.OnDrawGizmos();
     }
+
+    public void Dispose()
+    {
+        Core.Dispose();
+    }
 }
 
 [Serializable]
@@ -39,6 +44,11 @@ public sealed class SniperGunWeapon_Core
     {
         Debug.Log(FireRaycastComponent + " - FireRaycastComponent");
         FireRaycastComponent.Compose(config);
+    }
+
+    public void Dispose()
+    {
+        FireRaycastComponent.Dispose();
     }
 }
 

@@ -3,7 +3,7 @@ using Atomic.Elements;
 using UnityEngine;
 
 [Serializable]
-public sealed class FireRaycastComponent : IDisposable
+public sealed class FireRaycastComponent
 {
     [SerializeField] public LayerMask _layerMask;
     
@@ -11,17 +11,14 @@ public sealed class FireRaycastComponent : IDisposable
     public Transform FirePoint;
     public AnimatorDispatcher AnimatorDispatcher;
 
-    public IAtomicVariable<bool> FireEnabled => _fireEnabled;
+    public IAtomicValue<bool> FireEnabled => _fireEnabled;
     [SerializeField] private AtomicVariable<bool> _fireEnabled;
-    // public IAtomicExpression<bool> FireEnabled => _fireEnabled;
-    // [SerializeField] private AtomicValue<bool> _fireEnabled = new(true);
 
     public IAtomicEvent FireEvent => _fireEvent;
     [SerializeField] private AtomicEvent _fireEvent;
 
     public AtomicFunction<bool> FireCondition = new();
     public RaycastAction RaycastAction = new();
-    //public RangeFireAction RangeFireAction;
     public AtomicAction<Vector3> RangeFireAction = new();
 
     public void Compose(WeaponConfig config)
@@ -65,6 +62,5 @@ public sealed class FireRaycastComponent : IDisposable
     public void Dispose()
     {
         _fireEvent?.Dispose();
-        //RangeFireAction?.Dispose();
     }
 }

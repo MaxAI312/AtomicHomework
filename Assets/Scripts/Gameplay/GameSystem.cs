@@ -35,6 +35,7 @@ public class GameSystem : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("Поменять public на serializeField в оружиях и корах оружия");
         _moveController?.Update();
         _fireController?.Update();
         _rotateController?.Update();

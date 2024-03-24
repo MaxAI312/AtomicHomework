@@ -306,15 +306,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 365769555}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.50562716, y: 0.63154477, z: -0.54829115, w: 0.2118236}
+  m_LocalPosition: {x: 0.14580771, y: -0.009344995, z: 0.38904253}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3192612113978570383}
   m_Father: {fileID: 1505800192}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 65.06, y: -137.124, z: -254.517}
 --- !u!114 &365769557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,13 +331,14 @@ MonoBehaviour:
     value: {fileID: 1473468276}
   Core:
     FireRaycastComponent:
+      _layerMask:
+        serializedVersion: 2
+        m_Bits: 2147483648
       GameObject: {fileID: 365769555}
       FirePoint: {fileID: 365769556}
       AnimatorDispatcher: {fileID: 910644747}
       _fireEnabled:
-        value: 0
-      _charges:
-        value: 0
+        value: 1
   _sniperGunWeaponConfig: {fileID: 11400000, guid: a84a999653b0b42a88c2b5011db707b4, type: 2}
 --- !u!1 &424084837
 GameObject:
@@ -591,14 +592,14 @@ MonoBehaviour:
   _owner:
     value: {fileID: 1473468276}
   Core:
-    fireBulletComponent:
-      GameObject: {fileID: 490142147}
-      FirePoint: {fileID: 490142148}
-      AnimatorDispatcher: {fileID: 910644747}
-      _fireEnabled:
-        value: 1
-      _charges:
-        value: 0
+    _hitTransform: {fileID: 490142148}
+    _gameObject: {fileID: 490142147}
+    _isEnabled:
+      value: 1
+    _charges:
+      value: 0
+    _damage:
+      value: 0
   _shotgunWeaponConfig: {fileID: 11400000, guid: b732f7955472444e38cedda306bb9a7a, type: 2}
 --- !u!1001 &601163336
 PrefabInstance:
@@ -1084,6 +1085,10 @@ PrefabInstance:
     - target: {fileID: 777260052779969715, guid: 4236c7c42159b446a93149d402b74189, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2041242724428404622, guid: 4236c7c42159b446a93149d402b74189, type: 3}
+      propertyPath: m_Layer
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 3584128507101279495, guid: 4236c7c42159b446a93149d402b74189, type: 3}
       propertyPath: m_Name
@@ -2746,10 +2751,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 496695816929873314, guid: 4236c7c42159b446a93149d402b74189, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 43887d2af97d3450d919e33788eda34b, type: 2}
     - target: {fileID: 777260052779969715, guid: 4236c7c42159b446a93149d402b74189, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -2797,10 +2798,6 @@ PrefabInstance:
     - target: {fileID: 3584128507101279495, guid: 4236c7c42159b446a93149d402b74189, type: 3}
       propertyPath: m_Name
       value: Stone
-      objectReference: {fileID: 0}
-    - target: {fileID: 3584128507101279495, guid: 4236c7c42159b446a93149d402b74189, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
