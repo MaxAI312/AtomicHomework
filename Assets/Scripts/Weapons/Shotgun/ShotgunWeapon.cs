@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Atomic.Elements;
 using Atomic.Objects;
 using Homework3;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public sealed class ShotgunWeapon : Weapon, IDisposable
 {
@@ -24,7 +21,7 @@ public sealed class ShotgunWeapon : Weapon, IDisposable
 
     private void Start()
     {
-        AddData(AttackAPI.FireAction, Core.HitAction);
+        AddData(AttackAPI.FireAction, Core.FireAction);
     }
 
     private void OnDrawGizmos()
@@ -65,7 +62,7 @@ public sealed class ShotgunWeapon_Core
     public IsAliveEnemyFunction DealDamageCondition = new();
 
     public AtomicAction<Vector3> FireAction;
-    public TestDamageHitSphereAction HitAction = new();
+    public DamageHitSphereAction HitAction = new();
     public DealDamageAction DealDamageAction = new();
 
     public void Construct(ObjectPool objectPool)
@@ -114,7 +111,7 @@ public sealed class ShotgunWeapon_Core
         {
             if (_fireCondition.Value)
             {
-                HitAction.Invoke(clickPoint);
+                HitAction.Invoke();
                 _fireEvent?.Invoke();
             }
         });
